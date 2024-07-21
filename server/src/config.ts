@@ -12,6 +12,12 @@ const config = {
           password: process.env.DB_PASSWORD,
           name: process.env.DB_NAME,
      },
+
+     jwt: {
+          secret: process.env.JWT_SECRET,
+          accessTokenExpirySeconds: 3000,
+          refreshTokenExpirySeconds: 50000,
+     },
 };
 
 export default config;
