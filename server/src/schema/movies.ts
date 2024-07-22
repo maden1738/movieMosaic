@@ -1,4 +1,4 @@
-import Joi, { optional } from "joi";
+import Joi from "joi";
 
 export const GetMoviesQuerySchema = Joi.object({
      q: Joi.string().optional(),
@@ -23,6 +23,15 @@ export const GetMoviesQuerySchema = Joi.object({
           .default(8),
      sortBy: Joi.string().optional().default("releaseDateDesc").messages({
           "string.base": "sortBy must be string",
+     }),
+}).options({
+     stripUnknown: true,
+});
+
+export const AddMoviesToListSchema = Joi.object({
+     movieId: Joi.number().required().messages({
+          "number.base": "movieId must be a number",
+          "any.required": "movieId is required",
      }),
 }).options({
      stripUnknown: true,

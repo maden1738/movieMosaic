@@ -11,7 +11,7 @@ export class MoviesModel extends BaseModel {
           const { q, size, page, sortBy } = query;
 
           const data = this.queryBuilder()
-               .select("film_id", "title", "poster_url", "release_date")
+               .select("id", "film_id", "title", "poster_url", "release_date")
                .table("film")
                .limit(size!)
                .offset((page! - 1) * size!);
@@ -62,6 +62,7 @@ export class MoviesModel extends BaseModel {
 
           const data = await this.queryBuilder()
                .select(
+                    "id",
                     "film_id",
                     "title",
                     "poster_url",
@@ -74,7 +75,7 @@ export class MoviesModel extends BaseModel {
                     "overview"
                )
                .table("film")
-               .where("film_id", id);
+               .where("id", id);
 
           if (data.length > 0) {
                return data[0];

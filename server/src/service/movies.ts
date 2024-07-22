@@ -23,7 +23,6 @@ export async function getMovies(query: GetMoviesQuery) {
 
 export async function getMoviesById(id: string) {
      logger.info("getMoviesById");
-
      const data = await MoviesModel.getMoviesById(id);
 
      if (!data) {
