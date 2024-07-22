@@ -133,3 +133,86 @@ export async function deleteFromWatchedList(
           next(error);
      }
 }
+
+export async function likeMovie(
+     req: IRequest,
+     res: Response,
+     next: NextFunction
+) {
+     const { id: userId } = req.params;
+     const { movieId } = req.body;
+
+     // ensure that authenticated user matches the userId
+     if (+userId != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this list"));
+          return;
+     }
+
+     try {
+          await UserService.likeMovie(movieId, userId);
+          res.status(HttpStatusCodes.CREATED).json({
+               message: `Movie with id: ${movieId} added to likedmovies`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function getLikedMovies(
+     req: IRequest,
+     res: Response,
+     next: NextFunction
+) {
+     try {
+          const { id } = req.params;
+
+          const data = await UserService.getLikedMovies(id);
+
+          res.status(HttpStatusCodes.OK).json({
+               data,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function deleteLikedMovies(
+     req: IRequest,
+     res: Response,
+     next: NextFunction
+) {
+     const { id: userId, filmId } = req.params;
+
+     // ensure that authenticated user matches the userId
+     if (+userId != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this watchlist"));
+          return;
+     }
+     try {
+          await UserService.deleteLikedMovies(filmId, userId);
+          res.status(HttpStatusCodes.OK).json({
+               message: `Movie with id: ${filmId} removed from liked movies`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function followUser(
+     req: IRequest,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+     const userId = req.user?.id!;
+
+     try {
+          UserService.followUser();
+
+          res.status(HttpStatusCodes.CREATED).json({
+               message: `User with id: ${userId} has followed user ${id}`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}

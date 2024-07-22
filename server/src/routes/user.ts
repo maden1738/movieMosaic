@@ -5,8 +5,12 @@ import {
      addToWatchedList,
      deleteFromWatchList,
      deleteFromWatchedList,
+     deleteLikedMovies,
+     followUser,
+     getLikedMovies,
      getWatchList,
      getWatchedList,
+     likeMovie,
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToListSchema } from "../schema/movies";
@@ -29,13 +33,21 @@ router.post(
      authenticate,
      addToWatchList
 );
+
 // get watchlist of a user
 router.get("/:id/watchlist", authenticate, getWatchList);
 // remove a movie from watchlist
 router.delete("/:id/watchlist/:movieId", authenticate, deleteFromWatchList);
 
+// add to liked movies
+router.post("/:id/likes", authenticate, likeMovie);
+//get liked movies of a user
+router.get("/:id/likes", authenticate, getLikedMovies);
+//remove liked movies of a user
+router.delete("/:id/likes/:filmId", authenticate, deleteLikedMovies);
+
 // follow a user:
-router.post("/:id/follow", authenticate);
+router.post("/:id/follow", authenticate, followUser);
 //unfollow a user
 router.delete("/:id/follow");
 //get followers of a user

@@ -5,6 +5,7 @@ import loggerWithNameSpace from "../utils/logger";
 import bcrypt from "bcrypt";
 import * as WatchListService from "./watchList";
 import * as WatchedListService from "./watchedList";
+import * as LikedMoviesService from "./likedMovies";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -47,4 +48,20 @@ export async function deleteFromWatchList(movieId: string, userId: string) {
 
 export async function deleteFromWatchedList(movieId: string, userId: string) {
      await WatchedListService.deleteFromWatchedList(movieId, userId);
+}
+
+export async function followUser() {}
+
+export async function likeMovie(movieId: string, userId: string) {
+     await LikedMoviesService.likeMovie(movieId, userId);
+}
+
+export async function getLikedMovies(userId: string) {
+     logger.info("getLikeMovies");
+     return await LikedMoviesService.getLikedMovies(userId);
+}
+
+export async function deleteLikedMovies(filmId: string, userId: string) {
+     logger.info("deleteLikedMovies");
+     await LikedMoviesService.deleteLikedMovies(filmId, userId);
 }
