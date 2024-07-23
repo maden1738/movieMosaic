@@ -22,9 +22,25 @@ export async function up(knex: Knex): Promise<void> {
                .references("id")
                .inTable("film");
 
+          table.boolean("watched").notNullable();
+
           table.timestamp("created_at")
                .notNullable()
                .defaultTo(knex.raw("now()"));
+
+          table.bigInteger("created_by")
+               .unsigned()
+               .nullable()
+               .references("id")
+               .inTable(TABLE_NAME);
+
+          table.timestamp("updated_at").nullable();
+
+          table.bigInteger("updated_by")
+               .unsigned()
+               .references("id")
+               .inTable("user")
+               .nullable();
      });
 }
 

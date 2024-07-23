@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 
-const TABLE_NAME = "watched_list";
+const TABLE_NAME = "follow_list";
 
 /**
  * Create table TABLE_NAME.
@@ -17,14 +17,20 @@ export async function up(knex: Knex): Promise<void> {
                .references("id")
                .inTable("user");
 
-          table.bigInteger("film_id")
+          table.bigInteger("following_id")
                .notNullable()
                .references("id")
-               .inTable("film");
+               .inTable("user");
 
           table.timestamp("created_at")
                .notNullable()
                .defaultTo(knex.raw("now()"));
+
+          table.bigInteger("created_by")
+               .unsigned()
+               .nullable()
+               .references("id")
+               .inTable("user");
      });
 }
 

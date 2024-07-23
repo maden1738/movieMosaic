@@ -2,37 +2,27 @@ import express from "express";
 import { authenticate } from "../middleware/auth";
 import {
      addToWatchList,
-     addToWatchedList,
      deleteFromWatchList,
-     deleteFromWatchedList,
      deleteLikedMovies,
      followUser,
      getFollowers,
      getFollowing,
      getLikedMovies,
      getWatchList,
-     getWatchedList,
      likeMovie,
+     getWatchedMovies,
      unfollowUser,
+     addWatchedMovies,
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
-import { AddMoviesToListSchema } from "../schema/movies";
+import { AddMoviesToWatchListSchema } from "../schema/movies";
 
 const router = express();
-
-router.get("/:id/watched", authenticate, getWatchedList);
-router.post(
-     "/:id/watched",
-     validateReqBody(AddMoviesToListSchema),
-     authenticate,
-     addToWatchedList
-);
-router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchedList);
 
 //add a film to watchlist
 router.post(
      "/:id/watchlist",
-     validateReqBody(AddMoviesToListSchema),
+     validateReqBody(AddMoviesToWatchListSchema),
      authenticate,
      addToWatchList
 );
@@ -41,6 +31,16 @@ router.post(
 router.get("/:id/watchlist", authenticate, getWatchList);
 // remove a movie from watchlist
 router.delete("/:id/watchlist/:movieId", authenticate, deleteFromWatchList);
+
+// get watched movies of a user
+router.get("/:id/watched", authenticate, getWatchedMovies);
+router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchList);
+router.post(
+     "/:id/watched",
+     validateReqBody(AddMoviesToWatchListSchema),
+     authenticate,
+     addWatchedMovies
+);
 
 // add to liked movies
 router.post("/:id/likes", authenticate, likeMovie);

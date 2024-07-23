@@ -1,10 +1,11 @@
 import { BaseModel } from "./base";
 
 export class WatchListModel extends BaseModel {
-     static async addToWatchlist(movieId: string, userId: string) {
+     static async create(filmId: string, userId: string, watched: boolean) {
           const dataToBeInserted = {
-               filmId: movieId,
-               userId: userId,
+               filmId,
+               userId,
+               watched,
           };
 
           await this.queryBuilder()
@@ -23,22 +24,48 @@ export class WatchListModel extends BaseModel {
                )
                .table("film")
                .join("watchList", "film.id", "watchList.filmId")
-               .where("watchList.userId", userId);
+               .where("watchList.userId", userId)
+               .where("watched", false);
 
           return data;
      }
 
-     static async deleteFromWatchList(movieId: string, userId: string) {
+     static async getWatchedMovies(userId: string) {
+          const data = this.queryBuilder()
+               .select(
+                    "film.id",
+                    "film.film_id",
+                    "film.title",
+                    "film.poster_url",
+                    "film.release_date"
+               )
+               .table("film")
+               .join("watchList", "film.id", "watchList.filmId")
+               .where("watchList.userId", userId)
+               .where("watched", true);
+
+          return data;
+     }
+
+     static async deleteFromWatchList(filmId: string, userId: string) {
           await this.queryBuilder().delete().table("watchList").where({
                userId,
-               filmId: movieId,
+               filmId,
+               watched: false,
+          });
+     }
+     static async deleteWatchedMovies(filmId: string, userId: string) {
+          await this.queryBuilder().delete().table("watchList").where({
+               userId,
+               filmId,
+               watched: true,
           });
      }
 
-     static async getMovie(movieId: string, userId: string) {
+     static async getMovie(filmId: string, userId: string, watched: boolean) {
           return await this.queryBuilder()
                .select("id")
                .table("watchList")
-               .where({ userId, filmId: movieId });
+               .where({ userId, filmId, watched });
      }
 }

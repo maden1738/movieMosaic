@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { RequesWithUser } from "../interface/auth";
+import { RequestWithUser } from "../interface/auth";
 import * as UserService from "../service/user";
 import { ForbiddenError } from ".././errors/ForbiddenError";
 import HttpStatusCodes from "http-status-codes";
-import { nextTick } from "process";
-import { http } from "winston";
 
 export async function addToWatchList(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -21,7 +19,7 @@ export async function addToWatchList(
      }
 
      try {
-          await UserService.addToWatchList(movieId, userId);
+          await UserService.addToWatchList(movieId, userId, false);
           res.status(HttpStatusCodes.OK).json({
                message: "Movie added to watchlist",
           });
@@ -29,9 +27,8 @@ export async function addToWatchList(
           next(error);
      }
 }
-
-export async function addToWatchedList(
-     req: RequesWithUser,
+export async function addWatchedMovies(
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -40,29 +37,29 @@ export async function addToWatchedList(
 
      // ensure that authenticated user matches the userId
      if (+userId != req.user?.id!) {
-          next(new ForbiddenError("unauthorized to modify this watchlist"));
+          next(new ForbiddenError("unauthorized to modify this list"));
           return;
      }
 
      try {
-          await UserService.addToWatchedList(movieId, userId);
+          await UserService.addToWatchList(movieId, userId, true);
           res.status(HttpStatusCodes.OK).json({
-               message: "Movie added to watchedlist",
+               message: "Movie added to watched list",
           });
      } catch (error) {
           next(error);
      }
 }
 
-export async function getWatchedList(
-     req: RequesWithUser,
+export async function getWatchList(
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
      try {
-          const { id: userId } = req.params;
+          const { id } = req.params;
 
-          const data = await UserService.getWatchedList(userId);
+          const data = await UserService.getWatchList(id);
 
           res.status(HttpStatusCodes.OK).json({
                data,
@@ -72,15 +69,15 @@ export async function getWatchedList(
      }
 }
 
-export async function getWatchList(
-     req: RequesWithUser,
+export async function getWatchedMovies(
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
      try {
-          const { id: userId } = req.params;
+          const { id } = req.params;
 
-          const data = await UserService.getWatchList(userId);
+          const data = await UserService.getWatchedMovies(id);
 
           res.status(HttpStatusCodes.OK).json({
                data,
@@ -91,7 +88,7 @@ export async function getWatchList(
 }
 
 export async function deleteFromWatchList(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -113,31 +110,8 @@ export async function deleteFromWatchList(
      }
 }
 
-export async function deleteFromWatchedList(
-     req: RequesWithUser,
-     res: Response,
-     next: NextFunction
-) {
-     const { id: userId, movieId } = req.params;
-
-     // ensure that authenticated user matches the userId
-     if (+userId != req.user?.id!) {
-          next(new ForbiddenError("unauthorized to modify this watchlist"));
-          return;
-     }
-
-     try {
-          await UserService.deleteFromWatchedList(movieId, userId);
-          res.status(HttpStatusCodes.OK).json({
-               message: `Movie with id: ${movieId} removed from watchlist`,
-          });
-     } catch (error) {
-          next(error);
-     }
-}
-
 export async function likeMovie(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -161,7 +135,7 @@ export async function likeMovie(
 }
 
 export async function getLikedMovies(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -179,7 +153,7 @@ export async function getLikedMovies(
 }
 
 export async function deleteLikedMovies(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -201,7 +175,7 @@ export async function deleteLikedMovies(
 }
 
 export async function followUser(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -220,7 +194,7 @@ export async function followUser(
 }
 
 export async function unfollowUser(
-     req: RequesWithUser,
+     req: RequestWithUser,
      res: Response,
      next: NextFunction
 ) {

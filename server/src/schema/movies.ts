@@ -28,11 +28,15 @@ export const GetMoviesQuerySchema = Joi.object({
      stripUnknown: true,
 });
 
-export const AddMoviesToListSchema = Joi.object({
+export const AddMoviesToWatchListSchema = Joi.object({
      movieId: Joi.number().required().messages({
           "number.base": "movieId must be a number",
           "any.required": "movieId is required",
      }),
+     // watched: Joi.boolean().required().messages({
+     //      "boolean.base": "watched field must be a boolean",
+     //      "any.required": "watched field is required",
+     // }),
 }).options({
      stripUnknown: true,
 });

@@ -25,6 +25,12 @@ export async function up(knex: Knex): Promise<void> {
           table.timestamp("created_at")
                .notNullable()
                .defaultTo(knex.raw("now()"));
+
+          table.bigInteger("created_by")
+               .unsigned()
+               .nullable()
+               .references("id")
+               .inTable("user");
      });
 }
 

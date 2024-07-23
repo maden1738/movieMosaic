@@ -1,7 +1,7 @@
 import { Request as ExpressRequest } from "express";
 import { User } from "./user";
 
-export interface RequesWithUser extends ExpressRequest {
+export interface RequestWithUser extends ExpressRequest {
      user?: User;
 }
 
