@@ -5,7 +5,7 @@ import { BaseModel } from "./base";
 const logger = loggerWithNameSpace("MoviesModel");
 
 export class MoviesModel extends BaseModel {
-     static async getMovies(query: GetMoviesQuery) {
+     static async get(query: GetMoviesQuery) {
           logger.info("getMovies");
 
           const { q, size, page, sortBy } = query;
@@ -57,7 +57,7 @@ export class MoviesModel extends BaseModel {
           return data;
      }
 
-     static async getMoviesById(id: string) {
+     static async getById(id: number) {
           logger.info("getMoviesById");
 
           const data = await this.queryBuilder()

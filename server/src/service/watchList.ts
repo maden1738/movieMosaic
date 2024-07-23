@@ -32,7 +32,7 @@ export async function addWatchedMovies(
      userId: string,
      watched: boolean
 ) {
-     logger.info("addWatchedMovies");
+     logger.info("addWatched");
      const movieExists = await getMoviesById(movieId);
 
      if (!movieExists) {
