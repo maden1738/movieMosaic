@@ -7,10 +7,13 @@ import {
      deleteFromWatchedList,
      deleteLikedMovies,
      followUser,
+     getFollowers,
+     getFollowing,
      getLikedMovies,
      getWatchList,
      getWatchedList,
      likeMovie,
+     unfollowUser,
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToListSchema } from "../schema/movies";
@@ -49,10 +52,10 @@ router.delete("/:id/likes/:filmId", authenticate, deleteLikedMovies);
 // follow a user:
 router.post("/:id/follow", authenticate, followUser);
 //unfollow a user
-router.delete("/:id/follow");
+router.delete("/:id/follow", authenticate, unfollowUser);
 //get followers of a user
-router.get("/:id/followers");
+router.get("/:id/followers", getFollowers);
 // get users that a user is following
-router.get("/:id/follow");
+router.get("/:id/follow", getFollowing);
 
 export default router;

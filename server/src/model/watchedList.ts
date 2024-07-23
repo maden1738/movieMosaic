@@ -19,7 +19,8 @@ export class WatchedListModel extends BaseModel {
                     "film.film_id",
                     "film.title",
                     "film.poster_url",
-                    "film.release_date"
+                    "film.release_date",
+                    "watchedList.createdAt"
                )
                .table("film")
                .join("watchedList", "film.id", "watchedList.filmId")

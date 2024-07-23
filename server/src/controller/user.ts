@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import { IRequest } from "../interface/auth";
+import { RequesWithUser } from "../interface/auth";
 import * as UserService from "../service/user";
 import { ForbiddenError } from ".././errors/ForbiddenError";
 import HttpStatusCodes from "http-status-codes";
+import { nextTick } from "process";
+import { http } from "winston";
 
 export async function addToWatchList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -29,7 +31,7 @@ export async function addToWatchList(
 }
 
 export async function addToWatchedList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -53,7 +55,7 @@ export async function addToWatchedList(
 }
 
 export async function getWatchedList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -71,7 +73,7 @@ export async function getWatchedList(
 }
 
 export async function getWatchList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -89,7 +91,7 @@ export async function getWatchList(
 }
 
 export async function deleteFromWatchList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -112,7 +114,7 @@ export async function deleteFromWatchList(
 }
 
 export async function deleteFromWatchedList(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -135,7 +137,7 @@ export async function deleteFromWatchedList(
 }
 
 export async function likeMovie(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -159,7 +161,7 @@ export async function likeMovie(
 }
 
 export async function getLikedMovies(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -177,7 +179,7 @@ export async function getLikedMovies(
 }
 
 export async function deleteLikedMovies(
-     req: IRequest,
+     req: RequesWithUser,
      res: Response,
      next: NextFunction
 ) {
@@ -199,18 +201,70 @@ export async function deleteLikedMovies(
 }
 
 export async function followUser(
-     req: IRequest,
+     req: RequesWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const userId = req.user?.id!;
+     const { id } = req.params;
+
+     try {
+          await UserService.followUser(+userId, +id);
+
+          res.status(HttpStatusCodes.CREATED).json({
+               message: `User with id: ${userId} has followed user ${id}`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function unfollowUser(
+     req: RequesWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const userId = req.user?.id!;
+     const { id } = req.params;
+
+     try {
+          await UserService.unfollowUser(+userId, +id);
+          res.status(HttpStatusCodes.CREATED).json({
+               message: `User with id: ${userId} has unfollowed user ${id}`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function getFollowers(
+     req: Request,
      res: Response,
      next: NextFunction
 ) {
      const { id } = req.params;
-     const userId = req.user?.id!;
 
      try {
-          UserService.followUser();
+          const data = await UserService.getFollowers(+id);
+          res.status(HttpStatusCodes.OK).json({
+               data,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
 
-          res.status(HttpStatusCodes.CREATED).json({
-               message: `User with id: ${userId} has followed user ${id}`,
+export async function getFollowing(
+     req: Request,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+
+     try {
+          const data = await UserService.getFollowing(+id);
+          res.status(HttpStatusCodes.OK).json({
+               data,
           });
      } catch (error) {
           next(error);

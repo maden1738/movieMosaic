@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { IRequest } from "../interface/auth";
+import { RequesWithUser } from "../interface/auth";
 import loggerWithNameSpace from "../utils/logger";
 import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 import { verify } from "jsonwebtoken";
@@ -8,7 +8,11 @@ import { User } from "../interface/user";
 
 const logger = loggerWithNameSpace("AuthMiddleware");
 
-export function authenticate(req: IRequest, res: Response, next: NextFunction) {
+export function authenticate(
+     req: RequesWithUser,
+     res: Response,
+     next: NextFunction
+) {
      logger.info("authenticate");
 
      const { authorization } = req.headers;

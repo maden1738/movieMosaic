@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import * as WatchListService from "./watchList";
 import * as WatchedListService from "./watchedList";
 import * as LikedMoviesService from "./likedMovies";
+import * as FollowListService from "./followList";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -19,7 +20,11 @@ export async function createUser(user: User) {
 
      const password = await bcrypt.hash(user.password, 10);
 
-     await UserModel.createUser({ ...user, password });
+     await UserModel.create({ ...user, password });
+}
+
+export async function getUserById(id: number) {
+     return await UserModel.getById(id);
 }
 
 export async function getUserByEmail(email: string) {
@@ -50,7 +55,24 @@ export async function deleteFromWatchedList(movieId: string, userId: string) {
      await WatchedListService.deleteFromWatchedList(movieId, userId);
 }
 
-export async function followUser() {}
+export async function followUser(userId: number, followingId: number) {
+     logger.info("followUser");
+     await FollowListService.followUser(userId, followingId);
+}
+export async function unfollowUser(userId: number, followingId: number) {
+     logger.info("followUser");
+     await FollowListService.unfollowUser(userId, followingId);
+}
+
+export async function getFollowers(userId: number) {
+     logger.info("getFollowers");
+     return await FollowListService.getFollowers(userId);
+}
+
+export async function getFollowing(userId: number) {
+     logger.info("getFollowing");
+     return await FollowListService.getFollowing(userId);
+}
 
 export async function likeMovie(movieId: string, userId: string) {
      await LikedMoviesService.likeMovie(movieId, userId);

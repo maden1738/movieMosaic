@@ -15,8 +15,6 @@ export async function likeMovie(movieId: string, userId: string) {
 
      const data = await LikedMoviesModel.getMovie(movieId, userId);
 
-     console.log(data);
-
      if (data.length > 0) {
           throw new BadRequestError("movie already exists on liked movies");
      }
