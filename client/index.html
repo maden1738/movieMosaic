@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <title>Vite + TS</title>
+    <script
+      src="https://kit.fontawesome.com/b81aca49ba.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-secondary font-lato">
+    <!-- navbar -->
+    <div
+      class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
+    >
+      <div class="text-lg font-medium">MovieMosaic</div>
+      <div class="flex gap-4">
+        <!-- <i class="fa-solid fa-plus text-primary"></i> -->
+        <div>
+          <i class="fa-solid fa-user text-primary" id="login-icon"></i>
+          <!-- login-form -->
+          <div
+            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            id="login-body"
+          >
+            <form id="login-form">
+              <div class="flex flex-col gap-2">
+                <label for="loginEmail" class="text-white">Username </label>
+                <input
+                  type="text"
+                  id="loginEmail"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="loginPassword" class="text-white"> Password</label>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                />
+              </div>
+              <div class="login-error-container h-8"></div>
+
+              <button
+                class="cursor mb-4 mt-6 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+              >
+                LOG IN
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="relative">
+          <i class="fa-solid fa-bars text-primary"></i>
+        </div>
+        <div class="realtive">
+          <i class="fa-solid fa-magnifying-glass text-primary"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- get started section -->
+    <section class="relative">
+      <img src="/signup-bg.jpg" alt="" />
+      <section
+        class="relative top-[-50px] flex flex-col items-center text-white"
+      >
+        <div class="mb-6 flex items-center gap-2">
+          <img
+            src="/letterboxd-logo.png"
+            alt="logo"
+            class="h-[24px] w-[60px]"
+          />
+          <div class="text-2xl font-bold">MovieMosaic</div>
+        </div>
+        <div class="text-center text-xl">
+          Track films you have watched.
+          <br />
+          Save those you want to see.
+          <br />
+          Tell your friends what good.
+        </div>
+        <button
+          class="cursor my-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold"
+          id="get-started"
+        >
+          Get started - its free !
+        </button>
+        <p class="text-primary">The social platform for film lovers</p>
+      </section>
+    </section>
+
+    <!-- signup modal -->
+    <div id="signup-modal" class="fixed inset-0 z-10 hidden">
+      <div
+        class="wrapper flex min-h-screen items-center justify-center bg-black bg-opacity-55"
+      >
+        <form class="w-full bg-primary p-3" id="sign-up">
+          <div class="flex justify-between">
+            <h2 class="mb-4 text-text">Join MovieMosaic</h2>
+            <i
+              class="fa-solid fa-xmark cursor-pointer text-text"
+              id="exit-signup-modal"
+            ></i>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-white"> Email Addres</label>
+            <input
+              type="email"
+              id="email"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="username" class="text-white">Username </label>
+            <input
+              type="text"
+              id="username"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="password" class="text-white"> Password</label>
+            <input
+              type="password"
+              id="password"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+            />
+          </div>
+          <div class="signup-error-container h-8"></div>
+          <button
+            class="cursor mb-4 mt-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+          >
+            SIGN UP
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- popular movies section -->
+    <section class="wrapper text-white">
+      <h3 class="mb-4 font-bold">Popular this weeek</h3>
+
+      <div class="popular-movies flex flex-wrap gap-2"></div>
+
+      <!-- <div class="flex flex-nowrap gap-2">
+        <div class="w-[100px]">
+          <img src="/pastlives.png" alt="" class="w-full" />
+        </div>
+        <div class="w-[100px]">
+          <img src="/pastlives.png" alt="" />
+        </div>
+        <div class="w-[100px]">
+          <img src="/pastlives.png" alt="" />
+        </div>
+        <div class="w-[100px]">
+          <img src="/pastlives.png" alt="" />
+        </div>
+        <div class="w-[100px]">
+          <img src="/pastlives.png" alt="" />
+        </div> -->
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

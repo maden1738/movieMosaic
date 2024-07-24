@@ -5,6 +5,7 @@ import config from "./config";
 import router from "./routes";
 import { genericErrorHandler, notFoundError } from "./middleware/errorHandler";
 import { requestLogger } from "./middleware/logger";
+import cors from "cors";
 
 const app = express();
 
@@ -14,6 +15,7 @@ const limiter = rateLimiter({
      message: "too many requests",
 });
 
+app.use(cors());
 app.use(helmet());
 
 app.use(limiter);
