@@ -18,7 +18,7 @@
       <div class="text-lg font-medium">MovieMosaic</div>
       <div class="flex gap-4">
         <!-- <i class="fa-solid fa-plus text-primary"></i> -->
-        <div>
+        <div class="non-user">
           <i class="fa-solid fa-user text-primary" id="login-icon"></i>
           <!-- login-form -->
           <div
@@ -52,6 +52,9 @@
             </form>
           </div>
         </div>
+        <div class="user">
+          <i class="fa-solid fa-plus text-text"></i>
+        </div>
         <div>
           <i class="fa-solid fa-bars text-primary"></i>
         </div>
@@ -70,8 +73,16 @@
       </div>
     </div>
 
+    <!-- intro user -->
+    <section class="user mb-7 mt-3 text-center text-2xl">
+      <p class="text-white">
+        <span class="text-text"> Welcome back, </span>
+        <span id="intro-name"></span>
+      </p>
+    </section>
+
     <!-- get started section -->
-    <section class="relative" id="get-started-section">
+    <section class="non-user relative">
       <img src="/signup-bg.jpg" alt="" />
       <section
         class="relative top-[-50px] flex flex-col items-center text-white"
@@ -93,7 +104,7 @@
         </div>
         <button
           class="cursor my-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold"
-          id="get-started"
+          id="get-started-btn"
         >
           Get started - its free !
         </button>

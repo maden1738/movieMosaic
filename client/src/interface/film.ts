@@ -3,5 +3,9 @@ export interface IFilm {
   filmId: string;
   title: string;
   posterUrl: string;
+  overview: string;
   releaseDate: string;
+  backdropUrl: string;
+  ratingCount: string;
+  rating: number;
 }

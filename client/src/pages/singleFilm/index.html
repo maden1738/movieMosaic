@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script
+      src="https://kit.fontawesome.com/b81aca49ba.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-secondary font-lato">
+    <!-- navbar -->
+    <div
+      class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
+    >
+      <div class="">
+        <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
+      </div>
+      <div class="flex gap-4">
+        <!-- <i class="fa-solid fa-plus text-primary"></i> -->
+        <div class="non-user hidden">
+          <i class="fa-solid fa-user text-primary" id="login-icon"></i>
+          <!-- login-form -->
+          <div
+            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            id="login-body"
+          >
+            <form id="login-form">
+              <div class="flex flex-col gap-2">
+                <label for="loginEmail" class="text-white">Username </label>
+                <input
+                  type="text"
+                  id="loginEmail"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="loginPassword" class="text-white"> Password</label>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                />
+              </div>
+              <div class="login-error-container h-8"></div>
+
+              <button
+                class="cursor mb-4 mt-6 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+              >
+                LOG IN
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="user hidden">
+          <i class="fa-solid fa-plus text-text"></i>
+        </div>
+        <div>
+          <i class="fa-solid fa-bars text-primary"></i>
+        </div>
+        <div>
+          <i
+            class="fa-solid fa-magnifying-glass text-primary"
+            id="search-icon"
+          ></i>
+          <div
+            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            id="search-body"
+          >
+            <input type="text" class="w-full bg-secondary px-2 py-1" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="movie-details"></div>
+  </body>
+  <script type="module" defer src="./index.ts"></script>
+</html>

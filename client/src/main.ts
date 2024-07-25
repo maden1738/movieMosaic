@@ -6,11 +6,12 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
+import { displayErrors } from "./utils/displayError";
 
 const signupForm = document.getElementById("sign-up") as HTMLFormElement;
 const loginForm = document.getElementById("login-form") as HTMLFormElement;
 const getStartedEl = document.getElementById(
-  "get-started",
+  "get-started-btn",
 ) as HTMLButtonElement;
 
 const signupModalEl = document.getElementById("signup-modal") as HTMLDivElement;
@@ -30,6 +31,9 @@ const searchBody = document.getElementById("search-body") as HTMLElement;
 const popularMoviesContainer = document.querySelector(
   ".popular-movies",
 ) as HTMLDivElement;
+const nonUserElements = document.querySelectorAll(".non-user");
+const userElements = document.querySelectorAll(".user");
+const introUserEl = document.getElementById("intro-name") as HTMLSpanElement;
 
 getStartedEl.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
@@ -55,13 +59,19 @@ searchIconEl.addEventListener("click", () => {
   searchBody.classList.toggle("hidden");
 });
 
-window.onload = () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    const getStartedSection = document.getElementById(
-      "get-started-section",
-    ) as HTMLElement;
-    getStartedSection.classList.toggle("hidden");
+window.onload = async () => {
+  try {
+    const response = await axiosInstance.get("/users/me");
+
+    nonUserElements.forEach((el) => {
+      el.classList.toggle("hidden");
+    });
+
+    introUserEl.innerHTML = response.data.data.name;
+  } catch (error) {
+    userElements.forEach((el) => {
+      el.classList.toggle("hidden");
+    });
   }
 };
 
@@ -78,7 +88,6 @@ signupForm.addEventListener("submit", async (event) => {
   const errors = validateForm(formData, SignupSchema);
 
   if (errors) {
-    console.log(errors);
     displayErrors(errors[0].message, signupErrorContainer);
   } else {
     await submitSignupForm(formData);
@@ -105,15 +114,6 @@ loginForm.addEventListener("submit", async (event) => {
     }
   }
 });
-
-function displayErrors(message: string, errorContainer: HTMLDivElement) {
-  errorContainer.innerHTML = "";
-
-  const error = document.createElement("p");
-  error.style.color = "#FF3333";
-  error.innerHTML = message;
-  errorContainer.appendChild(error);
-}
 
 async function submitSignupForm(formData: ISignupData) {
   try {
@@ -146,11 +146,13 @@ axios.get("http://localhost:3000/movies?sortBy=popularityDesc").then((res) => {
 
 function renderPopularMovies(data: Array<IFilm>) {
   data.forEach((film) => {
+    const link = document.createElement("a");
+    link.href = `./src/pages/singleFilm/?id=${parseInt(film.id)}`;
     const filmContainer = document.createElement("div");
-    // filmContainer.classList.add("w-[100px]");
     const poster = document.createElement("img");
     poster.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
     filmContainer.appendChild(poster);
-    popularMoviesContainer.appendChild(filmContainer);
+    link.appendChild(filmContainer);
+    popularMoviesContainer.appendChild(link);
   });
 }
