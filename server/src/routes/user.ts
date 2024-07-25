@@ -16,6 +16,7 @@ import {
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToWatchListSchema } from "../schema/movies";
+import { getCurrentUserDetails } from "../controller/user";
 
 const router = express();
 
@@ -26,6 +27,8 @@ router.post(
      authenticate,
      addToWatchList
 );
+
+router.get("/me", authenticate, getCurrentUserDetails);
 
 // get watchlist of a user
 router.get("/:id/watchlist", authenticate, getWatchList);

@@ -52,17 +52,26 @@
             </form>
           </div>
         </div>
-        <div class="relative">
+        <div>
           <i class="fa-solid fa-bars text-primary"></i>
         </div>
-        <div class="realtive">
-          <i class="fa-solid fa-magnifying-glass text-primary"></i>
+        <div>
+          <i
+            class="fa-solid fa-magnifying-glass text-primary"
+            id="search-icon"
+          ></i>
+          <div
+            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            id="search-body"
+          >
+            <input type="text" class="w-full bg-secondary px-2 py-1" />
+          </div>
         </div>
       </div>
     </div>
 
     <!-- get started section -->
-    <section class="relative">
+    <section class="relative" id="get-started-section">
       <img src="/signup-bg.jpg" alt="" />
       <section
         class="relative top-[-50px] flex flex-col items-center text-white"
@@ -143,26 +152,7 @@
     <!-- popular movies section -->
     <section class="wrapper text-white">
       <h3 class="mb-4 font-bold">Popular this weeek</h3>
-
-      <div class="popular-movies flex flex-wrap gap-2"></div>
-
-      <!-- <div class="flex flex-nowrap gap-2">
-        <div class="w-[100px]">
-          <img src="/pastlives.png" alt="" class="w-full" />
-        </div>
-        <div class="w-[100px]">
-          <img src="/pastlives.png" alt="" />
-        </div>
-        <div class="w-[100px]">
-          <img src="/pastlives.png" alt="" />
-        </div>
-        <div class="w-[100px]">
-          <img src="/pastlives.png" alt="" />
-        </div>
-        <div class="w-[100px]">
-          <img src="/pastlives.png" alt="" />
-        </div> -->
-      </div>
+      <div class="popular-movies grid grid-cols-3 gap-2"></div>
     </section>
 
     <script type="module" src="/src/main.ts"></script>

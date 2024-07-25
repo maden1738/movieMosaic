@@ -1,4 +1,5 @@
 import { BadRequestError } from "../errors/BadRequestError";
+
 import { User } from "../interface/user";
 import { UserModel } from "../model/user";
 import loggerWithNameSpace from "../utils/logger";
@@ -7,6 +8,7 @@ import * as WatchListService from "./watchList";
 
 import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
+import { NotFoundError } from "../errors/NotFoundError";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -24,7 +26,13 @@ export async function createUser(user: User) {
 }
 
 export async function getUserById(id: number) {
-     return await UserModel.getById(id);
+     const data = await UserModel.getById(id);
+
+     if (!data) {
+          throw new NotFoundError("user not found");
+     }
+
+     return data;
 }
 
 export async function getUserByEmail(email: string) {

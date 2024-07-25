@@ -13,14 +13,14 @@ export const GetMoviesQuerySchema = Joi.object({
 
      size: Joi.number()
           .min(1)
-          .max(8)
+          .max(50)
           .optional()
           .messages({
                "number.base": "page must be a number",
                "number.min": "size must be greater than or equal to 1",
                "number.max": "size must be less than or equal to 9",
           })
-          .default(8),
+          .default(9),
      sortBy: Joi.string().optional().default("releaseDateDesc").messages({
           "string.base": "sortBy must be string",
      }),

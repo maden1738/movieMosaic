@@ -244,3 +244,18 @@ export async function getFollowing(
           next(error);
      }
 }
+
+export async function getCurrentUserDetails(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     try {
+          const data = await UserService.getUserById(req.user?.id!);
+          res.status(HttpStatusCodes.OK).json({
+               data,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
