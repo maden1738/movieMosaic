@@ -46,6 +46,39 @@ exitSignupModal.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
 });
 
+loginIconEl.addEventListener("click", () => {
+  if (!searchBody.classList.contains("hidden")) {
+    searchBody.classList.add("hidden");
+  }
+
+  if (!navbarEl.classList.contains("hidden")) {
+    navbarEl.classList.add("hidden");
+  }
+
+  loginBody.classList.toggle("hidden");
+});
+
+navbarOpenEl.addEventListener("click", () => {
+  navbarEl.classList.toggle("hidden");
+  if (!loginBody.classList.contains("hidden")) {
+    loginBody.classList.add("hidden");
+  }
+  if (!searchBody.classList.contains("hidden")) {
+    searchBody.classList.add("hidden");
+  }
+});
+
+searchIconEl.addEventListener("click", () => {
+  if (!loginBody.classList.contains("hidden")) {
+    loginBody.classList.add("hidden");
+  }
+  if (!navbarEl.classList.contains("hidden")) {
+    navbarEl.classList.add("hidden");
+  }
+
+  searchBody.classList.toggle("hidden");
+});
+
 window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");

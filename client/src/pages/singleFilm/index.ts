@@ -54,7 +54,6 @@ searchIconEl.addEventListener("click", () => {
 
   searchBody.classList.toggle("hidden");
 });
-1;
 
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
