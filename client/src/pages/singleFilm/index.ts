@@ -1,7 +1,6 @@
 import axiosInstance from "../../axios";
 import { AxiosError } from "axios";
 import { displayErrors } from "../../utils/displayError";
-
 import { IFilm } from "../../interface/film";
 import { convertRating, extractYear } from "../../utils/formatter";
 
@@ -20,21 +19,42 @@ const movieDetailsEl = document.getElementById(
   "movie-details",
 ) as HTMLDivElement;
 
+const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
+const navbarEl = document.getElementById("navbar") as HTMLDivElement;
+
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
     searchBody.classList.add("hidden");
   }
 
+  if (!navbarEl.classList.contains("hidden")) {
+    navbarEl.classList.add("hidden");
+  }
+
   loginBody.classList.toggle("hidden");
+});
+
+navbarOpenEl.addEventListener("click", () => {
+  navbarEl.classList.toggle("hidden");
+  if (!loginBody.classList.contains("hidden")) {
+    loginBody.classList.add("hidden");
+  }
+  if (!searchBody.classList.contains("hidden")) {
+    searchBody.classList.add("hidden");
+  }
 });
 
 searchIconEl.addEventListener("click", () => {
   if (!loginBody.classList.contains("hidden")) {
     loginBody.classList.add("hidden");
   }
+  if (!navbarEl.classList.contains("hidden")) {
+    navbarEl.classList.add("hidden");
+  }
 
   searchBody.classList.toggle("hidden");
 });
+1;
 
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
@@ -58,17 +78,22 @@ window.onload = async () => {
   }
 
   try {
+    let likedStatus = false;
+    let watchedStatus = false;
+    let watchListStatus = false;
+
     let params = new URL(document.location.toString()).searchParams;
     const id = params.get("id");
 
     const response = await axiosInstance.get(`/movies/${id}`);
     const filmId = response.data.data.id;
 
-    const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
-
-    let { likedStatus, watchedStatus, watchListStatus } = filmStatus.data.data;
-
-    console.log(filmStatus.data.data);
+    if (isUserLoggedIn) {
+      const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
+      likedStatus = filmStatus.data.data.likedStatus;
+      watchedStatus = filmStatus.data.data.watchedStatus;
+      watchListStatus = filmStatus.data.data.watchListStatus;
+    }
 
     renderMovieDetails(response.data.data);
 
@@ -191,7 +216,7 @@ window.onload = async () => {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log("here");
   }
 };
 

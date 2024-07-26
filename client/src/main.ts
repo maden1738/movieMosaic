@@ -35,28 +35,15 @@ const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
 const introUserEl = document.getElementById("intro-name") as HTMLSpanElement;
 
+const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
+const navbarEl = document.getElementById("navbar") as HTMLDivElement;
+
 getStartedEl.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
 });
 
 exitSignupModal.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
-});
-
-loginIconEl.addEventListener("click", () => {
-  if (!searchBody.classList.contains("hidden")) {
-    searchBody.classList.add("hidden");
-  }
-
-  loginBody.classList.toggle("hidden");
-});
-
-searchIconEl.addEventListener("click", () => {
-  if (!loginBody.classList.contains("hidden")) {
-    loginBody.classList.add("hidden");
-  }
-
-  searchBody.classList.toggle("hidden");
 });
 
 window.onload = async () => {

@@ -15,7 +15,7 @@
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
     >
-      <div class="text-lg font-medium">MovieMosaic</div>
+      <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
       <div class="flex gap-4">
         <!-- <i class="fa-solid fa-plus text-primary"></i> -->
         <div class="non-user hidden">
@@ -56,7 +56,60 @@
           <i class="fa-solid fa-plus text-text"></i>
         </div>
         <div>
-          <i class="fa-solid fa-bars text-primary"></i>
+          <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>
+          <div
+            class="absolute left-0 z-10 hidden w-full bg-background"
+            id="navbar"
+          >
+            <div class="wrapper">
+              <div class="flex items-center gap-2 pb-2 pt-4">
+                <div
+                  class="aspect-square w-[24px] overflow-hidden rounded-full"
+                >
+                  <img
+                    src="/whitebg.avif"
+                    alt="profile picture"
+                    class="h-full w-full"
+                  />
+                </div>
+                <div class="text-sm font-extrabold uppercase text-text">
+                  killakuen
+                </div>
+              </div>
+              <section class="px-[28px]">
+                <div class="my-2 h-[1px] bg-[#324654]"></div>
+                <nav class="">
+                  <ul class="grid grid-cols-2 text-xs font-bold text-subText">
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">HOME</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">PROFILE</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">FILMS</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">DIARY</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">REVIEWS</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">WATCHLIST</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">LIKES</a>
+                    </li>
+                    <li class="cursor-pointer py-1 hover:text-white">
+                      <a href="#">LOGOUT</a>
+                    </li>
+                  </ul>
+                </nav>
+                <div class="my-2 h-[1px] bg-[#324654]"></div>
+              </section>
+            </div>
+          </div>
         </div>
         <div>
           <i
@@ -74,7 +127,7 @@
     </div>
 
     <!-- intro user -->
-    <section class="user mb-7 mt-3 text-center text-2xl">
+    <section class="user mb-7 mt-3 hidden text-center text-2xl">
       <p class="text-white">
         <span class="text-text"> Welcome back, </span>
         <span id="intro-name"></span>
