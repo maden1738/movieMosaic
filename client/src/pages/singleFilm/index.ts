@@ -1,7 +1,7 @@
 import axiosInstance from "../../axios";
 import { AxiosError } from "axios";
 import { displayErrors } from "../../utils/displayError";
-import Toastify from "toastify-js";
+
 import { IFilm } from "../../interface/film";
 import { convertRating, extractYear } from "../../utils/formatter";
 
@@ -62,6 +62,13 @@ window.onload = async () => {
     const id = params.get("id");
 
     const response = await axiosInstance.get(`/movies/${id}`);
+    const filmId = response.data.data.id;
+
+    const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
+
+    let { likedStatus, watchedStatus, watchListStatus } = filmStatus.data.data;
+
+    console.log(filmStatus.data.data);
 
     renderMovieDetails(response.data.data);
 
@@ -89,67 +96,100 @@ window.onload = async () => {
     });
 
     const watchEl = document.getElementById("watch") as HTMLDivElement;
+    const watchIconEl = document.getElementById("watch-icon") as HTMLElement;
+    const watchTextEl = document.getElementById("watch-text") as HTMLElement;
+
     const likeEl = document.getElementById("like") as HTMLDivElement;
+    const likeIconEl = document.getElementById("like-icon") as HTMLElement;
+    const likeTextEl = document.getElementById("like-text") as HTMLElement;
+
     const watchlistEl = document.getElementById("watchlist") as HTMLDivElement;
+    const watchlistIconEl = document.getElementById(
+      "watchlist-icon",
+    ) as HTMLElement;
+
+    renderIcon();
 
     watchEl.addEventListener("click", () => {
-      addToWatchedList(response.data.data.id);
-
-      Toastify({
-        text: "watched",
-        duration: 5000,
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "black",
-          color: "white",
-          zIndex: "20",
-          position: "absolute",
-        },
-      }).showToast();
+      try {
+        if (!watchedStatus) {
+          addToWatchedList(filmId);
+          watchedStatus = true;
+          renderIcon();
+          return;
+        }
+        removeFromWatchedList(filmId);
+        watchedStatus = false;
+        renderIcon();
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     likeEl.addEventListener("click", () => {
-      likeFilm(response.data.data.id);
+      try {
+        if (!likedStatus) {
+          likeFilm(filmId);
+          likedStatus = true;
+          renderIcon();
+          return;
+        }
 
-      Toastify({
-        text: "added to liked films",
-        duration: 5000,
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "black",
-          color: "white",
-          zIndex: "20",
-          position: "absolute",
-        },
-      }).showToast();
+        removeLike(filmId);
+        likedStatus = false;
+        renderIcon();
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     watchlistEl.addEventListener("click", () => {
-      addToWatchList(response.data.data.id);
-      Toastify({
-        text: "added to watchlist",
-        duration: 5000,
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "black",
-          color: "white",
-          zIndex: "20",
-          position: "absolute",
-        },
-      }).showToast();
+      try {
+        if (!watchListStatus) {
+          addToWatchList(filmId);
+          watchListStatus = true;
+          renderIcon();
+          return;
+        }
+        removeFromWatchList(filmId);
+        watchListStatus = false;
+        renderIcon();
+      } catch (error) {
+        console.log(error);
+      }
     });
+
+    function renderIcon() {
+      if (watchedStatus) {
+        watchIconEl.style.color = "#05ab1e";
+        watchTextEl.innerText = "Watched";
+      } else {
+        watchIconEl.style.color = "#99AABB";
+        watchTextEl.innerText = "Watch";
+      }
+
+      if (likedStatus) {
+        likeIconEl.classList.remove("fa-regular");
+        likeIconEl.classList.add("fa-solid");
+        likeIconEl.style.color = "#F27405";
+        likeTextEl.innerHTML = "Remove";
+      } else {
+        likeIconEl.classList.remove("fa-solid");
+        likeIconEl.classList.add("fa-regular");
+        likeIconEl.style.color = "#99AABB";
+        likeTextEl.innerHTML = "Like";
+      }
+
+      if (watchListStatus) {
+        watchlistIconEl.classList.remove("fa-regular");
+        watchlistIconEl.classList.add("fa-solid");
+        watchlistIconEl.style.color = "#42bcf5";
+      } else {
+        watchlistIconEl.classList.remove("fa-solid");
+        watchlistIconEl.classList.add("fa-regular");
+        watchlistIconEl.style.color = "#99AABB";
+      }
+    }
   } catch (error) {
     console.log(error);
   }
@@ -197,22 +237,22 @@ function renderMovieDetails(data: IFilm) {
                 class="group flex cursor-pointer flex-col items-center gap-1"
                 id="watch"
               >
-                <i class="fa-regular fa-eye text-3xl text-text"></i>
-                <p class="text-sm text-text group-hover:text-white">Watch</p>
+                <i class="fa-regular fa-eye text-3xl text-text" id="watch-icon"></i>
+                <p class="text-sm text-text group-hover:text-white" id="watch-text">Watch</p>
               </div>
               <div
                 class="group flex cursor-pointer flex-col items-center gap-1"
                 id="like"
               >
-                <i class="fa-regular fa-heart text-3xl text-text"></i>
-                <div class="text-sm text-text group-hover:text-white">Like</div>
+                <i class="fa-regular fa-heart text-3xl text-text" id="like-icon"></i>
+                <div class="text-sm text-text group-hover:text-white" id="like-text">Like</div>
               </div>
               <div
                 class="group flex cursor-pointer flex-col items-center gap-1"
                 id="watchlist"
               >
-                <i class="fa-regular fa-clock text-3xl text-text"></i>
-                <div class="text-sm text-text group-hover:text-white">
+                <i class="fa-regular fa-clock text-3xl text-text" id="watchlist-icon"></i>
+                <div class="text-sm text-text group-hover:text-white" id="watchlist-text">
                   Watchlist
                 </div>
               </div>
@@ -285,31 +325,33 @@ function renderMovieDetails(data: IFilm) {
 }
 
 function addToWatchedList(movieId: string) {
-  try {
-    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.post(`/users/${loggedUser.id}/watched`, { movieId });
+}
 
-    axiosInstance.post(`/users/${loggedUser.id}/watched`, { movieId });
-  } catch (error) {
-    console.log(error);
-  }
+function removeFromWatchedList(movieId: string) {
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.delete(`/users/${loggedUser.id}/watched/${movieId}`);
 }
 
 function likeFilm(movieId: string) {
-  try {
-    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
-    axiosInstance.post(`/users/${loggedUser.id}/likes`, { movieId });
-  } catch (error) {
-    console.log(error);
-  }
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.post(`/users/${loggedUser.id}/likes`, { movieId });
+}
+
+function removeLike(movieId: string) {
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.delete(`/users/${loggedUser.id}/likes/${movieId}`);
 }
 
 function addToWatchList(movieId: string) {
-  try {
-    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
-    axiosInstance.post(`/users/${loggedUser.id}/watchlist`, { movieId });
-  } catch (error) {
-    console.log(error);
-  }
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.post(`/users/${loggedUser.id}/watchlist`, { movieId });
+}
+
+function removeFromWatchList(movieId: string) {
+  const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+  axiosInstance.delete(`/users/${loggedUser.id}/watchlist/${movieId}`);
 }
 
 loginForm.addEventListener("submit", async (event) => {

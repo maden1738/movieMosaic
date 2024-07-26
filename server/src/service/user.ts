@@ -44,7 +44,7 @@ export async function addToWatchList(
      userId: string,
      watched: boolean
 ) {
-     await WatchListService.addToWatchList(movieId, userId, watched);
+     await WatchListService.addToWatchList(movieId, userId);
 }
 
 export async function addWatchedMovies(
@@ -52,7 +52,7 @@ export async function addWatchedMovies(
      userId: string,
      watched: boolean
 ) {
-     await WatchListService.addWatchedMovies(movieId, userId, watched);
+     await WatchListService.addWatchedMovies(movieId, userId);
 }
 
 export async function getWatchList(userId: string) {
@@ -65,6 +65,10 @@ export async function getWatchedMovies(userId: string) {
 
 export async function deleteFromWatchList(movieId: string, userId: string) {
      await WatchListService.deleteFromWatchList(movieId, userId);
+}
+
+export async function deleteFromWatchedList(movieId: string, userId: string) {
+     await WatchListService.deleteFromWatchedList(movieId, userId);
 }
 
 export async function followUser(userId: number, followingId: number) {

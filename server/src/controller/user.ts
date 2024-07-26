@@ -42,7 +42,7 @@ export async function addWatchedMovies(
      }
 
      try {
-          await UserService.addToWatchList(movieId, userId, true);
+          await UserService.addWatchedMovies(movieId, userId, true);
           res.status(HttpStatusCodes.OK).json({
                message: "Movie added to watched list",
           });
@@ -102,6 +102,29 @@ export async function deleteFromWatchList(
 
      try {
           await UserService.deleteFromWatchList(movieId, userId);
+          res.status(HttpStatusCodes.OK).json({
+               message: `Movie with id: ${movieId} removed from watchlist`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function deleteFromWatchedList(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const { id: userId, movieId } = req.params;
+
+     // ensure that authenticated user matches the userId
+     if (+userId != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this watchedlist"));
+          return;
+     }
+
+     try {
+          await UserService.deleteFromWatchedList(movieId, userId);
           res.status(HttpStatusCodes.OK).json({
                message: `Movie with id: ${movieId} removed from watchedlist`,
           });

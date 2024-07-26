@@ -6,11 +6,7 @@ import { getMoviesById } from "./movies";
 
 const logger = loggerWithNameSpace("watchlistService");
 
-export async function addToWatchList(
-     movieId: string,
-     userId: string,
-     watched: boolean
-) {
+export async function addToWatchList(movieId: string, userId: string) {
      logger.info("addToWatchList");
      const movieExists = await getMoviesById(movieId);
 
@@ -24,14 +20,10 @@ export async function addToWatchList(
           throw new BadRequestError("movie already exists on watchlist");
      }
 
-     await WatchListModel.create(movieId, userId, watched);
+     await WatchListModel.create(movieId, userId, false);
 }
 
-export async function addWatchedMovies(
-     movieId: string,
-     userId: string,
-     watched: boolean
-) {
+export async function addWatchedMovies(movieId: string, userId: string) {
      logger.info("addWatched");
      const movieExists = await getMoviesById(movieId);
 
@@ -47,7 +39,7 @@ export async function addWatchedMovies(
           );
      }
 
-     await WatchListModel.create(movieId, userId, watched);
+     await WatchListModel.create(movieId, userId, true);
 }
 
 export async function getWatchList(userId: string) {
@@ -74,7 +66,7 @@ export async function deleteFromWatchedList(movieId: string, userId: string) {
 
      if (data.length === 0) {
           throw new NotFoundError(
-               `movie with id: ${movieId} doesnt exist on watchList`
+               `movie with id: ${movieId} doesnt exist on watchedList`
           );
      }
 

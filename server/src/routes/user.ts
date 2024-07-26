@@ -13,6 +13,7 @@ import {
      getWatchedMovies,
      unfollowUser,
      addWatchedMovies,
+     deleteFromWatchedList,
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToWatchListSchema } from "../schema/movies";
@@ -37,7 +38,7 @@ router.delete("/:id/watchlist/:movieId", authenticate, deleteFromWatchList);
 
 // get watched movies of a user
 router.get("/:id/watched", authenticate, getWatchedMovies);
-router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchList);
+router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchedList);
 router.post(
      "/:id/watched",
      validateReqBody(AddMoviesToWatchListSchema),
