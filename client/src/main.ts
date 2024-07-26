@@ -63,14 +63,14 @@ window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");
 
-    nonUserElements.forEach((el) => {
-      el.classList.toggle("hidden");
+    userElements.forEach((el) => {
+      el.classList.remove("hidden");
     });
 
     introUserEl.innerHTML = response.data.data.name;
   } catch (error) {
-    userElements.forEach((el) => {
-      el.classList.toggle("hidden");
+    nonUserElements.forEach((el) => {
+      el.classList.remove("hidden");
     });
   }
 };

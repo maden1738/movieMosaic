@@ -1,7 +1,7 @@
 import axiosInstance from "../../axios";
 import { AxiosError } from "axios";
 import { displayErrors } from "../../utils/displayError";
-
+import Toastify from "toastify-js";
 import { IFilm } from "../../interface/film";
 import { convertRating, extractYear } from "../../utils/formatter";
 
@@ -39,15 +39,20 @@ searchIconEl.addEventListener("click", () => {
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
 
+let isUserLoggedIn = false;
+
 window.onload = async () => {
   try {
-    await axiosInstance.get("/users/me");
+    const response = await axiosInstance.get("/users/me");
+    localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    nonUserElements.forEach((el) => {
-      el.classList.add("hidden");
+    isUserLoggedIn = true;
+
+    userElements.forEach((el) => {
+      el.classList.remove("hidden");
     });
   } catch (error) {
-    userElements.forEach((el) => {
+    nonUserElements.forEach((el) => {
       el.classList.remove("hidden");
     });
   }
@@ -68,6 +73,11 @@ window.onload = async () => {
       "userpanel-close",
     ) as HTMLButtonElement;
 
+    if (!isUserLoggedIn) {
+      userpanelOpenEl.classList.remove("flex");
+      userpanelOpenEl.classList.add("hidden");
+    }
+
     userpanelOpenEl.addEventListener("click", () => {
       userpanelEl.classList.remove("hidden");
       userpanelEl.classList.add("flex");
@@ -76,6 +86,69 @@ window.onload = async () => {
     userpanelCloseEl.addEventListener("click", () => {
       userpanelEl.classList.add("hidden");
       userpanelEl.classList.remove("flex");
+    });
+
+    const watchEl = document.getElementById("watch") as HTMLDivElement;
+    const likeEl = document.getElementById("like") as HTMLDivElement;
+    const watchlistEl = document.getElementById("watchlist") as HTMLDivElement;
+
+    watchEl.addEventListener("click", () => {
+      addToWatchedList(response.data.data.id);
+
+      Toastify({
+        text: "watched",
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "black",
+          color: "white",
+          zIndex: "20",
+          position: "absolute",
+        },
+      }).showToast();
+    });
+
+    likeEl.addEventListener("click", () => {
+      likeFilm(response.data.data.id);
+
+      Toastify({
+        text: "added to liked films",
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "black",
+          color: "white",
+          zIndex: "20",
+          position: "absolute",
+        },
+      }).showToast();
+    });
+
+    watchlistEl.addEventListener("click", () => {
+      addToWatchList(response.data.data.id);
+      Toastify({
+        text: "added to watchlist",
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "black",
+          color: "white",
+          zIndex: "20",
+          position: "absolute",
+        },
+      }).showToast();
     });
   } catch (error) {
     console.log(error);
@@ -99,7 +172,7 @@ function renderMovieDetails(data: IFilm) {
   movieDetailsEl.innerHTML = `<section class = "relative">
       <img src="https://image.tmdb.org/t/p/w500${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full"  />
        <button
-        class="absolute right-4 top-5 flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white"
+        class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white"
         id="userpanel-open"
       >
         <span class="aspect-square w-1 rounded-full bg-subText"></span>
@@ -122,18 +195,21 @@ function renderMovieDetails(data: IFilm) {
             <div class="grid grid-cols-3 py-4">
               <div
                 class="group flex cursor-pointer flex-col items-center gap-1"
+                id="watch"
               >
                 <i class="fa-regular fa-eye text-3xl text-text"></i>
                 <p class="text-sm text-text group-hover:text-white">Watch</p>
               </div>
               <div
                 class="group flex cursor-pointer flex-col items-center gap-1"
+                id="like"
               >
                 <i class="fa-regular fa-heart text-3xl text-text"></i>
                 <div class="text-sm text-text group-hover:text-white">Like</div>
               </div>
               <div
                 class="group flex cursor-pointer flex-col items-center gap-1"
+                id="watchlist"
               >
                 <i class="fa-regular fa-clock text-3xl text-text"></i>
                 <div class="text-sm text-text group-hover:text-white">
@@ -206,6 +282,34 @@ function renderMovieDetails(data: IFilm) {
         </div>
       </div>
     </section>`;
+}
+
+function addToWatchedList(movieId: string) {
+  try {
+    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+
+    axiosInstance.post(`/users/${loggedUser.id}/watched`, { movieId });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function likeFilm(movieId: string) {
+  try {
+    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+    axiosInstance.post(`/users/${loggedUser.id}/likes`, { movieId });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function addToWatchList(movieId: string) {
+  try {
+    const loggedUser = JSON.parse(localStorage.getItem("user") as string);
+    axiosInstance.post(`/users/${loggedUser.id}/watchlist`, { movieId });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 loginForm.addEventListener("submit", async (event) => {
