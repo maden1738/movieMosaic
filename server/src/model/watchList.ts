@@ -68,4 +68,19 @@ export class WatchListModel extends BaseModel {
                .table("watchList")
                .where({ userId, filmId, watched });
      }
+
+     static async getStatus(filmId: string, userId: string, watched: boolean) {
+          const data = await this.queryBuilder()
+               .count("* as count")
+               .table("watchList")
+               .where({ userId, filmId })
+               .where({ watched })
+               .first();
+
+          if (data.count > 0) {
+               return true;
+          }
+
+          return false;
+     }
 }

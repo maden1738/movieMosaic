@@ -80,3 +80,11 @@ export async function deleteFromWatchedList(movieId: string, userId: string) {
 
      await WatchListModel.deleteWatchedMovies(movieId, userId);
 }
+
+export async function getStatus(
+     filmId: string,
+     userId: string,
+     watched: boolean
+) {
+     return await WatchListModel.getStatus(filmId, userId, watched);
+}

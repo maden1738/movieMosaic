@@ -38,3 +38,7 @@ export async function deleteLikedMovies(filmId: string, userId: string) {
      }
      await LikedMoviesModel.deleteLikedMovies(filmId, userId);
 }
+
+export async function getStatus(filmId: string, userId: string) {
+     return await LikedMoviesModel.getStatus(filmId, userId);
+}

@@ -1,3 +1,4 @@
+import { table } from "console";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
 
@@ -43,5 +44,21 @@ export class LikedMoviesModel extends BaseModel {
                userId,
                filmId,
           });
+     }
+
+     static async getStatus(filmId: string, userId: string) {
+          const data = await this.queryBuilder()
+               .count("* as count")
+               .table("likes")
+               .where({ userId, filmId })
+               .first();
+
+          console.log(data);
+
+          if (data.count > 0) {
+               return true;
+          }
+
+          return false;
      }
 }
