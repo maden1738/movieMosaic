@@ -22,6 +22,8 @@ const movieDetailsEl = document.getElementById(
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+const filmsEl = document.getElementById("films") as HTMLAnchorElement;
+
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
     searchBody.classList.add("hidden");
@@ -66,6 +68,8 @@ window.onload = async () => {
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
     isUserLoggedIn = true;
+
+    filmsEl.href = `../films/?id=${response.data.data.id}/content=watched`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

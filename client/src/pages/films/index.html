@@ -73,7 +73,9 @@
                     class="h-full w-full"
                   />
                 </div>
-                <div class="text-sm font-extrabold uppercase text-text">
+                <div
+                  class="username text-sm font-extrabold uppercase text-text"
+                >
                   killakuen
                 </div>
               </div>
@@ -85,9 +87,7 @@
                     <li class="py-1 hover:text-white">
                       <a href="#">PROFILE</a>
                     </li>
-                    <li class="py-1 hover:text-white">
-                      <a href="#" id="films">FILMS</a>
-                    </li>
+                    <li class="py-1 hover:text-white"><a href="#">FILMS</a></li>
                     <li class="py-1 hover:text-white"><a href="#">DIARY</a></li>
                     <li class="py-1 hover:text-white">
                       <a href="#">REVIEWS</a>
@@ -121,7 +121,32 @@
       </div>
     </div>
 
-    <div id="movie-details"></div>
+    <section class="wrapper">
+      <div class="flex items-center gap-2 pb-2 pt-4">
+        <div class="aspect-square w-[24px] overflow-hidden rounded-full">
+          <img
+            src="/whitebg.avif"
+            alt="profile picture"
+            class="h-full w-full"
+          />
+        </div>
+        <div class="username text-sm font-extrabold text-white">killakuen</div>
+      </div>
+
+      <!-- sort by -->
+      <div class="mt-4 flex justify-between text-xs text-accent">
+        <div id="list-title" class="uppercase"></div>
+        <i class="fa-solid fa-sliders cursor-pointer text-subText"></i>
+      </div>
+      <div class="my-2 h-[1px] bg-[#324654]"></div>
+
+      <!-- grid of movies -->
+      <div class="grid grid-cols-4 gap-2" id="content">
+        <!-- <div>
+          <img src="/pastlives.png" alt="poster" />
+        </div> -->
+      </div>
+    </section>
+    <script type="module" defer src="./index.ts"></script>
   </body>
-  <script type="module" defer src="./index.ts"></script>
 </html>

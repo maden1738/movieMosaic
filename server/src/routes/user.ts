@@ -32,12 +32,12 @@ router.post(
 router.get("/me", authenticate, getCurrentUserDetails);
 
 // get watchlist of a user
-router.get("/:id/watchlist", authenticate, getWatchList);
+router.get("/:id/watchlist", getWatchList);
 // remove a movie from watchlist
 router.delete("/:id/watchlist/:movieId", authenticate, deleteFromWatchList);
 
 // get watched movies of a user
-router.get("/:id/watched", authenticate, getWatchedMovies);
+router.get("/:id/watched", getWatchedMovies);
 router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchedList);
 router.post(
      "/:id/watched",
@@ -49,7 +49,7 @@ router.post(
 // add to liked movies
 router.post("/:id/likes", authenticate, likeMovie);
 //get liked movies of a user
-router.get("/:id/likes", authenticate, getLikedMovies);
+router.get("/:id/likes", getLikedMovies);
 //remove liked movies of a user
 router.delete("/:id/likes/:filmId", authenticate, deleteLikedMovies);
 
