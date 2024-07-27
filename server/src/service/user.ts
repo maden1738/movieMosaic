@@ -9,6 +9,8 @@ import * as WatchListService from "./watchList";
 import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
+import { GetMoviesQuery } from "../interface/movies";
+import { query } from "express";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -57,12 +59,12 @@ export async function addWatchedMovies(
      await WatchListService.addWatchedMovies(movieId, userId);
 }
 
-export async function getWatchList(userId: string) {
-     return await WatchListService.getWatchList(userId);
+export async function getWatchList(userId: string, query: GetMoviesQuery) {
+     return await WatchListService.getWatchList(userId, query);
 }
 
-export async function getWatchedMovies(userId: string) {
-     return await WatchListService.getWatchedMovies(userId);
+export async function getWatchedMovies(userId: string, query: GetMoviesQuery) {
+     return await WatchListService.getWatchedMovies(userId, query);
 }
 
 export async function deleteFromWatchList(movieId: string, userId: string) {
@@ -93,12 +95,13 @@ export async function getFollowing(userId: number) {
 }
 
 export async function likeMovie(movieId: string, userId: string) {
+     logger.info("likeMovie");
      await LikedMoviesService.likeMovie(movieId, userId);
 }
 
-export async function getLikedMovies(userId: string) {
-     logger.info("getLikeMovies");
-     return await LikedMoviesService.getLikedMovies(userId);
+export async function getLikedMovies(userId: string, query: GetMoviesQuery) {
+     logger.info("getLikedMovies");
+     return await LikedMoviesService.getLikedMovies(userId, query);
 }
 
 export async function deleteLikedMovies(filmId: string, userId: string) {

@@ -13,7 +13,7 @@ export const GetMoviesQuerySchema = Joi.object({
 
      size: Joi.number()
           .min(1)
-          .max(50)
+          .max(24)
           .optional()
           .messages({
                "number.base": "page must be a number",

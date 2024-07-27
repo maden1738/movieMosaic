@@ -1,6 +1,8 @@
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { GetMoviesQuery } from "../interface/movies";
 import { WatchListModel } from "../model/watchList";
+import { GetMoviesQuerySchema } from "../schema/movies";
 import loggerWithNameSpace from "../utils/logger";
 import { getMoviesById } from "./movies";
 
@@ -42,11 +44,32 @@ export async function addWatchedMovies(movieId: string, userId: string) {
      await WatchListModel.create(movieId, userId, true);
 }
 
-export async function getWatchList(userId: string) {
-     return await WatchListModel.getWatchlist(userId);
+export async function getWatchList(userId: string, query: GetMoviesQuery) {
+     const data = await WatchListModel.getWatchlist(userId, query);
+
+     const count = await WatchListModel.count(userId, query);
+
+     const meta = {
+          page: query.page,
+          size: data.length,
+          total: +count.count,
+     };
+
+     return { meta, data };
 }
-export async function getWatchedMovies(userId: string) {
-     return await WatchListModel.getWatchedMovies(userId);
+
+export async function getWatchedMovies(userId: string, query: GetMoviesQuery) {
+     const data = await WatchListModel.getWatchedMovies(userId, query);
+
+     const count = await WatchListModel.countWatchedMovies(userId, query);
+
+     const meta = {
+          page: query.page,
+          size: data.length,
+          total: +count.count,
+     };
+
+     return { meta, data };
 }
 
 export async function deleteFromWatchList(movieId: string, userId: string) {

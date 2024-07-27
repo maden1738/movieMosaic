@@ -1,5 +1,6 @@
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { GetMoviesQuery } from "../interface/movies";
 import { LikedMoviesModel } from "../model/likedMovies";
 import loggerWithNameSpace from "../utils/logger";
 import { getMoviesById } from "./movies";
@@ -22,9 +23,19 @@ export async function likeMovie(movieId: string, userId: string) {
      await LikedMoviesModel.likeMovie(movieId, userId);
 }
 
-export async function getLikedMovies(userId: string) {
+export async function getLikedMovies(userId: string, query: GetMoviesQuery) {
      logger.info("getLikedMovies");
-     return await LikedMoviesModel.getLikedMovies(userId);
+     const data = await LikedMoviesModel.get(userId, query);
+
+     const count = await LikedMoviesModel.count(userId);
+
+     const meta = {
+          page: query.page,
+          size: data.length,
+          total: +count.count,
+     };
+
+     return { meta, data };
 }
 
 export async function deleteLikedMovies(filmId: string, userId: string) {

@@ -1,6 +1,7 @@
 import { table } from "console";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
+import { GetMoviesQuery } from "../interface/movies";
 
 const logger = loggerWithNameSpace("likedMoviesModel");
 
@@ -15,8 +16,11 @@ export class LikedMoviesModel extends BaseModel {
           await this.queryBuilder().insert(dataToBeInserted).table("likes");
      }
 
-     static async getLikedMovies(userId: string) {
+     static async get(userId: string, query: GetMoviesQuery) {
           logger.info("getLikedMovies");
+
+          const { size, page, sortBy } = query;
+
           const data = this.queryBuilder()
                .select(
                     "film.id",
@@ -27,7 +31,47 @@ export class LikedMoviesModel extends BaseModel {
                )
                .table("film")
                .join("likes", "film.id", "likes.filmId")
-               .where("likes.userId", userId);
+               .where("likes.userId", userId)
+               .limit(size!)
+               .offset((page! - 1) * size!);
+
+          switch (sortBy) {
+               case "releaseDateAsc":
+                    data.orderBy("releaseDate", "asc");
+                    break;
+               case "ratingAsc":
+                    data.orderBy("rating", "asc");
+                    break;
+               case "ratingDesc":
+                    data.orderBy("rating", "desc");
+                    break;
+               case "popularityAsc":
+                    data.orderBy("popularity", "asc");
+                    break;
+               case "popularityDesc":
+                    data.orderBy("popularity", "desc");
+                    break;
+               case "whenAddedAsc":
+                    data.orderBy("watchList.createdAt", "asc");
+                    break;
+               case "whenAddedDesc":
+                    data.orderBy("watchList.createdAt", "desc");
+                    break;
+               default:
+                    data.orderBy("releaseDate", "desc");
+          }
+
+          return data;
+     }
+
+     static async count(userId: string) {
+          logger.info("count");
+          const data = this.queryBuilder()
+               .count("*")
+               .table("film")
+               .join("likes", "film.id", "likes.filmId")
+               .where("likes.userId", userId)
+               .first();
 
           return data;
      }

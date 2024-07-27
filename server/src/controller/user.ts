@@ -74,8 +74,9 @@ export async function getWatchList(
 ) {
      try {
           const { id } = req.params;
+          const { query } = req;
 
-          const data = await UserService.getWatchList(id);
+          const data = await UserService.getWatchList(id, query);
 
           res.status(HttpStatusCodes.OK).json({
                data,
@@ -92,8 +93,9 @@ export async function getWatchedMovies(
 ) {
      try {
           const { id } = req.params;
+          const { query } = req;
 
-          const data = await UserService.getWatchedMovies(id);
+          const data = await UserService.getWatchedMovies(id, query);
 
           res.status(HttpStatusCodes.OK).json({
                data,
@@ -180,8 +182,9 @@ export async function getLikedMovies(
 ) {
      try {
           const { id } = req.params;
+          const { query } = req;
 
-          const data = await UserService.getLikedMovies(id);
+          const data = await UserService.getLikedMovies(id, query);
 
           res.status(HttpStatusCodes.OK).json({
                data,

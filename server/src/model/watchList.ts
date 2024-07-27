@@ -1,4 +1,8 @@
+import { GetMoviesQuery } from "../interface/movies";
+import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
+
+const logger = loggerWithNameSpace("watchListModel");
 
 export class WatchListModel extends BaseModel {
      static async create(filmId: string, userId: string, watched: boolean) {
@@ -13,7 +17,11 @@ export class WatchListModel extends BaseModel {
                .table("watch_list");
      }
 
-     static async getWatchlist(userId: string) {
+     static async getWatchlist(userId: string, query: GetMoviesQuery) {
+          logger.info("getWatchlist");
+
+          const { q, size, page, sortBy } = query;
+
           const data = this.queryBuilder()
                .select(
                     "film.id",
@@ -25,12 +33,66 @@ export class WatchListModel extends BaseModel {
                .table("film")
                .join("watchList", "film.id", "watchList.filmId")
                .where("watchList.userId", userId)
-               .where("watched", false);
+               .where("watched", false)
+               .limit(size!)
+               .offset((page! - 1) * size!);
+
+          if (q) {
+               data.where("film.title", "ilike", `%${q}%`);
+          }
+
+          switch (sortBy) {
+               case "releaseDateAsc":
+                    data.orderBy("releaseDate", "asc");
+                    break;
+               case "ratingAsc":
+                    data.orderBy("rating", "asc");
+                    break;
+               case "ratingDesc":
+                    data.orderBy("rating", "desc");
+                    break;
+               case "popularityAsc":
+                    data.orderBy("popularity", "asc");
+                    break;
+               case "popularityDesc":
+                    data.orderBy("popularity", "desc");
+                    break;
+               case "whenAddedAsc":
+                    data.orderBy("watchList.createdAt", "asc");
+                    break;
+               case "whenAddedDesc":
+                    data.orderBy("watchList.createdAt", "desc");
+                    break;
+               default:
+                    data.orderBy("releaseDate", "desc");
+          }
 
           return data;
      }
 
-     static async getWatchedMovies(userId: string) {
+     static async count(userId: string, query: GetMoviesQuery) {
+          logger.info("count");
+
+          const { q } = query;
+
+          const data = this.queryBuilder()
+               .count("*")
+               .table("watchList")
+               .where({ userId })
+               .where({ watched: false })
+               .first();
+
+          if (q) {
+               data.whereLike("title", `%${q}%`);
+          }
+
+          return data;
+     }
+
+     static async getWatchedMovies(userId: string, query: GetMoviesQuery) {
+          logger.info("getWatchedMovies");
+          const { q, size, page, sortBy } = query;
+
           const data = this.queryBuilder()
                .select(
                     "film.id",
@@ -42,7 +104,58 @@ export class WatchListModel extends BaseModel {
                .table("film")
                .join("watchList", "film.id", "watchList.filmId")
                .where("watchList.userId", userId)
-               .where("watched", true);
+               .where("watched", true)
+               .limit(size!)
+               .offset((page! - 1) * size!);
+
+          if (q) {
+               data.where("film.title", "ilike", `%${q}%`);
+          }
+
+          switch (sortBy) {
+               case "releaseDateAsc":
+                    data.orderBy("releaseDate", "asc");
+                    break;
+               case "ratingAsc":
+                    data.orderBy("rating", "asc");
+                    break;
+               case "ratingDesc":
+                    data.orderBy("rating", "desc");
+                    break;
+               case "popularityAsc":
+                    data.orderBy("popularity", "asc");
+                    break;
+               case "popularityDesc":
+                    data.orderBy("popularity", "desc");
+                    break;
+               case "whenAddedAsc":
+                    data.orderBy("createdAt", "asc");
+                    break;
+               case "whenAddedDesc":
+                    data.orderBy("createdAt", "desc");
+                    break;
+               default:
+                    data.orderBy("releaseDate", "desc");
+          }
+
+          return data;
+     }
+
+     static async countWatchedMovies(userId: string, query: GetMoviesQuery) {
+          logger.info("countWatchedMovies");
+
+          const { q } = query;
+
+          const data = this.queryBuilder()
+               .count("*")
+               .table("watchList")
+               .where({ userId })
+               .where({ watched: true })
+               .first();
+
+          if (q) {
+               data.whereLike("title", `%${q}%`);
+          }
 
           return data;
      }
