@@ -22,8 +22,10 @@ const movieDetailsEl = document.getElementById(
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+const watchlistLink = document.getElementById(
+  "watchlist-link",
+) as HTMLAnchorElement;
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
-const watchlistEl = document.getElementById("watchlist") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
 loginIconEl.addEventListener("click", () => {
@@ -72,8 +74,8 @@ window.onload = async () => {
     isUserLoggedIn = true;
 
     filmsEl.href = `../films/?id=${response.data.data.id}/content=watched`;
-    watchlistEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `./src/pages/films/?id=${response.data.data.id}&content=likes`;
+    watchlistLink.href = `../films/?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `../films/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
@@ -176,6 +178,8 @@ window.onload = async () => {
     });
 
     watchlistEl.addEventListener("click", () => {
+      console.log("clicked");
+
       try {
         if (!watchListStatus) {
           addToWatchList(filmId);

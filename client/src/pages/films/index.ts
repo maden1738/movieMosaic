@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import axiosInstance from "../../axios";
 import { displayErrors } from "../../utils/displayError";
 import { IFilm } from "../../interface/film";
@@ -21,6 +21,13 @@ const contentEl = document.getElementById("content") as HTMLDivElement;
 const listTitleEl = document.getElementById("list-title") as HTMLDivElement;
 
 const userNameElements = document.querySelectorAll(".username");
+
+// nav links
+const watchlistLink = document.getElementById(
+  "watchlist-link",
+) as HTMLAnchorElement;
+const filmsEl = document.getElementById("films") as HTMLAnchorElement;
+const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
@@ -83,6 +90,10 @@ window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
+
+    filmsEl.href = `./?id=${response.data.data.id}&content=watched`;
+    watchlistLink.href = `./?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `./?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

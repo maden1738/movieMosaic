@@ -38,8 +38,11 @@ const introUserEl = document.getElementById("intro-name") as HTMLSpanElement;
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+// nav links
+const watchlistLink = document.getElementById(
+  "watchlist-link",
+) as HTMLAnchorElement;
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
-const watchlistEl = document.getElementById("watchlist") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
 getStartedEl.addEventListener("click", () => {
@@ -86,9 +89,10 @@ searchIconEl.addEventListener("click", () => {
 window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");
+    localStorage.setItem("user", JSON.stringify(response.data.data));
 
     filmsEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watched`;
-    watchlistEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watchlist`;
+    watchlistLink.href = `./src/pages/films/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `./src/pages/films/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
