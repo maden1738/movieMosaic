@@ -39,6 +39,8 @@ const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
+const watchlistEl = document.getElementById("watchlist") as HTMLAnchorElement;
+const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
 getStartedEl.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
@@ -86,6 +88,8 @@ window.onload = async () => {
     const response = await axiosInstance.get("/users/me");
 
     filmsEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watched`;
+    watchlistEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `./src/pages/films/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

@@ -26,6 +26,8 @@ export async function createUser(user: User) {
 }
 
 export async function getUserById(id: number) {
+     logger.info("getUserById");
+
      const data = await UserModel.getById(id);
 
      if (!data) {

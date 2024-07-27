@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import axiosInstance from "../../axios";
 import { displayErrors } from "../../utils/displayError";
 import { IFilm } from "../../interface/film";
@@ -19,6 +19,8 @@ const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
 const contentEl = document.getElementById("content") as HTMLDivElement;
 const listTitleEl = document.getElementById("list-title") as HTMLDivElement;
+
+const userNameElements = document.querySelectorAll(".username");
 
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
@@ -91,22 +93,32 @@ window.onload = async () => {
     });
   }
 
+  let params = new URL(document.location.toString()).searchParams;
+  const id = params.get("id");
+  const contentType = params.get("content");
+
   try {
-    // const user = JSON.parse(localStorage.getItem("user") as string);
+    const response = await axiosInstance.get(`/users/${id}`);
+    const { name } = response.data.data;
 
-    let params = new URL(document.location.toString()).searchParams;
-    const id = params.get("id");
-    const contentType = params.get("content");
+    userNameElements.forEach((el) => {
+      el.innerHTML = name;
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
+  try {
     let response;
-
     switch (contentType) {
       case "watchlist":
         listTitleEl.innerHTML = "Watchlist";
         response = await axiosInstance.get(`/users/${id}/watchlist`);
         break;
-      case "liked":
-
+      case "likes":
+        listTitleEl.innerHTML = "Likes";
+        response = await axiosInstance.get(`/users/${id}/likes`);
+        break;
       default:
         listTitleEl.innerHTML = "Watched";
         response = await axiosInstance.get(`/users/${id}/watched`);

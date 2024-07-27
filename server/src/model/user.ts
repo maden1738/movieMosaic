@@ -23,6 +23,9 @@ export class UserModel extends BaseModel {
      }
 
      static async getById(id: number) {
+          console.log(id);
+
+          logger.info("getUserById");
           const data = await this.queryBuilder()
                .select("id", "email", "name")
                .table("user")

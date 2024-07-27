@@ -14,11 +14,11 @@ import {
      unfollowUser,
      addWatchedMovies,
      deleteFromWatchedList,
+     getUserById,
 } from "../controller/user";
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToWatchListSchema } from "../schema/movies";
 import { getCurrentUserDetails } from "../controller/user";
-import { getUserById } from "../service/user";
 
 const router = express();
 
