@@ -1,4 +1,3 @@
-import { table } from "console";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
 import { GetMoviesQuery } from "../interface/movies";

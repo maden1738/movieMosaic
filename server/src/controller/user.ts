@@ -78,9 +78,7 @@ export async function getWatchList(
 
           const data = await UserService.getWatchList(id, query);
 
-          res.status(HttpStatusCodes.OK).json({
-               data,
-          });
+          res.status(HttpStatusCodes.OK).json(data);
      } catch (error) {
           next(error);
      }
@@ -97,9 +95,7 @@ export async function getWatchedMovies(
 
           const data = await UserService.getWatchedMovies(id, query);
 
-          res.status(HttpStatusCodes.OK).json({
-               data,
-          });
+          res.status(HttpStatusCodes.OK).json(data);
      } catch (error) {
           next(error);
      }
@@ -186,9 +182,7 @@ export async function getLikedMovies(
 
           const data = await UserService.getLikedMovies(id, query);
 
-          res.status(HttpStatusCodes.OK).json({
-               data,
-          });
+          res.status(HttpStatusCodes.OK).json(data);
      } catch (error) {
           next(error);
      }
