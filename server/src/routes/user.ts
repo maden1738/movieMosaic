@@ -18,6 +18,7 @@ import {
 import { validateReqBody } from "../middleware/validator";
 import { AddMoviesToWatchListSchema } from "../schema/movies";
 import { getCurrentUserDetails } from "../controller/user";
+import { getUserById } from "../service/user";
 
 const router = express();
 
@@ -30,6 +31,8 @@ router.post(
 );
 
 router.get("/me", authenticate, getCurrentUserDetails);
+
+router.get("/:id", getUserById);
 
 // get watchlist of a user
 router.get("/:id/watchlist", getWatchList);
