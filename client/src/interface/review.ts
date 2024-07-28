@@ -5,4 +5,5 @@ export interface IReview {
   avatarUrl: string;
   content: string;
   rating: number;
+  createdAt: string;
 }

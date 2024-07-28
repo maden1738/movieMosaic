@@ -19,6 +19,9 @@ export default {
       fontFamily: {
         lato: ["Lato", "sans-serif"],
       },
+      gridTemplateColumns: {
+        layout: "40px, 1fr",
+      },
     },
   },
   plugins: [],

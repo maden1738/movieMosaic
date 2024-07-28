@@ -31,7 +31,8 @@ export class ReviewsModel extends BaseModel {
                     "user.name",
                     "user.avatarUrl",
                     "review.content",
-                    "review.rating"
+                    "review.rating",
+                    "review.createdAt"
                )
                .table("user")
                .join("review", "user.id", "review.reviewedBy")
@@ -39,7 +40,7 @@ export class ReviewsModel extends BaseModel {
                .limit(size!)
                .offset((page! - 1) * size!);
 
-          if (sortBy === "createdDesc") {
+          if (sortBy === "recent") {
                data.orderBy("review.createdAt");
           }
 

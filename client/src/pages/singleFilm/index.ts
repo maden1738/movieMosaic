@@ -310,6 +310,11 @@ function renderRecentReviews(data: Array<IReview>) {
   const recentReviewEl = document.getElementById(
     "recent-reviews",
   ) as HTMLDivElement;
+  const recentReviewLink = document.getElementById(
+    "recent-reviews-link",
+  ) as HTMLAnchorElement;
+
+  recentReviewLink.href = `.././reviews/?id=${id}&content=recent`;
 
   recentReviewEl.innerHTML = "";
 
