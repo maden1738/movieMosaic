@@ -51,10 +51,10 @@ export class LikedMoviesModel extends BaseModel {
                     data.orderBy("popularity", "desc");
                     break;
                case "whenAddedAsc":
-                    data.orderBy("watchList.createdAt", "asc");
+                    data.orderBy("likes.createdAt", "asc");
                     break;
                case "whenAddedDesc":
-                    data.orderBy("watchList.createdAt", "desc");
+                    data.orderBy("likes.createdAt", "desc");
                     break;
                default:
                     data.orderBy("releaseDate", "desc");

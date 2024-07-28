@@ -1,6 +1,5 @@
-import { AxiosResponse } from "axios";
 import axiosInstance from "../../axios";
-import { IFilm } from "../../interface/film";
+import { IFilm, IPagination } from "../../interface/film";
 
 const contentEl = document.getElementById("content") as HTMLDivElement;
 const listTitleEl = document.getElementById("list-title") as HTMLDivElement;
@@ -23,18 +22,19 @@ sortByIconEl.addEventListener("click", () => {
 sortLinks.forEach((el) => {
   el.addEventListener("click", (event) => {
     const sortParams = (event.target as HTMLElement).dataset.params!;
-    sortData(sortParams);
 
     // closing sortBy modal
     sortByModal.classList.toggle("hidden");
+
+    fetchMovies(1, sortParams);
   });
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  let params = new URL(document.location.toString()).searchParams;
-  const id = params.get("id");
-  const contentType = params.get("content");
+let params = new URL(document.location.toString()).searchParams;
+const id = params.get("id");
+const contentType = params.get("content");
 
+document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await axiosInstance.get(`/users/${id}`);
     const { name } = response.data.data;
@@ -46,40 +46,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(error);
   }
 
-  try {
-    let response: AxiosResponse;
-    switch (contentType) {
-      case "watchlist":
-        listTitleEl.innerHTML = "Watchlist";
-        response = await axiosInstance.get(`/users/${id}/watchlist`);
-        renderMovies(response.data.data);
-        break;
-      case "likes":
-        listTitleEl.innerHTML = "Likes";
-        response = await axiosInstance.get(`/users/${id}/likes`);
-        renderMovies(response.data.data);
-        break;
-      case "watched":
-        listTitleEl.innerHTML = "Watched";
-        response = await axiosInstance.get(`/users/${id}/watched`);
-        renderMovies(response.data.data);
-        break;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  renderTitle();
+  fetchMovies();
 });
 
-async function sortData(sortParams: string) {
-  let params = new URL(document.location.toString()).searchParams;
-  const id = params.get("id");
-  const contentType = params.get("content");
+function renderTitle() {
+  switch (contentType) {
+    case "watchlist":
+      listTitleEl.innerHTML = "Watchlist";
+      break;
+    case "likes":
+      listTitleEl.innerHTML = "Likes";
+      break;
+    case "watched":
+      listTitleEl.innerHTML = "Watched";
+      break;
+  }
+}
 
+async function fetchMovies(
+  page: number = 1,
+  sortParams: string = "releaseDateDesc",
+) {
   try {
     const response = await axiosInstance.get(
-      `/users/${id}/${contentType}?sortBy=${sortParams}`,
+      `/users/${id}/${contentType}?page=${page}&sortBy=${sortParams}&size=28`,
     );
+
     renderMovies(response.data.data);
+
+    const pagination = {
+      page: response.data.meta.page,
+      totalPages: response.data.meta.totalPages,
+    };
+    renderPagination(pagination);
   } catch (error) {
     console.log(error);
   }
@@ -99,4 +99,26 @@ function renderMovies(data: Array<IFilm>) {
 
     contentEl.appendChild(link);
   });
+}
+
+function renderPagination(pagination: IPagination) {
+  const paginationEl = document.getElementById("pagination") as HTMLDivElement;
+
+  paginationEl.innerHTML = "";
+
+  for (let i = 1; i <= pagination.totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i.toString();
+    pageButton.className =
+      "mx-1 aspect-square px-2 py-1 disabled:opacity-50 hover:bg-[#667788]";
+    pageButton.addEventListener("click", () => changePage(i));
+    if (i === pagination.page) {
+      pageButton.disabled = true;
+    }
+    paginationEl.appendChild(pageButton);
+  }
+}
+
+async function changePage(page: number) {
+  await fetchMovies(page);
 }

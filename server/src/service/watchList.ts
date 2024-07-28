@@ -49,10 +49,14 @@ export async function getWatchList(userId: string, query: GetMoviesQuery) {
 
      const count = await WatchListModel.count(userId, query);
 
+     const { size } = query;
+     const total = +count.count;
+
      const meta = {
           page: query.page,
           size: data.length,
-          total: +count.count,
+          total,
+          totalPages: Math.ceil(total / size!),
      };
 
      return { meta, data };
@@ -63,10 +67,14 @@ export async function getWatchedMovies(userId: string, query: GetMoviesQuery) {
 
      const count = await WatchListModel.countWatchedMovies(userId, query);
 
+     const { size } = query;
+     const total = +count.count;
+
      const meta = {
           page: query.page,
           size: data.length,
-          total: +count.count,
+          total,
+          totalPages: Math.ceil(total / size!),
      };
 
      return { meta, data };
