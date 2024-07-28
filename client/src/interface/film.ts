@@ -9,3 +9,8 @@ export interface IFilm {
   ratingCount: string;
   rating: number;
 }
+
+export interface IPagination {
+  page: number;
+  totalPages: number;
+}
