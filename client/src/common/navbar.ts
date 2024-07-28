@@ -16,11 +16,15 @@ const loginForm = document.getElementById("login-form") as HTMLFormElement;
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+// nav links
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
-const watchlistEl = document.getElementById(
+const watchlistLink = document.getElementById(
   "watchlist-link",
 ) as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
+
+const nonUserElements = document.querySelectorAll(".non-user");
+const userElements = document.querySelectorAll(".user");
 
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
@@ -55,13 +59,14 @@ searchIconEl.addEventListener("click", () => {
   searchBody.classList.toggle("hidden");
 });
 
-const nonUserElements = document.querySelectorAll(".non-user");
-const userElements = document.querySelectorAll(".user");
-
 window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
+
+    filmsEl.href = `../userFilms/?id=${response.data.data.id}&content=watched`;
+    watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

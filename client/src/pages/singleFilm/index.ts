@@ -1,90 +1,20 @@
-import axiosInstance from "../../axios";
-import { AxiosError } from "axios";
-import { displayErrors } from "../../utils/displayError";
 import { IFilm } from "../../interface/film";
 import { convertRating, extractYear } from "../../utils/formatter";
-
-const loginIconEl = document.getElementById("login-icon") as HTMLElement;
-const searchIconEl = document.getElementById("search-icon") as HTMLElement;
-
-const loginBody = document.getElementById("login-body") as HTMLElement;
-const loginErrorContainer = document.querySelector(
-  ".login-error-container",
-) as HTMLDivElement;
-const searchBody = document.getElementById("search-body") as HTMLElement;
-
-const loginForm = document.getElementById("login-form") as HTMLFormElement;
+import axiosInstance from "../../axios";
 
 const movieDetailsEl = document.getElementById(
   "movie-details",
 ) as HTMLDivElement;
 
-const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
-const navbarEl = document.getElementById("navbar") as HTMLDivElement;
-
-// nav links
-const watchlistLink = document.getElementById(
-  "watchlist-link",
-) as HTMLAnchorElement;
-const filmsEl = document.getElementById("films") as HTMLAnchorElement;
-const likesEl = document.getElementById("likes") as HTMLAnchorElement;
-
-loginIconEl.addEventListener("click", () => {
-  if (!searchBody.classList.contains("hidden")) {
-    searchBody.classList.add("hidden");
-  }
-
-  if (!navbarEl.classList.contains("hidden")) {
-    navbarEl.classList.add("hidden");
-  }
-
-  loginBody.classList.toggle("hidden");
-});
-
-navbarOpenEl.addEventListener("click", () => {
-  navbarEl.classList.toggle("hidden");
-  if (!loginBody.classList.contains("hidden")) {
-    loginBody.classList.add("hidden");
-  }
-  if (!searchBody.classList.contains("hidden")) {
-    searchBody.classList.add("hidden");
-  }
-});
-
-searchIconEl.addEventListener("click", () => {
-  if (!loginBody.classList.contains("hidden")) {
-    loginBody.classList.add("hidden");
-  }
-  if (!navbarEl.classList.contains("hidden")) {
-    navbarEl.classList.add("hidden");
-  }
-
-  searchBody.classList.toggle("hidden");
-});
-
-const nonUserElements = document.querySelectorAll(".non-user");
-const userElements = document.querySelectorAll(".user");
-
 let isUserLoggedIn = false;
 
-window.onload = async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
-
     isUserLoggedIn = true;
-
-    filmsEl.href = `../userFilms/?id=${response.data.data.id}&content=watched`;
-    watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
-
-    userElements.forEach((el) => {
-      el.classList.remove("hidden");
-    });
   } catch (error) {
-    nonUserElements.forEach((el) => {
-      el.classList.remove("hidden");
-    });
+    console.log(error);
   }
 
   try {
@@ -230,7 +160,7 @@ window.onload = async () => {
   } catch (error) {
     console.log("here");
   }
-};
+});
 
 function renderMovieDetails(data: IFilm) {
   let {
@@ -390,24 +320,3 @@ function removeFromWatchList(movieId: string) {
   const loggedUser = JSON.parse(localStorage.getItem("user") as string);
   axiosInstance.delete(`/users/${loggedUser.id}/watchlist/${movieId}`);
 }
-
-loginForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const target = event.target as HTMLFormElement;
-
-  const formData = {
-    email: target.loginEmail.value,
-    password: target.loginPassword.value,
-  };
-
-  try {
-    const response = await axiosInstance.post("/auth/login", formData);
-    localStorage.setItem("token", response.data.data.accessToken);
-    loginBody.classList.toggle("hidden");
-    location.reload();
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      displayErrors(error.response.data.message, loginErrorContainer);
-    }
-  }
-});
