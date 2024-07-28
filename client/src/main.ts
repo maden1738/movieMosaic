@@ -91,9 +91,9 @@ window.onload = async () => {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    filmsEl.href = `./src/pages/films/?id=${response.data.data.id}&content=watched`;
-    watchlistLink.href = `./src/pages/films/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `./src/pages/films/?id=${response.data.data.id}&content=likes`;
+    filmsEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watched`;
+    watchlistLink.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

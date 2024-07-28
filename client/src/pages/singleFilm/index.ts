@@ -74,9 +74,9 @@ window.onload = async () => {
 
     isUserLoggedIn = true;
 
-    filmsEl.href = `../films/?id=${response.data.data.id}&content=watched`;
-    watchlistLink.href = `../films/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `../films/?id=${response.data.data.id}&content=likes`;
+    filmsEl.href = `../userFilms/?id=${response.data.data.id}&content=watched`;
+    watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
+    likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
