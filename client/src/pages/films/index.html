@@ -141,6 +141,102 @@
         </div>
       </div>
     </div>
+
+    <section class="wrapper pt-4">
+      <div class="flex flex-col items-center gap-2">
+        <div class="text-sm text-text">FIND A FILM</div>
+        <input
+          type="text"
+          class="bg-[#2c3440] p-2 shadow-lg focus:bg-white focus:text-black"
+        />
+      </div>
+    </section>
+
+    <main class="wrapper">
+      <div class="mt-14 flex items-center justify-between text-sm text-text">
+        <div>Films</div>
+        <!-- sortby -->
+        <div class="relative">
+          <i
+            id="sort-open"
+            class="fa-solid fa-sliders cursor-pointer text-subText hover:text-white"
+          ></i>
+          <!-- sort by modal -->
+          <section
+            id="sort-modal"
+            class="absolute bottom-[-10px] right-0 hidden translate-y-[100%] overflow-hidden rounded-lg bg-text text-sm text-secondary"
+          >
+            <div class="p-2 text-white">Sort by</div>
+            <div class="mb-2 h-[1px] bg-[#324654]"></div>
+            <ul class="">
+              <li
+                class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                data-params="filmName"
+              >
+                Film Name
+              </li>
+              <li class="px-2 py-1 text-xs text-secondary">
+                Film Popularity
+                <ul class="px-4">
+                  <li
+                    class="sort-link cursor-pointer whitespace-nowrap px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="popularityDesc"
+                  >
+                    Highest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="popularityAsc"
+                  >
+                    Lowest First
+                  </li>
+                </ul>
+              </li>
+
+              <li class="px-2 py-1 text-xs text-secondary">
+                Release Date
+                <ul class="pl-4">
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="releaseDateDesc"
+                  >
+                    Newest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="releaseDateAsc"
+                  >
+                    Earliest First
+                  </li>
+                </ul>
+              </li>
+              <li class="px-2 py-1 text-xs text-secondary">
+                Average Rating
+                <ul class="pl-4">
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="ratingDesc"
+                  >
+                    Highest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="ratingAsc"
+                  >
+                    Lowest First
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <div class="wrapper my-2 h-[1px] bg-[#324654]"></div>
+
+      <div id="content" class="grid grid-cols-3 gap-2"></div>
+    </main>
+
     <script type="module" defer src="../../common/navbar.ts"></script>
     <script type="module" defer src="./index.ts"></script>
   </body>

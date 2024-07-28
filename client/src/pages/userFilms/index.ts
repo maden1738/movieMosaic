@@ -30,23 +30,7 @@ sortLinks.forEach((el) => {
   });
 });
 
-const nonUserElements = document.querySelectorAll(".non-user");
-const userElements = document.querySelectorAll(".user");
-
 document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const response = await axiosInstance.get("/users/me");
-    localStorage.setItem("user", JSON.stringify(response.data.data));
-
-    userElements.forEach((el) => {
-      el.classList.remove("hidden");
-    });
-  } catch (error) {
-    nonUserElements.forEach((el) => {
-      el.classList.remove("hidden");
-    });
-  }
-
   let params = new URL(document.location.toString()).searchParams;
   const id = params.get("id");
   const contentType = params.get("content");
