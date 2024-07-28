@@ -10,7 +10,8 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="bg-secondary font-lato">
+  <body class="bg-background font-lato">
+    <!-- navbar -->
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
     >
@@ -142,6 +143,18 @@
     </div>
 
     <div id="movie-details"></div>
+
+    <!-- recent reviews -->
+    <section class="wrapper mt-16 text-sm text-text">
+      <div class="flex justify-between">
+        <div class="uppercase">Recent Reviews</div>
+        <a href="#" class="uppercase hover:text-blue">More</a>
+      </div>
+
+      <div class="my-1 border-[0.25px] border-[#8ea4b4]"></div>
+
+      <div id="recent-reviews"></div>
+    </section>
 
     <script type="module" defer src="../../common/navbar.ts"></script>
     <script type="module" defer src="./index.ts"></script>

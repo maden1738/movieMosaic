@@ -48,7 +48,7 @@ export class MoviesModel extends BaseModel {
      }
 
      static async count(query: GetMoviesQuery) {
-          logger.info("getMovies");
+          logger.info("count");
 
           const { q } = query;
 

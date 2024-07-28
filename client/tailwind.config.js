@@ -12,6 +12,7 @@ export default {
         accent: "#05ab1e",
         accent2: "#42bcf5",
         orange: "#F27405",
+        blue: "#40bcf4",
         text: "#99AABB",
         subText: "#8899AA",
       },

@@ -61,10 +61,11 @@ export async function getReviews(
      next: NextFunction
 ) {
      try {
-          const { id: filmId } = req.params;
-          const data = await MoviesService.getReviews(+filmId);
+          const { id } = req.params;
+          const { query } = req;
+          const data = await MoviesService.getReviews(+id, query);
 
-          res.status(HttpStatusCode.OK).json({ data });
+          res.status(HttpStatusCode.OK).json(data);
      } catch (error) {
           next(error);
      }

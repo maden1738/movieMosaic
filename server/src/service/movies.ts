@@ -1,6 +1,6 @@
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
-import { Review } from "../interface/reviews";
+import { GetReviewsQuery, Review } from "../interface/reviews";
 import { MoviesModel } from "../model/movies";
 import loggerWithNameSpace from "../utils/logger";
 import * as ReviewsService from "../service/reviews";
@@ -45,8 +45,8 @@ export async function createReviews(
 ) {
      await ReviewsService.createReviews(filmId, userId, review);
 }
-export async function getReviews(filmId: number) {
-     return await ReviewsService.getReviews(filmId);
+export async function getReviews(filmId: number, query: GetReviewsQuery) {
+     return await ReviewsService.getReviews(filmId, query);
 }
 
 export async function updateReview(

@@ -1,6 +1,8 @@
-import { Review } from "../interface/reviews";
+import { query } from "express";
+import { GetReviewsQuery, Review } from "../interface/reviews";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
+import { GetMoviesQuery } from "../interface/movies";
 
 const logger = loggerWithNameSpace("reviewsModel");
 
@@ -17,8 +19,11 @@ export class ReviewsModel extends BaseModel {
           await this.queryBuilder().insert(dataToBeInserted).table("review");
      }
 
-     static async getByFilmId(filmId: number) {
+     static async getByFilmId(filmId: number, query: GetReviewsQuery) {
           logger.info("getReviewByFilmId");
+
+          const { size, page, sortBy } = query;
+
           const data = this.queryBuilder()
                .select(
                     "review.id as reviewId",
@@ -30,8 +35,28 @@ export class ReviewsModel extends BaseModel {
                )
                .table("user")
                .join("review", "user.id", "review.reviewedBy")
-               .where("review.filmId", filmId);
-          return await data;
+               .where("review.filmId", filmId)
+               .limit(size!)
+               .offset((page! - 1) * size!);
+
+          if (sortBy === "createdDesc") {
+               data.orderBy("review.createdAt");
+          }
+
+          return data;
+     }
+
+     static async count(filmId: number) {
+          logger.info("count");
+
+          const data = this.queryBuilder()
+               .count("*")
+               .table("user")
+               .join("review", "user.id", "review.reviewedBy")
+               .where("review.filmId", filmId)
+               .first();
+
+          return data;
      }
 
      static async getById(reviewId: number) {

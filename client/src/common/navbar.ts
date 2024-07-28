@@ -73,6 +73,7 @@ window.onload = async () => {
     });
   } catch (error) {
     nonUserElements.forEach((el) => {
+      localStorage.clear();
       el.classList.remove("hidden");
     });
   }

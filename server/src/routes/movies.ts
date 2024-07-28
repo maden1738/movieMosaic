@@ -9,7 +9,7 @@ import {
      updateReview,
 } from "../controller/movies";
 import { authenticate } from "../middleware/auth";
-import { CreateReviewSchema } from "../schema/reviews";
+import { CreateReviewSchema, getReviewSchema } from "../schema/reviews";
 
 const router = express();
 
@@ -23,7 +23,7 @@ router.post(
      authenticate,
      createReviews
 );
-router.get("/:id/reviews", getReviews);
+router.get("/:id/reviews", validateReqQuery(getReviewSchema), getReviews);
 router.put("/:id/reviews/:reviewId", authenticate, updateReview);
 
 export default router;

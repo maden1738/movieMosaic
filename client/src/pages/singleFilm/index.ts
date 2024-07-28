@@ -1,6 +1,7 @@
 import { IFilm } from "../../interface/film";
 import { convertRating, extractYear } from "../../utils/formatter";
 import axiosInstance from "../../axios";
+import { IReview } from "../../interface/review";
 
 const movieDetailsEl = document.getElementById(
   "movie-details",
@@ -8,7 +9,11 @@ const movieDetailsEl = document.getElementById(
 
 let isUserLoggedIn = false;
 
+let params = new URL(document.location.toString()).searchParams;
+const id = params.get("id");
+
 document.addEventListener("DOMContentLoaded", async () => {
+  // checking if user is logged in
   try {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
@@ -22,12 +27,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     let watchedStatus = false;
     let watchListStatus = false;
 
-    let params = new URL(document.location.toString()).searchParams;
-    const id = params.get("id");
-
     const response = await axiosInstance.get(`/movies/${id}`);
     const filmId = response.data.data.id;
 
+    // get film status for logged in user
     if (isUserLoggedIn) {
       const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
       likedStatus = filmStatus.data.data.likedStatus;
@@ -160,6 +163,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.log("here");
   }
+
+  fetchRecentReviews();
 });
 
 function renderMovieDetails(data: IFilm) {
@@ -289,6 +294,52 @@ function renderMovieDetails(data: IFilm) {
         </div>
       </div>
     </section>`;
+}
+
+async function fetchRecentReviews() {
+  try {
+    const response = await axiosInstance.get(`/movies/${id}/reviews/?size=3`);
+
+    renderRecentReviews(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderRecentReviews(data: Array<IReview>) {
+  const recentReviewEl = document.getElementById(
+    "recent-reviews",
+  ) as HTMLDivElement;
+
+  recentReviewEl.innerHTML = "";
+
+  data.forEach((review) => {
+    const divEl = document.createElement("div");
+    divEl.innerHTML = `<section class="py-4">
+          <div class="flex items-center gap-1 text-sm text-subText">
+            <div class="aspect-square w-[18px] overflow-hidden rounded-full">
+              <img
+                src="/vite.svg"
+                alt="profile picture"
+                id="profile-picture
+                class="h-full "
+              />
+            </div>
+            <span class="pl-1">Review By </span>
+            <span id="username" class="font-semibold capitalize text-subText"
+              >${review.name}</span
+            >
+            <span class="pl-1 font-bold text-accent" id="rating">${review.rating}</span>
+            <!-- review content -->
+          </div>
+          <div class="mt-2 text-base text-subText" id="content">
+            <p>${review.content}</p>
+          </div>
+        </section>
+        <div class="border-[0.1px] border-[#8ea4b4]"></div>`;
+
+    recentReviewEl.appendChild(divEl);
+  });
 }
 
 function addToWatchedList(movieId: string) {
