@@ -21,6 +21,9 @@ export class MoviesModel extends BaseModel {
           }
 
           switch (sortBy) {
+               case "filmName":
+                    data.orderBy("title");
+                    break;
                case "releaseDateAsc":
                     data.orderBy("releaseDate", "asc");
                     break;
@@ -36,12 +39,7 @@ export class MoviesModel extends BaseModel {
                case "popularityDesc":
                     data.orderBy("popularity", "desc");
                     break;
-               case "whenAddedAsc":
-                    data.orderBy("createdAt", "asc");
-                    break;
-               case "whenAddedDesc":
-                    data.orderBy("createdAt", "desc");
-                    break;
+
                default:
                     data.orderBy("releaseDate", "desc");
           }

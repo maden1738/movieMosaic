@@ -42,6 +42,9 @@ export class WatchListModel extends BaseModel {
           }
 
           switch (sortBy) {
+               case "filmName":
+                    data.orderBy("title");
+                    break;
                case "releaseDateAsc":
                     data.orderBy("releaseDate", "asc");
                     break;
@@ -113,6 +116,9 @@ export class WatchListModel extends BaseModel {
           }
 
           switch (sortBy) {
+               case "filmName":
+                    data.orderBy("title");
+                    break;
                case "releaseDateAsc":
                     data.orderBy("releaseDate", "asc");
                     break;
@@ -129,10 +135,10 @@ export class WatchListModel extends BaseModel {
                     data.orderBy("popularity", "desc");
                     break;
                case "whenAddedAsc":
-                    data.orderBy("createdAt", "asc");
+                    data.orderBy("watchList.createdAt", "asc");
                     break;
                case "whenAddedDesc":
-                    data.orderBy("createdAt", "desc");
+                    data.orderBy("watchList.createdAt", "desc");
                     break;
                default:
                     data.orderBy("releaseDate", "desc");

@@ -144,16 +144,104 @@
       <!-- sort by -->
       <div class="mt-4 flex justify-between text-xs text-accent">
         <div id="list-title" class="uppercase"></div>
-        <i class="fa-solid fa-sliders cursor-pointer text-subText"></i>
+        <div class="relative">
+          <i
+            id="sort-open"
+            class="fa-solid fa-sliders cursor-pointer text-subText hover:text-white"
+          ></i>
+          <!-- sort by modal -->
+          <section
+            id="sort-modal"
+            class="absolute bottom-[-10px] right-0 hidden translate-y-[100%] overflow-hidden rounded-lg bg-text text-sm text-secondary"
+          >
+            <div class="p-2 text-white">Sort by</div>
+            <div class="mb-2 h-[1px] bg-[#324654]"></div>
+            <ul class="">
+              <li
+                class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                data-params="filmName"
+              >
+                Film Name
+              </li>
+              <li class="px-2 py-1 text-xs text-secondary">
+                Film Popularity
+                <ul class="px-4">
+                  <li
+                    class="sort-link cursor-pointer whitespace-nowrap px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="popularityDesc"
+                  >
+                    Highest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="popularityAsc"
+                  >
+                    Lowest First
+                  </li>
+                </ul>
+              </li>
+
+              <li class="px-2 py-1 text-xs text-secondary">
+                When Added
+                <ul class="pl-4">
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="whenAddedDesc"
+                  >
+                    Newest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="whenAddedAsc"
+                  >
+                    Earliest First
+                  </li>
+                </ul>
+              </li>
+
+              <li class="px-2 py-1 text-xs text-secondary">
+                Release Date
+                <ul class="pl-4">
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="releaseDateDesc"
+                  >
+                    Newest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="releaseDateAsc"
+                  >
+                    Earliest First
+                  </li>
+                </ul>
+              </li>
+              <li class="px-2 py-1 text-xs text-secondary">
+                Average Rating
+                <ul class="pl-4">
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="ratingDesc"
+                  >
+                    Highest First
+                  </li>
+                  <li
+                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
+                    data-params="ratingAsc"
+                  >
+                    Lowest First
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </div>
       </div>
-      <div class="my-2 h-[1px] bg-[#324654]"></div>
+
+      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
 
       <!-- grid of movies -->
-      <div class="grid grid-cols-4 gap-2" id="content">
-        <!-- <div>
-          <img src="/pastlives.png" alt="poster" />
-        </div> -->
-      </div>
+      <div class="grid grid-cols-4 gap-2" id="content"></div>
     </section>
     <script type="module" defer src="./index.ts"></script>
   </body>

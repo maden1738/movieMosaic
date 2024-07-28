@@ -10,7 +10,6 @@ import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
-import { query } from "express";
 
 const logger = loggerWithNameSpace("UserService");
 

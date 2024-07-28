@@ -22,6 +22,7 @@ const movieDetailsEl = document.getElementById(
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+// nav links
 const watchlistLink = document.getElementById(
   "watchlist-link",
 ) as HTMLAnchorElement;
@@ -73,7 +74,7 @@ window.onload = async () => {
 
     isUserLoggedIn = true;
 
-    filmsEl.href = `../films/?id=${response.data.data.id}/content=watched`;
+    filmsEl.href = `../films/?id=${response.data.data.id}&content=watched`;
     watchlistLink.href = `../films/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `../films/?id=${response.data.data.id}&content=likes`;
 

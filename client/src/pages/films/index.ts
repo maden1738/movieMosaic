@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "../../axios";
 import { displayErrors } from "../../utils/displayError";
 import { IFilm } from "../../interface/film";
@@ -28,6 +28,13 @@ const watchlistLink = document.getElementById(
 ) as HTMLAnchorElement;
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
+
+// sort by modal
+const sortByIconEl = document.getElementById("sort-open") as HTMLElement;
+const sortByModal = document.getElementById("sort-modal") as HTMLElement;
+const sortLinks = document.querySelectorAll(
+  ".sort-link",
+) as NodeListOf<Element>;
 
 loginIconEl.addEventListener("click", () => {
   if (!searchBody.classList.contains("hidden")) {
@@ -60,6 +67,22 @@ searchIconEl.addEventListener("click", () => {
   }
 
   searchBody.classList.toggle("hidden");
+});
+
+// open and close sort by modal
+sortByIconEl.addEventListener("click", () => {
+  sortByModal.classList.toggle("hidden");
+});
+
+// handle sort by params
+sortLinks.forEach((el) => {
+  el.addEventListener("click", (event) => {
+    const sortParams = (event.target as HTMLElement).dataset.params!;
+    sortData(sortParams);
+
+    // closing sortBy modal
+    sortByModal.classList.toggle("hidden");
+  });
 });
 
 const nonUserElements = document.querySelectorAll(".non-user");
@@ -120,28 +143,46 @@ window.onload = async () => {
   }
 
   try {
-    let response;
+    let response: AxiosResponse;
     switch (contentType) {
       case "watchlist":
         listTitleEl.innerHTML = "Watchlist";
         response = await axiosInstance.get(`/users/${id}/watchlist`);
+        renderMovies(response.data.data);
         break;
       case "likes":
         listTitleEl.innerHTML = "Likes";
         response = await axiosInstance.get(`/users/${id}/likes`);
+        renderMovies(response.data.data);
         break;
-      default:
+      case "watched":
         listTitleEl.innerHTML = "Watched";
         response = await axiosInstance.get(`/users/${id}/watched`);
+        renderMovies(response.data.data);
+        break;
     }
-
-    renderMovies(response.data.data);
   } catch (error) {
     console.log(error);
   }
 };
 
+async function sortData(sortParams: string) {
+  let params = new URL(document.location.toString()).searchParams;
+  const id = params.get("id");
+  const contentType = params.get("content");
+
+  try {
+    const response = await axiosInstance.get(
+      `/users/${id}/${contentType}?sortBy=${sortParams}`,
+    );
+    renderMovies(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function renderMovies(data: Array<IFilm>) {
+  contentEl.innerHTML = "";
   data.forEach((film) => {
     const link = document.createElement("a");
     link.href = `../singleFilm/?id=${parseInt(film.id)}`;
