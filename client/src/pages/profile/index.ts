@@ -2,6 +2,7 @@ import axiosInstance from "../../axios";
 import { IFilm } from "../../interface/film";
 import { IReviewWithFilm } from "../../interface/review";
 import { extractDate, extractYear } from "../../utils/formatter";
+import { IUser } from "../../interface/user";
 
 const profileUserNameEl = document.getElementById(
   "profile-user-name",
@@ -17,14 +18,35 @@ const followersEl = document.getElementById("followers") as HTMLDivElement;
 const followingEl = document.getElementById("following") as HTMLDivElement;
 const filmsLink = document.getElementById("films-link") as HTMLAnchorElement;
 const reviewsEl = document.getElementById("recent-reviews") as HTMLDivElement;
+const editProfile = document.getElementById(
+  "edit-profile",
+) as HTMLButtonElement;
+const followBtn = document.getElementById("follow-btn") as HTMLButtonElement;
 // const followersLink = document.getElementById(
 //   "followers-link",
 // ) as HTMLAnchorElement;
 // const followingLink = document.getElementById("following-link");
 
-document.addEventListener("DOMContentLoaded", () => {
+let params = new URL(document.location.toString()).searchParams;
+const id = params.get("id");
+watchedLink.href = `../userFilms/?id=${id}&content=watched`;
+let followingStatus = false;
+
+document.addEventListener("DOMContentLoaded", async () => {
   filmsLink.href = `../userFilms/?id=${id}&content=watched`;
 
+  const user = JSON.parse(localStorage.getItem("user") as string);
+
+  if (user.id && user.id === id) {
+    editProfile.classList.remove("hidden");
+  }
+
+  if (user.id && user.id != id) {
+    followBtn.classList.remove("hidden");
+    followingStatus = await isFollowingUser(user.id, id!);
+  }
+
+  renderFollowButton();
   displayUserName();
   fetchNoOfFollowers();
   fetchNoOfFollowing();
@@ -32,15 +54,30 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchRecentReviews();
 });
 
-let params = new URL(document.location.toString()).searchParams;
-const id = params.get("id");
-console.log(id);
-watchedLink.href = `../userFilms/?id=${id}&content=watched`;
+followBtn.addEventListener("click", async () => {
+  if (followingStatus) {
+    await axiosInstance.delete(`/users/${id}/follow`);
+  } else {
+    await axiosInstance.post(`users/${id}/follow`);
+  }
+  followingStatus = !followingStatus;
+  renderFollowButton();
+});
 
-function displayUserName() {
-  const user = JSON.parse(localStorage.getItem("user") as string);
-  if (user) {
-    profileUserNameEl.innerHTML = user.name;
+async function displayUserName() {
+  const response = await axiosInstance.get(`/users/${id}`);
+  profileUserNameEl.innerHTML = response.data.data.name;
+}
+
+async function isFollowingUser(userId: string, followingId: string) {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}/follow`);
+
+    const followingList = response.data.data;
+
+    return followingList.some((user: IUser) => user.id === followingId);
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -76,6 +113,14 @@ async function fetchNoOfFollowers() {
 async function fetchNoOfFollowing() {
   const response = await axiosInstance.get(`/users/${id}/follow`);
   renderFollowing(response.data.data.length);
+}
+
+function renderFollowButton() {
+  if (followingStatus) {
+    followBtn.innerHTML = "following";
+  } else {
+    followBtn.innerHTML = "follow";
+  }
 }
 
 function renderFollowers(noOfFollowers: number) {
