@@ -16,7 +16,7 @@ const loginForm = document.getElementById("login-form") as HTMLFormElement;
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
-const userNameEl = document.getElementById("user-name") as HTMLDivElement;
+const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
 
 // nav links
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
@@ -67,10 +67,13 @@ window.onload = async () => {
 
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    filmsEl.href = `../userFilms/?id=${response.data.data.id}&content=watched`;
-    watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
-    userNameEl.innerHTML = `${response.data.data.name}`;
+    const { id, name } = response.data.data;
+
+    filmsEl.href = `../userFilms/?id=${id}&content=watched`;
+    watchlistLink.href = `../userFilms/?id=${id}&content=watchlist`;
+    likesEl.href = `../userFilms/?id=${id}&content=likes`;
+    userNameEl.innerHTML = `${name}`;
+    userNameEl.href = `.././profile/?id=${id}`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
