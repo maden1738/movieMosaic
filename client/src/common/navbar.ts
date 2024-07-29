@@ -16,6 +16,8 @@ const loginForm = document.getElementById("login-form") as HTMLFormElement;
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
+const userNameEl = document.getElementById("user-name") as HTMLDivElement;
+
 // nav links
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const watchlistLink = document.getElementById(
@@ -62,18 +64,19 @@ searchIconEl.addEventListener("click", () => {
 window.onload = async () => {
   try {
     const response = await axiosInstance.get("/users/me");
+
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
     filmsEl.href = `../userFilms/?id=${response.data.data.id}&content=watched`;
     watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
-
+    userNameEl.innerHTML = `${response.data.data.name}`;
     userElements.forEach((el) => {
       el.classList.remove("hidden");
     });
   } catch (error) {
+    localStorage.removeItem("user");
     nonUserElements.forEach((el) => {
-      localStorage.clear();
       el.classList.remove("hidden");
     });
   }

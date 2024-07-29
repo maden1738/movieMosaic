@@ -33,7 +33,7 @@ const popularMoviesContainer = document.querySelector(
 ) as HTMLDivElement;
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
-const introUserEl = document.getElementById("intro-name") as HTMLSpanElement;
+const introUserEl = document.getElementById("intro-name") as HTMLAnchorElement;
 
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
@@ -100,6 +100,7 @@ window.onload = async () => {
     });
 
     introUserEl.innerHTML = response.data.data.name;
+    introUserEl.href = `./src/pages/profile/`;
   } catch (error) {
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");

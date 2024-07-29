@@ -15,6 +15,7 @@ export default {
         blue: "#40bcf4",
         text: "#99AABB",
         subText: "#8899AA",
+        heading: "#d8e0e8",
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],
