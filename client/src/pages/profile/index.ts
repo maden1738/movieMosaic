@@ -22,14 +22,18 @@ const editProfile = document.getElementById(
   "edit-profile",
 ) as HTMLButtonElement;
 const followBtn = document.getElementById("follow-btn") as HTMLButtonElement;
-// const followersLink = document.getElementById(
-//   "followers-link",
-// ) as HTMLAnchorElement;
-// const followingLink = document.getElementById("following-link");
+const followersLink = document.getElementById(
+  "followers-link",
+) as HTMLAnchorElement;
+const followingLink = document.getElementById(
+  "following-link",
+) as HTMLAnchorElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 watchedLink.href = `../userFilms/?id=${id}&content=watched`;
+followersLink.href = `../follow/?id=${id}&content=followers`;
+followingLink.href = `../follow/?id=${id}&content=following`;
 let followingStatus = false;
 
 document.addEventListener("DOMContentLoaded", async () => {

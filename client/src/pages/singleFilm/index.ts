@@ -457,17 +457,17 @@ function renderRecentReviews(data: Array<IReview>) {
     const divEl = document.createElement("div");
     divEl.innerHTML = `<section class="py-4">
           <div class="flex items-center gap-1 text-sm text-subText">
-            <div class="aspect-square w-[18px] overflow-hidden rounded-full">
+            <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
               <img
                 src="/vite.svg"
                 alt="profile picture"
                 id="profile-picture
                 class="h-full "
               />
-            </div>
+            </a>
             <span class="pl-1">Review By </span>
-            <span id="username" class="font-semibold capitalize text-subText"
-              >${review.name}</span
+            <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
+              >${review.name}</a
             >
             <span class="pl-1 font-bold text-accent" id="rating">${review.rating}</span>
             <!-- review content -->

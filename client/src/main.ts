@@ -45,6 +45,8 @@ const watchlistLink = document.getElementById(
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
+const userNameEl = document.getElementById("user-name") as HTMLDivElement;
+
 getStartedEl.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
 });
@@ -94,6 +96,7 @@ window.onload = async () => {
     filmsEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watched`;
     watchlistLink.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=likes`;
+    userNameEl.innerHTML = `${response.data.data.name}`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
