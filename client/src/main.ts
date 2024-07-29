@@ -100,7 +100,7 @@ window.onload = async () => {
     });
 
     introUserEl.innerHTML = response.data.data.name;
-    introUserEl.href = `./src/pages/profile/`;
+    introUserEl.href = `./src/pages/profile/?id=${response.data.data.id}`;
   } catch (error) {
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");

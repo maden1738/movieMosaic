@@ -52,6 +52,7 @@ router.get(
      validateReqQuery(GetMoviesQuerySchema),
      getWatchedMovies
 );
+
 router.delete("/:id/watched/:movieId", authenticate, deleteFromWatchedList);
 router.post(
      "/:id/watched",

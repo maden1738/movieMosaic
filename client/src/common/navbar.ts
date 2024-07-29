@@ -71,6 +71,7 @@ window.onload = async () => {
     watchlistLink.href = `../userFilms/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `../userFilms/?id=${response.data.data.id}&content=likes`;
     userNameEl.innerHTML = `${response.data.data.name}`;
+
     userElements.forEach((el) => {
       el.classList.remove("hidden");
     });

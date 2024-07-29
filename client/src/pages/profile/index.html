@@ -155,7 +155,10 @@
           />
         </div>
         <div class="">
-          <div class="text-xl font-semibold text-white" class="user-name"></div>
+          <div
+            class="text-xl font-semibold text-white"
+            id="profile-user-name"
+          ></div>
           <button
             class="mt-2 rounded-md bg-primary p-2 text-xs font-semibold uppercase text-backgroundLight shadow-lg"
           >
@@ -165,37 +168,22 @@
       </div>
     </section>
 
-    <section class="wrapper grid grid-cols-4">
-      <a href="#" class="group flex flex-col items-center">
-        <div class="text-heading text-xl font-bold">254</div>
-        <div
-          class="text-xs uppercase text-subText group-hover:text-accent2"
-          id="films"
-        >
+    <section class="wrapper grid grid-cols-3">
+      <a href="#" class="group flex flex-col items-center" id="films-link">
+        <div id="no-of-films" class="text-heading text-xl font-bold"></div>
+        <div class="text-xs uppercase text-subText group-hover:text-accent2">
           films
         </div>
       </a>
-      <a href="#" class="group flex flex-col items-center">
-        <div class="text-heading text-xl font-bold" id="films-year">20</div>
+      <a href="#" class="group flex flex-col items-center" id="followers-link">
+        <div class="text-heading text-xl font-bold" id="followers">20</div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
-          This Year
-        </div>
-      </a>
-      <a href="#" class="group flex flex-col items-center">
-        <div class="text-heading text-xl font-bold">20</div>
-        <div
-          class="text-xs uppercase text-subText group-hover:text-accent2"
-          id="followers"
-        >
           Followers
         </div>
       </a>
-      <a href="#" class="group flex flex-col items-center">
-        <div class="text-heading text-xl font-bold">11</div>
-        <div
-          class="text-xs uppercase text-subText group-hover:text-accent2"
-          id="following"
-        >
+      <a href="#" class="group flex flex-col items-center" id="following-link">
+        <div class="text-heading text-xl font-bold" id="following">11</div>
+        <div class="text-xs uppercase text-subText group-hover:text-accent2">
           Following
         </div>
       </a>
@@ -213,6 +201,6 @@
     </section>
 
     <script type="module" src="../../common/navbar.ts"></script>
-    <script type="module" defer src="./index.ts"></script>
+    <script type="module" src="./index.ts"></script>
   </body>
 </html>
