@@ -22,6 +22,7 @@ export default {
       },
       gridTemplateColumns: {
         layout: "40px, 1fr",
+        layout2: "70px 1fr",
       },
     },
   },

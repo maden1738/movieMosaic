@@ -15,6 +15,7 @@ import {
      addWatchedMovies,
      deleteFromWatchedList,
      getUserById,
+     getReviewByUserId,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -80,5 +81,8 @@ router.delete("/:id/follow", authenticate, unfollowUser);
 router.get("/:id/followers", getFollowers);
 // get users that a user is following
 router.get("/:id/follow", getFollowing);
+
+//get all reviews of a user
+router.get("/:id/reviews", getReviewByUserId);
 
 export default router;

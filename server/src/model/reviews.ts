@@ -47,6 +47,30 @@ export class ReviewsModel extends BaseModel {
           return data;
      }
 
+     static async getByUserId(userId: number) {
+          logger.info("getUserById");
+
+          const data = this.queryBuilder()
+               .select(
+                    "review.id as reviewId",
+                    "review.reviewedBy",
+                    "review.content",
+                    "review.rating",
+                    "review.createdAt",
+                    "film.id as filmId",
+                    "film.posterUrl",
+                    "film.title",
+                    "film.releaseDate"
+               )
+               .table("review")
+               .join("film", "review.filmId", "film.id")
+               .orderBy("review.createdAt", "desc")
+               .limit(3)
+               .where("review.reviewedBy", userId);
+
+          return data;
+     }
+
      static async count(filmId: number) {
           logger.info("count");
 

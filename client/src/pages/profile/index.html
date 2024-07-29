@@ -170,19 +170,19 @@
 
     <section class="wrapper grid grid-cols-3">
       <a href="#" class="group flex flex-col items-center" id="films-link">
-        <div id="no-of-films" class="text-heading text-xl font-bold"></div>
+        <div id="no-of-films" class="text-xl font-bold text-heading">200</div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           films
         </div>
       </a>
       <a href="#" class="group flex flex-col items-center" id="followers-link">
-        <div class="text-heading text-xl font-bold" id="followers">20</div>
+        <div class="text-xl font-bold text-heading" id="followers">20</div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           Followers
         </div>
       </a>
       <a href="#" class="group flex flex-col items-center" id="following-link">
-        <div class="text-heading text-xl font-bold" id="following">11</div>
+        <div class="text-xl font-bold text-heading" id="following">11</div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           Following
         </div>
@@ -197,7 +197,18 @@
         >
       </div>
       <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
+
       <div class="grid grid-cols-4 gap-2" id="recent-activity"></div>
+
+      <div class="mt-7 flex justify-between">
+        <div class="text-xs uppercase text-subText">Recent Reviews</div>
+        <a class="text-xs uppercase text-subText" href="#" id="reviews-link"
+          >More</a
+        >
+      </div>
+      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
+      <div id="recent-reviews"></div>
+      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
     </section>
 
     <script type="module" src="../../common/navbar.ts"></script>

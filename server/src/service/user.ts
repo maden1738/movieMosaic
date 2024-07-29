@@ -5,7 +5,7 @@ import { UserModel } from "../model/user";
 import loggerWithNameSpace from "../utils/logger";
 import bcrypt from "bcrypt";
 import * as WatchListService from "./watchList";
-
+import * as ReviewsService from "./reviews";
 import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -106,4 +106,8 @@ export async function getLikedMovies(userId: string, query: GetMoviesQuery) {
 export async function deleteLikedMovies(filmId: string, userId: string) {
      logger.info("deleteLikedMovies");
      await LikedMoviesService.deleteLikedMovies(filmId, userId);
+}
+
+export async function getReviewByUserId(userId: number) {
+     return await ReviewsService.getReviewByUserId(userId);
 }

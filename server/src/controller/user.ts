@@ -295,3 +295,20 @@ export async function getCurrentUserDetails(
           next(error);
      }
 }
+
+export async function getReviewByUserId(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     try {
+          const { id } = req.params;
+
+          const data = await UserService.getReviewByUserId(+id);
+          res.status(HttpStatusCodes.OK).json({
+               data,
+          });
+     } catch (error) {
+          next(error);
+     }
+}

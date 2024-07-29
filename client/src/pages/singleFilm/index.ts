@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       logpanelEl.classList.add("flex");
 
       likeCheckbox.checked = likedStatus;
+      console.log(likeCheckbox.checked);
 
       renderLogIcon();
     });
@@ -168,7 +169,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    logLikeIcon.addEventListener("click", () => {
+    likeCheckbox.addEventListener("change", () => {
+      console.log(likeCheckbox.checked);
       renderLogIcon();
     });
 
@@ -270,7 +272,7 @@ function renderMovieDetails(data: IFilm) {
 
                   </div>
                   <div>
-                    <label for="like-checkbox">
+                    <label for="likeCheckbox">
                       <div class="flex cursor-pointer flex-col items-center justify-between">
                         <span class="text-xs text-white">Like</span>   
                         <i class="fa-solid fa-heart text-secondary mt-1" id="log-like-icon" ></i>
@@ -279,7 +281,7 @@ function renderMovieDetails(data: IFilm) {
                     <input
                         type="checkbox"
                         id="likeCheckbox"
-                        class="invisible"
+                        class=""
                     />
                   </div>
                 </div>
