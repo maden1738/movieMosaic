@@ -11,6 +11,7 @@ import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
 import { UnauthenticatedError } from "../errors/UnauthenticatedError";
+import { log } from "console";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -48,6 +49,34 @@ export async function updateProfile(
      }
 
      await UserModel.update(id, user);
+}
+
+export async function updatePassword(
+     id: number,
+     user: Pick<User, "currentPassword" | "newPassword">
+) {
+     logger.info("update password");
+
+     const data = await UserModel.getById(id);
+
+     if (!data) {
+          throw new NotFoundError(`user with ${id} not found`);
+     }
+
+     const { password } = await UserModel.getUserByEmail(data.email);
+
+     const isPasswordValid = await bcrypt.compare(
+          user.currentPassword!,
+          password
+     );
+
+     if (!isPasswordValid) {
+          throw new UnauthenticatedError("current passwod doesnot match");
+     }
+
+     const newPassword = await bcrypt.hash(user.newPassword!, 10);
+
+     UserModel.updatePassword(id, { ...user, newPassword });
 }
 
 export async function getUserById(id: number) {

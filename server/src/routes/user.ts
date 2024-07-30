@@ -17,6 +17,7 @@ import {
      getUserById,
      getReviewByUserId,
      updateUser,
+     updatePassword,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -24,7 +25,7 @@ import {
      GetMoviesQuerySchema,
 } from "../schema/movies";
 import { getCurrentUserDetails } from "../controller/user";
-import { updateProfileSchema } from "../schema/user";
+import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
 
 const router = express();
 
@@ -43,7 +44,12 @@ router.put(
      authenticate,
      updateUser
 );
-router.put(":/id/password", authenticate);
+router.put(
+     "/:id/password",
+     validateReqBody(updatePasswordSchema),
+     authenticate,
+     updatePassword
+);
 
 router.get("/me", authenticate, getCurrentUserDetails);
 

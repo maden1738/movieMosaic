@@ -28,6 +28,16 @@ export class UserModel extends BaseModel {
                .where({ id });
      }
 
+     static async updatePassword(
+          id: number,
+          user: Pick<User, "currentPassword" | "newPassword">
+     ) {
+          await this.queryBuilder()
+               .update("password", user.newPassword!)
+               .table("user")
+               .where({ id });
+     }
+
      static async getUserByEmail(email: string) {
           const data = await this.queryBuilder()
                .select("id", "email", "password")
@@ -40,8 +50,6 @@ export class UserModel extends BaseModel {
      }
 
      static async getById(id: number) {
-          console.log(id);
-
           logger.info("getUserById");
           const data = await this.queryBuilder()
                .select("id", "email", "name")
