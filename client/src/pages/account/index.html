@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../../styles.css" />
-    <script
-      src="https://kit.fontawesome.com/b81aca49ba.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
-  <body class="bg-secondary font-lato">
+  <body class="bg-secondary">
     <!-- navbar -->
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
@@ -144,124 +140,100 @@
       </div>
     </div>
 
-    <section class="wrapper">
-      <div class="flex items-center gap-2 pb-2 pt-4">
-        <div class="aspect-square w-[24px] overflow-hidden rounded-full">
-          <img
-            src="/whitebg.avif"
-            alt="profile picture"
-            class="h-full w-full"
+    <main class="wrapper">
+      <h1 class="my-4 text-2xl font-light text-text">Account Settings</h1>
+      <div class="mb-5 mt-1 h-[1px] bg-primaryDark"></div>
+
+      <form autocomplete="off">
+        <div class="flex flex-col gap-2">
+          <label for="update-username" class="text-sm font-semibold text-white"
+            >Username</label
+          >
+          <input
+            name="update-username"
+            id="update-username"
+            type="text"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            value=""
           />
         </div>
-        <div class="username text-sm font-extrabold text-white"></div>
-      </div>
-
-      <!-- sort by -->
-      <div class="mt-4 flex justify-between text-xs text-accent">
-        <div id="list-title" class="uppercase"></div>
-        <div class="relative">
-          <i
-            id="sort-open"
-            class="fa-solid fa-sliders cursor-pointer text-subText hover:text-white"
-          ></i>
-          <!-- sort by modal -->
-          <section
-            id="sort-modal"
-            class="absolute bottom-[-10px] right-0 hidden translate-y-[100%] overflow-hidden rounded-lg bg-text text-sm text-secondary"
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="update-email" class="text-sm font-semibold text-white"
+            >Email Address</label
           >
-            <div class="p-2 text-white">Sort by</div>
-            <div class="mb-2 h-[1px] bg-[#324654]"></div>
-            <ul class="">
-              <li
-                class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                data-params="filmName"
-              >
-                Film Name
-              </li>
-              <li class="px-2 py-1 text-xs text-secondary">
-                Film Popularity
-                <ul class="px-4">
-                  <li
-                    class="sort-link cursor-pointer whitespace-nowrap px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="popularityDesc"
-                  >
-                    Highest First
-                  </li>
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="popularityAsc"
-                  >
-                    Lowest First
-                  </li>
-                </ul>
-              </li>
-
-              <li class="px-2 py-1 text-xs text-secondary">
-                When Added
-                <ul class="pl-4">
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="whenAddedDesc"
-                  >
-                    Newest First
-                  </li>
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="whenAddedAsc"
-                  >
-                    Earliest First
-                  </li>
-                </ul>
-              </li>
-
-              <li class="px-2 py-1 text-xs text-secondary">
-                Release Date
-                <ul class="pl-4">
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="releaseDateDesc"
-                  >
-                    Newest First
-                  </li>
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="releaseDateAsc"
-                  >
-                    Earliest First
-                  </li>
-                </ul>
-              </li>
-              <li class="px-2 py-1 text-xs text-secondary">
-                Average Rating
-                <ul class="pl-4">
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="ratingDesc"
-                  >
-                    Highest First
-                  </li>
-                  <li
-                    class="sort-link cursor-pointer px-2 py-1 text-xs text-secondary hover:text-white"
-                    data-params="ratingAsc"
-                  >
-                    Lowest First
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </section>
+          <input
+            id="update-email"
+            type="email"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
         </div>
-      </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="update-bio" class="text-sm font-semibold text-white"
+            >Bio</label
+          >
+          <textarea
+            id="update-bio"
+            type="text"
+            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          ></textarea>
+        </div>
 
-      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
+        <h2 class="mt-4 text-xl font-light text-text">Password</h2>
+        <div class="mb-4 mt-1 h-[1px] bg-primaryDark"></div>
 
-      <!-- grid of movies -->
-      <div class="grid grid-cols-4 gap-2" id="content"></div>
-      <div
-        class="my-6 flex justify-center text-xs text-subText"
-        id="pagination"
-      ></div>
-    </section>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="current-password" class="text-sm font-semibold text-white"
+            >Current Password</label
+          >
+          <input
+            id="current-password"
+            type="password"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="new-password" class="text-sm font-semibold text-white"
+            >New Password</label
+          >
+          <input
+            id="new-password"
+            type="password"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="confirm-password" class="text-sm font-semibold text-white"
+            >Confirm Password</label
+          >
+          <input
+            id="confirm-password"
+            type="password"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+
+        <h2 class="mt-4 text-xl font-light text-text">Avatar</h2>
+        <div class="mb-4 mt-1 h-[1px] bg-primaryDark"></div>
+
+        <label
+          class="mb-2 block text-sm font-medium dark:text-white"
+          for="new-avatar"
+          >New Avatar</label
+        >
+        <input
+          class="mb-5 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+          id="new-avatar"
+          type="file"
+        />
+
+        <button
+          class="mt-5 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+        >
+          SAVE Changes
+        </button>
+      </form>
+    </main>
+
     <script type="module" src="../../common/navbar.ts"></script>
     <script type="module" defer src="./index.ts"></script>
   </body>
