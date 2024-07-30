@@ -17,3 +17,8 @@ export interface IUpdateUserProfile {
   bio: string;
   email: string;
 }
+
+export interface IUpdatePassword {
+  currentPassword: string;
+  newPassword: string;
+}

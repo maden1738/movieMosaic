@@ -214,6 +214,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
+    /**
+     * The function `renderLogIcon` changes the color of an icon based on the state of a checkbox.
+     */
     function renderLogIcon() {
       if (likeCheckbox.checked) {
         logLikeIcon.style.color = "#F27405";
@@ -242,7 +245,8 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML = `<section class = "relative">
+  movieDetailsEl.innerHTML = `  
+  <section class = "relative">
         <div class="fixed inset-0 z-20 bg-black bg-opacity-55  hidden justify-center items-center" id="logpanel">
       <section class="wrapper relative">
         <div class="relative w-full rounded-lg bg-primary p-3 shadow-lg">
