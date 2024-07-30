@@ -24,7 +24,7 @@ const filmsLink = document.getElementById("films-link") as HTMLAnchorElement;
 const reviewsEl = document.getElementById("recent-reviews") as HTMLDivElement;
 const editProfile = document.getElementById(
   "edit-profile",
-) as HTMLButtonElement;
+) as HTMLAnchorElement;
 const followBtn = document.getElementById("follow-btn") as HTMLButtonElement;
 const followersLink = document.getElementById(
   "followers-link",
@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (user.id && user.id === id) {
     editProfile.classList.remove("hidden");
+    editProfile.href = `../account/?id=${id}`;
   }
 
   if (user.id && user.id != id) {

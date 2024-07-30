@@ -38,3 +38,17 @@ export const SignupSchema = Joi.object({
       return value;
     }),
 });
+
+export const updateProfileSchema = Joi.object({
+  name: Joi.string().required().messages({
+    "any.required": "name is required",
+  }),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      "any.required": "email is required",
+      "string.email": "email must be in valid format",
+    }),
+  bio: Joi.string().required(),
+});

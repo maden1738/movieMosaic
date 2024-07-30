@@ -146,53 +146,48 @@
 
       <form autocomplete="off" id="profile-form">
         <div class="flex flex-col gap-2">
-          <label for="update-username" class="text-sm font-semibold text-white"
+          <label for="username" class="text-sm font-semibold text-white"
             >Username</label
           >
           <input
-            name="update-username"
-            id="update-username"
+            id="username"
             type="text"
             class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
-          <label for="update-email" class="text-sm font-semibold text-white"
+          <label for="email" class="text-sm font-semibold text-white"
             >Email Address</label
           >
           <input
-            id="update-email"
+            id="email"
             type="email"
             class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
-          <label for="update-bio" class="text-sm font-semibold text-white"
-            >Bio</label
-          >
+          <label for="bio" class="text-sm font-semibold text-white">Bio</label>
           <textarea
-            id="update-bio"
+            id="bio"
             type="text"
             class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
           ></textarea>
         </div>
 
-        <h2 class="mt-4 text-xl font-light text-text">Avatar</h2>
-        <div class="mb-4 mt-1 h-[1px] bg-primaryDark"></div>
-
         <label
-          class="mb-2 block text-sm font-medium dark:text-white"
+          class="mb-2 mt-5 block text-sm font-medium dark:text-white"
           for="new-avatar"
           >New Avatar</label
         >
         <input
-          class="mb-5 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+          class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
           id="new-avatar"
           type="file"
         />
+        <div class="h-8" id="profile-error-container"></div>
 
         <button
-          class="mt-5 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
         >
           SAVE Changes
         </button>
