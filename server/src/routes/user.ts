@@ -16,6 +16,7 @@ import {
      deleteFromWatchedList,
      getUserById,
      getReviewByUserId,
+     updateUser,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -23,6 +24,7 @@ import {
      GetMoviesQuerySchema,
 } from "../schema/movies";
 import { getCurrentUserDetails } from "../controller/user";
+import { updateProfileSchema } from "../schema/user";
 
 const router = express();
 
@@ -33,6 +35,15 @@ router.post(
      authenticate,
      addToWatchList
 );
+
+// update user
+router.put(
+     "/:id/profile",
+     validateReqBody(updateProfileSchema),
+     authenticate,
+     updateUser
+);
+router.put(":/id/password", authenticate);
 
 router.get("/me", authenticate, getCurrentUserDetails);
 

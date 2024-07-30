@@ -10,6 +10,7 @@ import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
+import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -24,6 +25,29 @@ export async function createUser(user: User) {
      const password = await bcrypt.hash(user.password, 10);
 
      await UserModel.create({ ...user, password });
+}
+
+export async function updateProfile(
+     id: number,
+     user: Pick<User, "name" | "email" | "bio" | "avatarUrl">
+) {
+     logger.info("update user");
+
+     const data = await UserModel.getById(id);
+
+     if (!data) {
+          throw new NotFoundError(`user with ${id} not found`);
+     }
+
+     if (data.email !== user.email) {
+          const data = await UserModel.getUserByEmail(user.email);
+
+          if (data) {
+               throw new BadRequestError("email already in use");
+          }
+     }
+
+     await UserModel.update(id, user);
 }
 
 export async function getUserById(id: number) {

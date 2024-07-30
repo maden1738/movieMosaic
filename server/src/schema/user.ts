@@ -58,3 +58,14 @@ export const RefreshSchema = Joi.object({
           "any.required": "refreshToken is required",
      }),
 });
+
+export const updateProfileSchema = Joi.object({
+     name: Joi.string().required().messages({
+          "any.required": "name is required",
+     }),
+     email: Joi.string().email().required().messages({
+          "any.required": "email is required",
+          "string.email": "email must be in valid format",
+     }),
+     bio: Joi.string().required(),
+});

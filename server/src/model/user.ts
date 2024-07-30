@@ -11,6 +11,23 @@ export class UserModel extends BaseModel {
           await this.queryBuilder().table("user").insert(user);
      }
 
+     static async update(
+          id: number,
+          user: Pick<User, "name" | "email" | "bio" | "avatarUrl">
+     ) {
+          logger.info("update");
+          const userToUpdate = {
+               name: user.name,
+               email: user.email,
+               bio: user.bio,
+          };
+
+          await this.queryBuilder()
+               .update(userToUpdate)
+               .table("user")
+               .where({ id });
+     }
+
      static async getUserByEmail(email: string) {
           const data = await this.queryBuilder()
                .select("id", "email", "password")

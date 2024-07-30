@@ -20,6 +20,31 @@ export async function getUserById(
      }
 }
 
+export async function updateUser(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+     const { body } = req;
+
+     // ensure that authenticated user matches the userId
+     if (+id != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this account"));
+          return;
+     }
+
+     try {
+          await UserService.updateProfile(+id, body);
+
+          res.status(HttpStatusCodes.OK).json({
+               message: `user with id ${id} updated`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
 export async function addToWatchList(
      req: RequestWithUser,
      res: Response,
