@@ -1,18 +1,26 @@
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
-import { extractDate } from "../../utils/formatter";
+import { convertIntoStar, extractDate } from "../../utils/formatter";
 
 const reviewsEl = document.getElementById("reviews") as HTMLDivElement;
-const FilmTitleEl = document.getElementById("film-title") as HTMLAnchorElement;
+const filmTitleEl = document.getElementById("film-title") as HTMLAnchorElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 const contentType = params.get("content");
 
 document.addEventListener("DOMContentLoaded", () => {
-  FilmTitleEl.href = `../singleFilm/?id=${id}`;
+  renderMovieName();
+
+  filmTitleEl.innerHTML = filmTitleEl.href = `../singleFilm/?id=${id}`;
   fetchReviews();
 });
+
+async function renderMovieName() {
+  const response = await axiosInstance.get(`/movies/${id}`);
+
+  filmTitleEl.innerHTML = response.data.data.title;
+}
 
 async function fetchReviews() {
   try {
@@ -32,6 +40,9 @@ function renderReviews(data: Array<IReview>) {
     if (review.content === null) {
       return;
     }
+
+    const rating = convertIntoStar(review.rating);
+
     review.createdAt = extractDate(review.createdAt);
     const divEL = document.createElement("div");
     divEL.innerHTML = ` <section class="wrapper">
@@ -46,8 +57,8 @@ function renderReviews(data: Array<IReview>) {
           />
         </div>
         <div>
-          <div class="text-sm text-subText">
-            <span class="px-1 font-bold text-accent text-sm">${review.rating}</span>
+          <div class="text-sm text-subText flex items-center">
+            <span class="pr-2 font-bold text-accent w-fit flex items-center text-xs">${rating}</span>
             <span>Reviewd By </span>
             <span class="px-1 text-base font-bold text-text">${review.name}</span>
             <span>${review.createdAt}</span>

@@ -1,5 +1,9 @@
 import { IFilm } from "../../interface/film";
-import { convertRating, extractYear } from "../../utils/formatter";
+import {
+  convertIntoStar,
+  convertRating,
+  extractYear,
+} from "../../utils/formatter";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 
@@ -454,6 +458,8 @@ function renderRecentReviews(data: Array<IReview>) {
   recentReviewEl.innerHTML = "";
 
   data.forEach((review) => {
+    const rating = convertIntoStar(review.rating);
+
     const divEl = document.createElement("div");
     divEl.innerHTML = `<section class="py-4">
           <div class="flex items-center gap-1 text-sm text-subText">
@@ -469,7 +475,7 @@ function renderRecentReviews(data: Array<IReview>) {
             <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
-            <span class="pl-1 font-bold text-accent" id="rating">${review.rating}</span>
+            <span class="pl-1 text-accent flex items-center" id="rating">${rating}</span>
             <!-- review content -->
           </div>
           <div class="mt-2 text-base text-subText" id="content">

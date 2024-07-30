@@ -1,7 +1,11 @@
 import axiosInstance from "../../axios";
 import { IFilm } from "../../interface/film";
 import { IReviewWithFilm } from "../../interface/review";
-import { extractDate, extractYear } from "../../utils/formatter";
+import {
+  convertIntoStar,
+  extractDate,
+  extractYear,
+} from "../../utils/formatter";
 import { IUser } from "../../interface/user";
 
 const profileUserNameEl = document.getElementById(
@@ -156,19 +160,25 @@ function renderRecentMovies(data: Array<IFilm>) {
 
 function renderRecentReviews(reviewes: Array<IReviewWithFilm>) {
   reviewes.forEach((review) => {
+    if (!review.content) {
+      return;
+    }
+
+    const rating = convertIntoStar(review.rating);
+
     const divEl = document.createElement("div");
 
     divEl.innerHTML = `<div class="grid-cols-layout2 grid gap-4 pb-5">
           <a class="h-[105px] w-[70px] overflow-hidden rounded-md" href="../singleFilm/?id=${review.filmId}" >
             <img src="https://image.tmdb.org/t/p/w500${review.posterUrl}" alt="film poster" />
           </a>
-          <div>
+          <div >
             <div>
               <a class="text-xl font-bold text-white hover:text-accent2" href="../singleFilm/?id=${review.filmId} " >${review.title}</a>
               <span class="pl-2 font-light text-text">${review.releaseDate}</span>
             </div>
-            <div>
-              <span class="text-sm font-semibold text-accent">${review.rating}</span>
+            <div class="flex items-center mt-1">
+              <span class="text-sm font-semibold text-accent flex items-center">${rating}</span>
               <span class="pl-2 text-xs text-subText">${review.createdAt}</span>
             </div>
             <div class="mt-2 text-sm text-text">
