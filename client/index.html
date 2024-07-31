@@ -15,6 +15,37 @@
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
     >
+      <!-- log search modal -->
+      <section
+        class="wrapper fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-55"
+        id="log-search"
+      >
+        <div class="wrapper rounded-md bg-primary p-3">
+          <div class="flex justify-between">
+            <h1 class="uppercase text-text">Add to your films</h1>
+            <i class="fa-solid fa-x text-text" id="log-search-close"></i>
+          </div>
+
+          <div class="relative mt-5 flex flex-col gap-2">
+            <label
+              for="film-title"
+              class="text-sm font-semibold text-white"
+              id="click-me"
+              >Name of film</label
+            >
+            <input
+              id="film-title"
+              type="email"
+              class="rounded-md bg-backgroundLight p-2 text-black shadow-lg focus:bg-white focus:text-black"
+            />
+            <!-- search result -->
+            <section
+              id="search-result-container"
+              class="absolute bottom-0 w-full translate-y-[100%] rounded-md rounded-t-none border-[1px] border-b-0 border-t-0 border-white bg-primary"
+            ></section>
+          </div>
+        </div>
+      </section>
       <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
       <div class="flex gap-4">
         <!-- <i class="fa-solid fa-plus text-primary"></i> -->
@@ -53,7 +84,7 @@
           </div>
         </div>
         <div class="user hidden">
-          <i class="fa-solid fa-plus text-text"></i>
+          <i class="fa-solid fa-plus text-text" id="log-search-open"></i>
         </div>
         <div>
           <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>

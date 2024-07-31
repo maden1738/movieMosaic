@@ -247,7 +247,7 @@ function renderMovieDetails(data: IFilm) {
 
   movieDetailsEl.innerHTML = /*HTML*/ `  
   <section class = "relative">
-        <div class="fixed inset-0 z-20 bg-black bg-opacity-55  hidden justify-center items-center" id="logpanel">
+      <div class="fixed inset-0 z-20 bg-black bg-opacity-55  hidden justify-center items-center" id="logpanel">
       <section class="wrapper relative">
         <div class="relative w-full rounded-lg bg-primary p-3 shadow-lg">
           <button

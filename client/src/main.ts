@@ -7,6 +7,11 @@ import "toastify-js/src/toastify.css";
 import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
 import { displayErrors } from "./utils/displayError";
+import { extractYear } from "./utils/formatter";
+
+let debounceTimer: number | null = null;
+const DEBOUNCE_DELAY = 300; // milliseconds
+let searchResults: IFilm[] = [];
 
 const signupForm = document.getElementById("sign-up") as HTMLFormElement;
 const loginForm = document.getElementById("login-form") as HTMLFormElement;
@@ -46,6 +51,33 @@ const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLDivElement;
+
+// log search modal
+const logSearchOpenEl = document.getElementById(
+  "log-search-open",
+) as HTMLElement;
+const searchResultContainer = document.getElementById(
+  "search-result-container",
+) as HTMLElement;
+
+const logSearchEl = document.getElementById("log-search") as HTMLElement;
+const logCloseEl = document.getElementById("log-search-close") as HTMLElement;
+
+const filmTitleInput = document.getElementById(
+  "film-title",
+) as HTMLInputElement;
+
+logSearchEl.addEventListener("input", handleSearchInput);
+
+logSearchOpenEl.addEventListener("click", () => {
+  logSearchEl.classList.remove("hidden");
+  logSearchEl.classList.add("flex");
+});
+
+logCloseEl.addEventListener("click", () => {
+  logSearchEl.classList.remove("flex");
+  logSearchEl.classList.add("hidden");
+});
 
 getStartedEl.addEventListener("click", () => {
   signupModalEl.classList.toggle("hidden");
@@ -180,6 +212,35 @@ axios.get("http://localhost:3000/movies?sortBy=popularityDesc").then((res) => {
   renderPopularMovies(res.data.data);
 });
 
+async function searchMovies(query: string) {
+  try {
+    const response = await axiosInstance.get(
+      `/movies?q=${query}&sortBy=popularityDesc`,
+    );
+    searchResults = response.data.data;
+    renderSearchItems();
+  } catch (error) {}
+}
+
+function handleSearchInput() {
+  const query = filmTitleInput.value.trim();
+
+  // Clear any existing debounce timer
+  if (debounceTimer !== null) {
+    clearTimeout(debounceTimer);
+  }
+
+  debounceTimer = window.setTimeout(() => {
+    if (query) {
+      searchMovies(query);
+    } else {
+      // Clear results if search query is empty
+      searchResults = [];
+      renderSearchItems();
+    }
+  }, DEBOUNCE_DELAY);
+}
+
 function renderPopularMovies(data: Array<IFilm>) {
   data.forEach((film) => {
     const link = document.createElement("a");
@@ -192,3 +253,23 @@ function renderPopularMovies(data: Array<IFilm>) {
     popularMoviesContainer.appendChild(link);
   });
 }
+
+function renderSearchItems() {
+  searchResultContainer.innerHTML = "";
+  searchResults.forEach((film) => {
+    const releaseDate = extractYear(film.releaseDate);
+    const link = document.createElement("a");
+    link.className =
+      "block px-[10px] py-[8px] text-xs text-white hover:bg-accent";
+    link.href = `./src/pages/singleFilm/?id=${film.id}`;
+    link.innerHTML = `${film.title} (${releaseDate})`;
+
+    searchResultContainer.appendChild(link);
+  });
+}
+
+//  <a
+//                 class="block px-[10px] py-[8px] text-xs text-white hover:bg-accent"
+//               >
+//                 Parasite (2012)
+//               </a>
