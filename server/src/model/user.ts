@@ -20,12 +20,19 @@ export class UserModel extends BaseModel {
                name: user.name,
                email: user.email,
                bio: user.bio,
+               avatarUrl: user.avatarUrl,
           };
 
           await this.queryBuilder()
                .update(userToUpdate)
                .table("user")
                .where({ id });
+     }
+
+     static async updateAvatar(id: number, avatarUrl: string) {
+          logger.info("update avatar");
+
+          await this.queryBuilder().update({ avatarUrl }).where({ id });
      }
 
      static async updatePassword(

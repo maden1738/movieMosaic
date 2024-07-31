@@ -11,7 +11,9 @@ import * as FollowListService from "./followList";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
 import { UnauthenticatedError } from "../errors/UnauthenticatedError";
-import { log } from "console";
+
+import { uploadOnCloudinary } from "../utils/cloudinary";
+import { UploadApiResponse } from "cloudinary";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -30,7 +32,7 @@ export async function createUser(user: User) {
 
 export async function updateProfile(
      id: number,
-     user: Pick<User, "name" | "email" | "bio" | "avatarUrl">
+     user: Pick<User, "name" | "email" | "bio">
 ) {
      logger.info("update user");
 
@@ -49,6 +51,28 @@ export async function updateProfile(
      }
 
      await UserModel.update(id, user);
+}
+
+export async function updateAvatar(id: number, imagePath: string | undefined) {
+     logger.info("update avatar");
+
+     const data = await UserModel.getById(id);
+
+     if (!data) {
+          throw new NotFoundError(`user with ${id} not found`);
+     }
+
+     let image: UploadApiResponse | null = null;
+
+     if (imagePath) {
+          image = await uploadOnCloudinary(imagePath);
+     }
+
+     if (image == null) {
+          throw new Error();
+     }
+
+     await UserModel.updateAvatar(id, image.url);
 }
 
 export async function updatePassword(

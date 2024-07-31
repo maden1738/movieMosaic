@@ -7,7 +7,7 @@ import {
 import { updatePasswordSchema, updateProfileSchema } from "../../schema/user";
 import { displayErrors } from "../../utils/displayError";
 import { validateForm } from "../../utils/validator";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");

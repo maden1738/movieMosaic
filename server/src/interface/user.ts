@@ -1,3 +1,5 @@
+import { UploadApiResponse } from "cloudinary";
+
 export interface User {
      id: number;
      name: string;

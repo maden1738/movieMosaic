@@ -18,6 +18,7 @@ import {
      getReviewByUserId,
      updateUser,
      updatePassword,
+     updateAvatar,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -26,6 +27,7 @@ import {
 } from "../schema/movies";
 import { getCurrentUserDetails } from "../controller/user";
 import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
+import { upload } from "../middleware/multer";
 
 const router = express();
 
@@ -37,13 +39,18 @@ router.post(
      addToWatchList
 );
 
-// update user
+// update user profile
 router.put(
      "/:id/profile",
      validateReqBody(updateProfileSchema),
      authenticate,
      updateUser
 );
+
+// update user avatar
+router.put("/:id/avatar", authenticate, upload.single("avatar"), updateAvatar);
+
+//update user password
 router.put(
      "/:id/password",
      validateReqBody(updatePasswordSchema),

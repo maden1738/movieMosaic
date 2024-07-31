@@ -45,6 +45,33 @@ export async function updateUser(
      }
 }
 
+export async function updateAvatar(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+     const { body, file } = req;
+
+     // ensure that authenticated user matches the userId
+     if (+id != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this account"));
+          return;
+     }
+
+     try {
+          const imagePath = req.file?.path;
+
+          await UserService.updateAvatar(+id, imagePath);
+
+          res.status(HttpStatusCodes.OK).json({
+               message: `user with id ${id} updated`,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
 export async function updatePassword(
      req: RequestWithUser,
      res: Response,

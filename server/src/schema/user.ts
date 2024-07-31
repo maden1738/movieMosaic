@@ -68,6 +68,8 @@ export const updateProfileSchema = Joi.object({
           "string.email": "email must be in valid format",
      }),
      bio: Joi.string().required(),
+}).options({
+     stripUnknown: true,
 });
 
 export const updatePasswordSchema = Joi.object({
