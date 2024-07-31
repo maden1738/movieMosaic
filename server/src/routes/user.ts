@@ -19,6 +19,7 @@ import {
      updateUser,
      updatePassword,
      updateAvatar,
+     createLog,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -66,7 +67,12 @@ router.get("/:id", getUserById);
 // get logs of a user
 router.get("/:id/logs");
 
-router.post("/:id/logs", validateReqBody(CreateLogSchema), authenticate);
+router.post(
+     "/:id/logs",
+     validateReqBody(CreateLogSchema),
+     authenticate,
+     createLog
+);
 
 // get watchlist of a user
 router.get(

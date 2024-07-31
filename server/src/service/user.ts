@@ -106,24 +106,7 @@ export async function updatePassword(
 }
 
 export async function createLog(userId: number, log: ILogs) {
-     const { filmId, likeStatus, rating, content } = log;
-
-     let reviewId: any = null;
-
-     if (likeStatus) {
-          LikedMoviesService.likeMovie(String(filmId), String(userId));
-     } else {
-          LikedMoviesService.deleteLikedMovies(String(filmId), String(userId));
-     }
-
-     if (rating || content) {
-          reviewId = ReviewsService.createReviews(filmId, userId, {
-               content,
-               rating,
-          });
-     }
-
-     LogsService.createLog(filmId, userId, reviewId, likeStatus);
+     await LogsService.createLog(userId, log);
      // logsModel.create(filmid, userid, reviewid, likestatus)
 }
 

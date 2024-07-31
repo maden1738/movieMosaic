@@ -8,18 +8,6 @@ import { getMoviesById } from "./movies";
 const logger = loggerWithNameSpace("likedMoviesService");
 
 export async function likeMovie(movieId: string, userId: string) {
-     const movieExists = await getMoviesById(movieId);
-
-     if (!movieExists) {
-          throw new NotFoundError(`Movie with id: ${movieId} not found`);
-     }
-
-     const data = await LikedMoviesModel.getMovie(movieId, userId);
-
-     if (data.length > 0) {
-          throw new BadRequestError("movie already exists on liked movies");
-     }
-
      await LikedMoviesModel.likeMovie(movieId, userId);
 }
 
