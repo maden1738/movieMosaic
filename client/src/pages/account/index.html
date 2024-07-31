@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../../styles.css" />
+    <script
+      src="https://kit.fontawesome.com/b81aca49ba.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body class="bg-secondary">
     <!-- navbar -->
@@ -178,21 +182,33 @@
 
         <button
           class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          id="profile-btn"
         >
           SAVE Changes
         </button>
       </form>
       <!-- <h2 class="mt-8 text-xl font-light text-text"></h2> -->
-      <label
-        class="mb-2 mt-5 block text-sm font-medium dark:text-white"
-        for="new-avatar"
-        >New Avatar</label
-      >
-      <input
-        class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
-        id="new-avatar"
-        type="file"
-      />
+      <form id="avatar-form" class="mt-4">
+        <label
+          class="mb-2 mt-5 block text-sm font-medium dark:text-white"
+          for="new-avatar"
+          >New Avatar</label
+        >
+        <input
+          class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+          id="new-avatar"
+          type="file"
+        />
+        <button
+          class="mt-2 flex items-center rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg disabled:brightness-50"
+          id="new-avatar-btn"
+        >
+          select new avatar
+          <span id="avatar-spinner" class="hidden">
+            <i class="fa-solid fa-spinner ml-2 animate-spin text-base"></i>
+          </span>
+        </button>
+      </form>
 
       <h2 class="mt-8 text-xl font-light text-text">Password</h2>
       <div class="mb-4 mt-1 h-[1px] bg-primaryDark"></div>
@@ -230,6 +246,7 @@
         <div class="mt-1 h-8" id="password-error-container"></div>
         <button
           class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          id="password-btn"
         >
           Change
         </button>

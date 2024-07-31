@@ -8,12 +8,14 @@ import * as WatchListService from "./watchList";
 import * as ReviewsService from "./reviews";
 import * as LikedMoviesService from "./likedMovies";
 import * as FollowListService from "./followList";
+import * as LogsService from "./logs";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
 import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { UploadApiResponse } from "cloudinary";
+import { ILogs } from "../interface/logs";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -101,6 +103,28 @@ export async function updatePassword(
      const newPassword = await bcrypt.hash(user.newPassword!, 10);
 
      UserModel.updatePassword(id, { ...user, newPassword });
+}
+
+export async function createLog(userId: number, log: ILogs) {
+     const { filmId, likeStatus, rating, content } = log;
+
+     let reviewId: any = null;
+
+     if (likeStatus) {
+          LikedMoviesService.likeMovie(String(filmId), String(userId));
+     } else {
+          LikedMoviesService.deleteLikedMovies(String(filmId), String(userId));
+     }
+
+     if (rating || content) {
+          reviewId = ReviewsService.createReviews(filmId, userId, {
+               content,
+               rating,
+          });
+     }
+
+     LogsService.createLog(filmId, userId, reviewId, likeStatus);
+     // logsModel.create(filmid, userid, reviewid, likestatus)
 }
 
 export async function getUserById(id: number) {

@@ -28,6 +28,7 @@ import {
 import { getCurrentUserDetails } from "../controller/user";
 import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
 import { upload } from "../middleware/multer";
+import { CreateLogSchema } from "../schema/logs";
 
 const router = express();
 
@@ -61,6 +62,11 @@ router.put(
 router.get("/me", authenticate, getCurrentUserDetails);
 
 router.get("/:id", getUserById);
+
+// get logs of a user
+router.get("/:id/logs");
+
+router.post("/:id/logs", validateReqBody(CreateLogSchema), authenticate);
 
 // get watchlist of a user
 router.get(

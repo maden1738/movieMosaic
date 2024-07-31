@@ -1,6 +1,6 @@
 export interface Review {
      content?: string;
-     rating: number;
+     rating?: number;
 }
 
 export interface GetReviewsQuery {

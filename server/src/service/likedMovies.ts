@@ -48,7 +48,7 @@ export async function deleteLikedMovies(filmId: string, userId: string) {
 
      if (data.length === 0) {
           throw new NotFoundError(
-               `movie with id: ${filmId} doesnt exist on watchList`
+               `movie with id: ${filmId} doesnt exist on liked movies`
           );
      }
      await LikedMoviesModel.deleteLikedMovies(filmId, userId);

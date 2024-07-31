@@ -51,7 +51,7 @@ export async function updateAvatar(
      next: NextFunction
 ) {
      const { id } = req.params;
-     const { body, file } = req;
+     const { file } = req;
 
      // ensure that authenticated user matches the userId
      if (+id != req.user?.id!) {
@@ -60,7 +60,7 @@ export async function updateAvatar(
      }
 
      try {
-          const imagePath = req.file?.path;
+          const imagePath = file?.path;
 
           await UserService.updateAvatar(+id, imagePath);
 
@@ -91,6 +91,20 @@ export async function updatePassword(
           res.status(HttpStatusCodes.OK).json({
                message: `user with id ${id} updated`,
           });
+     } catch (error) {
+          next(error);
+     }
+}
+export async function createLog(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+     const { body } = req;
+
+     try {
+          await UserService.createLog(+id, body);
      } catch (error) {
           next(error);
      }

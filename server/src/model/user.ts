@@ -32,7 +32,10 @@ export class UserModel extends BaseModel {
      static async updateAvatar(id: number, avatarUrl: string) {
           logger.info("update avatar");
 
-          await this.queryBuilder().update({ avatarUrl }).where({ id });
+          await this.queryBuilder()
+               .table("user")
+               .update({ avatarUrl })
+               .where({ id });
      }
 
      static async updatePassword(

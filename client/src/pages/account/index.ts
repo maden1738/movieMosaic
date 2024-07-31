@@ -16,9 +16,19 @@ const formUsernameEl = document.getElementById("username") as HTMLInputElement;
 const formEmailEl = document.getElementById("email") as HTMLInputElement;
 const formBioEl = document.getElementById("bio") as HTMLInputElement;
 const profileForm = document.getElementById("profile-form") as HTMLFormElement;
+const profileBtn = document.getElementById("profile-btn") as HTMLButtonElement;
 const passwordForm = document.getElementById(
   "password-form",
 ) as HTMLFormElement;
+const passwordBtn = document.getElementById(
+  "password-btn",
+) as HTMLButtonElement;
+const avatarForm = document.getElementById("avatar-form") as HTMLFormElement;
+const avatarEl = document.getElementById("new-avatar") as HTMLInputElement;
+const avatarBtn = document.getElementById(
+  "new-avatar-btn",
+) as HTMLButtonElement;
+const avatarSpinner = document.getElementById("avatar-spinner") as HTMLElement;
 const profileErrorContainer = document.getElementById(
   "profile-error-container",
 ) as HTMLDivElement;
@@ -83,8 +93,36 @@ passwordForm.addEventListener("submit", (event) => {
   }
 });
 
+avatarForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const avatar = avatarEl.files![0];
+
+  const formData = new FormData();
+
+  formData.append("avatar", avatar);
+
+  submitAvatarForm(formData);
+});
+
+async function submitAvatarForm(formData: FormData) {
+  try {
+    avatarBtn.disabled = true;
+    avatarSpinner.classList.toggle("hidden");
+    await axiosInstance.put(`/users/${id}/avatar`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function submitUpdateProfileForm(formData: IUpdateUserProfile) {
   try {
+    profileBtn.disabled = true;
     await axiosInstance.put(`/users/${id}/profile`, formData);
     location.reload();
   } catch (error) {
@@ -99,6 +137,7 @@ async function submitUpdatePasswordForm({
   newPassword,
 }: IUpdatePassword) {
   try {
+    passwordBtn.disabled = true;
     await axiosInstance.put(`/users/${id}/password`, {
       currentPassword,
       newPassword,
