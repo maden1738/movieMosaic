@@ -13,7 +13,7 @@ export async function createReviews(
      if (!data) {
           throw new BadRequestError(`movie with id: ${filmId} doesnt exist`);
      }
-     await ReviewsModel.create(filmId, userId, review);
+     return await ReviewsModel.create(filmId, userId, review);
 }
 
 export async function getReviews(filmId: number, query: GetReviewsQuery) {

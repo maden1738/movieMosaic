@@ -35,9 +35,10 @@ export async function deleteLikedMovies(filmId: string, userId: string) {
      const data = await LikedMoviesModel.getMovie(filmId, userId);
 
      if (data.length === 0) {
-          throw new NotFoundError(
-               `movie with id: ${filmId} doesnt exist on liked movies`
-          );
+          // throw new NotFoundError(
+          //      `movie with id: ${filmId} doesnt exist on liked movies`
+          // );
+          return;
      }
      await LikedMoviesModel.deleteLikedMovies(filmId, userId);
 }

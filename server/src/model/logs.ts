@@ -7,6 +7,12 @@ export class LogsModel extends BaseModel {
           reviewId: number,
           likeStatus: boolean
      ) {
-          this.queryBuilder();
+          const dataToBeInserted = {
+               filmId,
+               userId,
+               reviewId,
+               likeStatus,
+          };
+          await this.queryBuilder().table("logs").insert(dataToBeInserted);
      }
 }

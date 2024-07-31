@@ -245,7 +245,7 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML = `  
+  movieDetailsEl.innerHTML = /*HTML*/ `  
   <section class = "relative">
         <div class="fixed inset-0 z-20 bg-black bg-opacity-55  hidden justify-center items-center" id="logpanel">
       <section class="wrapper relative">

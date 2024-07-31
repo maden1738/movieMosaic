@@ -105,6 +105,10 @@ export async function createLog(
 
      try {
           await UserService.createLog(+id, body);
+
+          res.status(HttpStatusCodes.OK).json({
+               messagae: "Logged",
+          });
      } catch (error) {
           next(error);
      }

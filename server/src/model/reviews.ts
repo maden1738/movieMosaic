@@ -16,7 +16,12 @@ export class ReviewsModel extends BaseModel {
                content: body.content || null,
           };
 
-          await this.queryBuilder().insert(dataToBeInserted).table("review");
+          const result = await this.queryBuilder()
+               .insert(dataToBeInserted)
+               .table("review")
+               .returning("id");
+
+          return result[0].id;
      }
 
      static async getByFilmId(filmId: number, query: GetReviewsQuery) {

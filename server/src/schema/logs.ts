@@ -3,7 +3,7 @@ import Joi from "joi";
 export const CreateLogSchema = Joi.object({
      filmId: Joi.string().required(),
 
-     reviewContent: Joi.string().optional(),
+     content: Joi.string().optional(),
 
      rating: Joi.number()
           .optional()

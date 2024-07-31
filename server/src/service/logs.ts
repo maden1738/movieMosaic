@@ -15,7 +15,7 @@ export async function createLog(userId: number, log: ILogs) {
      }
 
      if (rating || content) {
-          reviewId = ReviewsService.createReviews(filmId, userId, {
+          reviewId = await ReviewsService.createReviews(filmId, userId, {
                content,
                rating,
           });
