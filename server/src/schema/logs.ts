@@ -22,4 +22,6 @@ export const CreateLogSchema = Joi.object({
           }),
 
      likeStatus: Joi.boolean().required(),
+}).options({
+     stripUnknown: true,
 });

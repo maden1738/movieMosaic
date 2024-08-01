@@ -64,6 +64,7 @@ const searchResultContainer = document.getElementById(
 // log panel
 const navLikeIcon = document.getElementById("nav-like-icon") as HTMLElement;
 const navRatingEl = document.getElementById("nav-rating") as HTMLSpanElement;
+const clearRatingEl = document.getElementById("clear-rating") as HTMLElement;
 const navLikeCheckbox = document.getElementById(
   "nav-like-checkbox",
 ) as HTMLInputElement;
@@ -206,16 +207,25 @@ navStarEls.forEach((el) => {
   el.addEventListener("click", handleStarClick);
 });
 
+clearRatingEl.addEventListener("click", clearRating);
+
 navLogForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const target = event.target as HTMLFormElement;
 
-  const formData = {
+  const formData: ILogs = {
     filmId: target.dataset.filmId!,
     likeStatus: navLikeCheckbox.checked,
-    rating: +navRatingEl.dataset.rating!,
-    content: navReviewContentEl.value.trim(),
+    // content: navReviewContentEl.value.trim() || undefined,
   };
+
+  if (navReviewContentEl.value.trim()) {
+    formData["content"] = navReviewContentEl.value.trim();
+  }
+
+  if (navRatingEl.dataset.rating) {
+    formData["rating"] = +navRatingEl.dataset.rating;
+  }
 
   submitLogForm(formData);
 });
@@ -372,17 +382,32 @@ function renderLogIcon() {
 
 function handleStarClick(event: MouseEvent) {
   const rating = (event.target as HTMLFormElement).dataset.rating;
+
+  // value of rating that will be sent with formdata
   navRatingEl.dataset.rating = rating;
+
   renderStars(rating!);
 }
 
 function renderStars(rating: string) {
   navStarEls.forEach((el, index) => {
-    if (index <= +rating - 1) {
-      el.style.color = "#05ab1e";
-    } else {
+    if (index > +rating - 1) {
+      el.dataset.filled = "false";
       el.style.color = "#324654";
+    } else {
+      el.dataset.filled = "true";
+      el.style.color = "#05ab1e";
     }
+  });
+}
+
+function clearRating() {
+  console.log("ehjr");
+
+  navRatingEl.dataset.rating = "";
+
+  navStarEls.forEach((el) => {
+    el.style.color = "#324654";
   });
 }
 

@@ -170,17 +170,17 @@ function renderRecentReviews(reviewes: Array<IReviewWithFilm>) {
     const divEl = document.createElement("div");
 
     divEl.innerHTML = `<div class="grid-cols-layout2 grid gap-4 pb-5">
-          <a class="h-[105px] w-[70px] overflow-hidden rounded-md" href="../singleFilm/?id=${review.filmId}" >
+          <a class="h-[105px] w-[70px] overflow-hidden rounded-md " href="../singleFilm/?id=${review.filmId}" >
             <img src="https://image.tmdb.org/t/p/w500${review.posterUrl}" alt="film poster" />
           </a>
           <div >
             <div>
-              <a class="text-xl font-bold text-white hover:text-accent2" href="../singleFilm/?id=${review.filmId} " >${review.title}</a>
-              <span class="pl-2 font-light text-text">${review.releaseDate}</span>
+              <a class="text-xl pr-2 font-bold text-white hover:text-accent2" href="../singleFilm/?id=${review.filmId}" >${review.title}</a>
+              <span class="font-light text-text">${review.releaseDate}</span>
             </div>
-            <div class="flex items-center mt-1">
-              <span class="text-sm font-semibold text-accent flex items-center">${rating}</span>
-              <span class="pl-2 text-xs text-subText">${review.createdAt}</span>
+            <div class=" mt-1 gap-3 items-center flex">
+              <span class="text-xs text-subText">Watched ${review.createdAt}</span>
+              <span class="text-sm  text-accent flex items-center pb-1">${rating}</span>
             </div>
             <div class="mt-2 text-sm text-text">
               ${review.content}

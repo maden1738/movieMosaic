@@ -15,6 +15,135 @@
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
     >
+      <!-- log search modal -->
+      <section
+        class="wrapper fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55"
+        id="log-search"
+      >
+        <div class="wrapper rounded-md bg-primary p-3">
+          <div class="flex justify-between">
+            <h1 class="uppercase text-text">Add to your films</h1>
+            <i class="fa-solid fa-x text-text" id="log-search-close"></i>
+          </div>
+
+          <div class="relative mt-5 flex flex-col gap-2">
+            <label
+              for="film-title"
+              class="text-sm font-semibold text-white"
+              id="click-me"
+              >Name of film</label
+            >
+            <input
+              id="film-title"
+              type="email"
+              class="rounded-md bg-backgroundLight p-2 text-black shadow-lg focus:bg-white focus:text-black"
+            />
+            <!-- search result -->
+            <ul
+              id="search-result-container"
+              class="absolute bottom-0 w-full translate-y-[100%] rounded-md rounded-t-none border-[1px] border-b-0 border-t-0 border-white bg-primary"
+            ></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- log-panel -->
+      <div
+        class="fixed inset-0 z-20 hidden items-center justify-center bg-black bg-opacity-55"
+        id="nav-log-modal"
+      >
+        <section class="wrapper relative">
+          <div class="relative w-full rounded-lg bg-primary p-3 shadow-lg">
+            <button
+              id="nav-log-close"
+              class="absolute right-0 top-0 z-20 flex aspect-square w-[20px] translate-x-[50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
+            >
+              <i class="fa-regular fa-x text-sm font-semibold text-subText"></i>
+            </button>
+            <form id="nav-log-form">
+              <div class="grid grid-cols-layout2 gap-4 pb-2">
+                <div class="aspect-[2/3] w-[70px] overflow-hidden rounded-md">
+                  <img
+                    alt="film poster"
+                    id="film-poster"
+                    class="h-full w-full"
+                  />
+                </div>
+                <section class="w-auto pt-2">
+                  <div class="mb-3 text-xl font-bold text-white" id="film-name">
+                    Past Lives
+                  </div>
+                  <div class="flex items-center gap-8">
+                    <div class="flex flex-col justify-between">
+                      <span id="nav-rating">Rating</span>
+                      <!-- stars -->
+                      <div>
+                        <i
+                          data-rating="1"
+                          class="nav-star fa-solid fa-star cursor-pointer text-sm text-[#324654] hover:text-secondary"
+                        ></i>
+                        <i
+                          data-rating="2"
+                          class="nav-star fa-solid fa-star cursor-pointer text-sm text-[#324654] hover:text-secondary"
+                        ></i>
+                        <i
+                          data-rating="3"
+                          class="nav-star fa-solid fa-star cursor-pointer text-sm text-[#324654] hover:text-secondary"
+                        ></i>
+                        <i
+                          data-rating="4"
+                          class="nav-star fa-solid fa-star cursor-pointer text-sm text-[#324654] hover:text-secondary"
+                        ></i>
+                        <i
+                          data-rating="5"
+                          class="nav-star fa-solid fa-star cursor-pointer text-sm text-[#324654] hover:text-secondary"
+                        ></i>
+                        <i
+                          id="clear-rating"
+                          class="fa-solid fa-x cursor-pointer pl-2 text-xs text-text"
+                        ></i>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                      <label for="nav-like-checkbox">
+                        <div class="flex cursor-pointer flex-col items-center">
+                          <span class="text-sm text-white">Like</span>
+                          <i
+                            class="fa-solid fa-heart mt-1 text-lg text-[#324654] hover:text-secondary"
+                            id="nav-like-icon"
+                          ></i>
+                        </div>
+                      </label>
+                      <input
+                        type="checkbox"
+                        id="nav-like-checkbox"
+                        class="absolute hidden"
+                      />
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <label for="nav-review" class="text-sm text-white">
+                Add Review
+              </label>
+              <textarea
+                id="nav-review"
+                class="mt-1 h-[80px] w-full rounded-md bg-backgroundLight px-3 py-1 text-text focus:bg-white focus:text-black"
+              >
+              </textarea>
+
+              <button
+                class="mt-4 rounded-md bg-accent px-3 py-1 text-xs font-bold text-white shadow-lg"
+              >
+                SAVE
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+
       <a href="../../../">
         <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
       </a>
@@ -54,7 +183,7 @@
           </div>
         </div>
         <div class="user hidden">
-          <i class="fa-solid fa-plus text-text"></i>
+          <i class="fa-solid fa-plus text-text" id="log-search-open"></i>
         </div>
         <div>
           <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>
