@@ -24,4 +24,6 @@ export async function createLog(userId: number, log: ILogs) {
      await LogsModel.create(filmId, userId, reviewId, likeStatus);
 }
 
-export async function getLogs(userId: number) {}
+export async function getLogs(userId: number) {
+     return await LogsModel.getLogs(userId);
+}

@@ -8,6 +8,7 @@ import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
 import { displayErrors } from "./utils/displayError";
 import { extractYear } from "./utils/formatter";
+import { ILogs } from "./interface/log";
 
 let debounceTimer: number | null = null;
 const DEBOUNCE_DELAY = 300; // milliseconds
@@ -59,6 +60,20 @@ const logSearchOpenEl = document.getElementById(
 const searchResultContainer = document.getElementById(
   "search-result-container",
 ) as HTMLElement;
+
+// log panel
+const navLikeIcon = document.getElementById("nav-like-icon") as HTMLElement;
+const navRatingEl = document.getElementById("nav-rating") as HTMLSpanElement;
+const navLikeCheckbox = document.getElementById(
+  "nav-like-checkbox",
+) as HTMLInputElement;
+const navStarEls = document.querySelectorAll(
+  ".nav-star",
+) as NodeListOf<HTMLElement>;
+const navLogForm = document.getElementById("nav-log-form") as HTMLFormElement;
+const navReviewContentEl = document.getElementById(
+  "nav-review",
+) as HTMLInputElement;
 
 const logSearchEl = document.getElementById("log-search") as HTMLElement;
 const logCloseEl = document.getElementById("log-search-close") as HTMLElement;
@@ -183,6 +198,28 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
+navLikeCheckbox.addEventListener("change", () => {
+  renderLogIcon();
+});
+
+navStarEls.forEach((el) => {
+  el.addEventListener("click", handleStarClick);
+});
+
+navLogForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const target = event.target as HTMLFormElement;
+
+  const formData = {
+    filmId: target.dataset.filmId!,
+    likeStatus: navLikeCheckbox.checked,
+    rating: +navRatingEl.dataset.rating!,
+    content: navReviewContentEl.value.trim(),
+  };
+
+  submitLogForm(formData);
+});
+
 async function submitSignupForm(formData: ISignupData) {
   try {
     await axiosInstance.post("/auth/signup", formData);
@@ -208,6 +245,16 @@ async function submitSignupForm(formData: ISignupData) {
   }
 }
 
+async function submitLogForm(data: ILogs) {
+  try {
+    const user = JSON.parse(localStorage.getItem("user") as string);
+    await axiosInstance.post(`/users/${user.id}/logs`, data);
+    alert("film logged");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 axios.get("http://localhost:3000/movies?sortBy=popularityDesc").then((res) => {
   renderPopularMovies(res.data.data);
 });
@@ -219,7 +266,9 @@ async function searchMovies(query: string) {
     );
     searchResults = response.data.data;
     renderSearchItems();
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function handleSearchInput() {
@@ -258,13 +307,82 @@ function renderSearchItems() {
   searchResultContainer.innerHTML = "";
   searchResults.forEach((film) => {
     const releaseDate = extractYear(film.releaseDate);
-    const link = document.createElement("a");
-    link.className =
+    const searchItem = document.createElement("li");
+    searchItem.dataset.filmId = film.id;
+    searchItem.className =
       "block px-[10px] py-[8px] text-xs text-white hover:bg-accent";
-    link.href = `./src/pages/singleFilm/?id=${film.id}`;
-    link.innerHTML = `${film.title} (${releaseDate})`;
+    searchItem.innerHTML = `${film.title}  (${releaseDate})`;
+    searchItem.addEventListener("click", handleSearchItemClick);
+    searchResultContainer.appendChild(searchItem);
+  });
+}
 
-    searchResultContainer.appendChild(link);
+// rendering log panel
+function handleSearchItemClick(event: MouseEvent) {
+  const navLogModal = document.getElementById(
+    "nav-log-modal",
+  ) as HTMLDivElement;
+  const navLogCloseEl = document.getElementById(
+    "nav-log-close",
+  ) as HTMLDivElement;
+
+  navLogModal.classList.remove("hidden");
+  navLogModal.classList.add("flex");
+
+  logSearchEl.classList.remove("flex");
+  logSearchEl.classList.add("hidden");
+
+  navLogCloseEl.addEventListener("click", () => {
+    navLogModal.classList.remove("flex");
+    navLogModal.classList.add("hidden");
+  });
+
+  const filmId = (event.target as HTMLElement).dataset.filmId;
+  fetchMovie(filmId!);
+}
+
+async function fetchMovie(filmId: string) {
+  try {
+    const response = await axiosInstance.get(`movies/${filmId}`);
+    populateLogPanel(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function populateLogPanel(film: IFilm) {
+  navLogForm.dataset.filmId = film.id;
+
+  const filmPosterEl = document.getElementById(
+    "film-poster",
+  ) as HTMLImageElement;
+  const filmTitleEl = document.getElementById("film-name") as HTMLDivElement;
+
+  filmPosterEl.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
+  filmTitleEl.innerHTML = film.title;
+}
+
+function renderLogIcon() {
+  if (navLikeCheckbox.checked) {
+    navLikeIcon.style.color = "#F27405";
+  } else {
+    navLikeIcon.style.color = "#20262e";
+  }
+}
+
+function handleStarClick(event: MouseEvent) {
+  const rating = (event.target as HTMLFormElement).dataset.rating;
+  navRatingEl.dataset.rating = rating;
+  renderStars(rating!);
+}
+
+function renderStars(rating: string) {
+  navStarEls.forEach((el, index) => {
+    if (index <= +rating - 1) {
+      el.style.color = "#05ab1e";
+    } else {
+      el.style.color = "#324654";
+    }
   });
 }
 

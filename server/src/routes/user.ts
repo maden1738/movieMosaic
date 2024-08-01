@@ -20,6 +20,7 @@ import {
      updatePassword,
      updateAvatar,
      createLog,
+     getLogs,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -65,7 +66,7 @@ router.get("/me", authenticate, getCurrentUserDetails);
 router.get("/:id", getUserById);
 
 // get logs of a user
-router.get("/:id/logs");
+router.get("/:id/logs", getLogs);
 
 router.post(
      "/:id/logs",

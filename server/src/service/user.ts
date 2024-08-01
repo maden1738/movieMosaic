@@ -110,6 +110,10 @@ export async function createLog(userId: number, log: ILogs) {
      // logsModel.create(filmid, userid, reviewid, likestatus)
 }
 
+export async function getLogs(userId: number) {
+     return await LogsService.getLogs(userId);
+}
+
 export async function getUserById(id: number) {
      logger.info("getUserById");
 

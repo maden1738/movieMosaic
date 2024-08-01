@@ -103,11 +103,30 @@ export async function createLog(
      const { id } = req.params;
      const { body } = req;
 
+     // ensure that authenticated user matches the userId
+     if (+id != req.user?.id!) {
+          next(new ForbiddenError("unauthorized to modify this account"));
+          return;
+     }
+
      try {
           await UserService.createLog(+id, body);
 
           res.status(HttpStatusCodes.OK).json({
                messagae: "Logged",
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function getLogs(req: Request, res: Response, next: NextFunction) {
+     const { id } = req.params;
+
+     try {
+          const data = await UserService.getLogs(+id);
+          res.status(HttpStatusCodes.OK).json({
+               data,
           });
      } catch (error) {
           next(error);
