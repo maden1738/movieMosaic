@@ -50,6 +50,7 @@ const watchlistLink = document.getElementById(
 ) as HTMLAnchorElement;
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
+const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLDivElement;
 
@@ -144,6 +145,8 @@ window.onload = async () => {
     filmsEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watched`;
     watchlistLink.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watchlist`;
     likesEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=likes`;
+    diaryEl.href = `./src/pages/diary/?id=${response.data.data.id}`;
+
     userNameEl.innerHTML = `${response.data.data.name}`;
 
     userElements.forEach((el) => {
@@ -153,6 +156,7 @@ window.onload = async () => {
     introUserEl.innerHTML = response.data.data.name;
     introUserEl.href = `./src/pages/profile/?id=${response.data.data.id}`;
   } catch (error) {
+    localStorage.clear();
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");
     });

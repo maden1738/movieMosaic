@@ -62,7 +62,7 @@ export class UserModel extends BaseModel {
      static async getById(id: number) {
           logger.info("getUserById");
           const data = await this.queryBuilder()
-               .select("id", "email", "name", "bio")
+               .select("id", "email", "name", "bio", "avatarUrl")
                .table("user")
                .where({ id });
 

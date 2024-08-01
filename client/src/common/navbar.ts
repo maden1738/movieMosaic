@@ -24,6 +24,7 @@ const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
+const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
 
 const logSearchOpenEl = document.getElementById(
   "log-search-open",
@@ -121,12 +122,15 @@ window.onload = async () => {
     likesEl.href = `../userFilms/?id=${id}&content=likes`;
     userNameEl.innerHTML = `${name}`;
     userNameEl.href = `.././profile/?id=${id}`;
+    diaryEl.href = ".././diary/";
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
     });
   } catch (error) {
-    localStorage.removeItem("user");
+    console.log("hereeee");
+
+    localStorage.clear();
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");
     });

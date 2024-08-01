@@ -31,7 +31,7 @@ export class LogsModel extends BaseModel {
                )
                .join("film", "logs.filmId", "film.id")
                .join("user", "logs.userId", "user.id")
-               .leftJoin("review", "logs.reviewId", "review.id")
+               .join("review", "logs.reviewId", "review.id")
                .where("logs.userId", userId);
 
           return data;
