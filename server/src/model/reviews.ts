@@ -120,4 +120,25 @@ export class ReviewsModel extends BaseModel {
 
           return data;
      }
+
+     static async getReview(reviewId: number) {
+          logger.info("getReview");
+          const data = this.queryBuilder()
+               .select(
+                    "review.id as reviewId",
+                    "review.content",
+                    "review.rating",
+                    "review.createdAt",
+                    "film.title",
+                    "film.id",
+                    "film.posterUrl",
+                    "film.releaseDate"
+               )
+               .table("film")
+               .join("review", "film.id", "review.filmId")
+               .where("review.id", reviewId)
+               .first();
+
+          return data;
+     }
 }

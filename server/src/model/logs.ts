@@ -22,12 +22,13 @@ export class LogsModel extends BaseModel {
                .select(
                     "user.name",
                     "user.avatarUrl",
-                    "film.id",
+                    "film.id as filmId",
                     "film.title",
                     "film.posterUrl",
                     "logs.likeStatus",
                     "review.content",
-                    "review.rating"
+                    "review.rating",
+                    "review.id as reviewId"
                )
                .join("film", "logs.filmId", "film.id")
                .join("user", "logs.userId", "user.id")

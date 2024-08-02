@@ -51,7 +51,9 @@ function renderDiary(logs: Array<ILogsResponse>) {
             </span>
           </div>
           <div class="${log.content ? "" : "hidden"} " id="reviewed-icon"> 
-               <i class="fa-solid fa-ticket-simple text-xs text-subText pl-6 hover:text-white"></i>
+                <a href=".././singleReview/?id=${log.reviewId}" >
+                  <i class="fa-solid fa-ticket-simple text-xs text-subText pl-6 hover:text-white"></i>
+                </a>
           </div>
         </div>
       </div>

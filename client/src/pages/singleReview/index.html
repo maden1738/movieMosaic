@@ -11,7 +11,7 @@
     ></script>
   </head>
   <body class="bg-secondary">
-    <!-- navbar -->
+    <!-- navbars -->
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
     >
@@ -276,24 +276,46 @@
       </div>
     </div>
 
-    <section class="wrapper">
-      <div class="flex items-center gap-2 pb-2 pt-4">
-        <div class="aspect-square w-[24px] overflow-hidden rounded-full">
+    <section class="wrapper pt-4">
+      <div class="flex w-full items-center justify-between">
+        <div>
+          <div class="mb-4 flex items-center gap-2">
+            <div class="aspect-square w-[24px] overflow-hidden rounded-full">
+              <img
+                src="/whitebg.avif"
+                alt="profile picture"
+                id="avatar"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <a
+              class="username text-sm font-extrabold text-text hover:text-white"
+              id="review-user-name"
+            >
+            </a>
+          </div>
+          <div>
+            <span class="mr-1 text-xl text-white" id="review-film-title"></span>
+            <span class="font-light text-text" id="release-date"></span>
+          </div>
+          <div class="mb-5 text-accent" id="rating-stars"></div>
+          <div class="text-xs text-subText">
+            Watched on <span id="review-date"></span>
+          </div>
+        </div>
+
+        <div class="h-[179px] w-[119px] overflow-hidden rounded-md">
           <img
-            src="/whitebg.avif"
-            alt="profile picture"
-            id="avatar"
-            class="h-full w-full object-cover"
+            src=""
+            alt="film poster"
+            class="min-h-full min-w-[full]"
+            id="review-film-poster"
           />
         </div>
-        <div class="username text-sm font-extrabold text-white" id="name"></div>
       </div>
-
-      <div class="mt-4 text-xs uppercase text-accent">Diary</div>
-      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
+      <p class="text-sm text-text" id="review-content"></p>
     </section>
 
-    <section class="wrapper" id="content"></section>
     <script type="module" src="../../common/navbar.ts"></script>
     <script type="module" src="./index.ts"></script>
   </body>

@@ -7,8 +7,9 @@ export interface ILogs {
 
 export interface ILogsResponse {
   name: string;
+  reviewId: string;
   avatarUrl: string;
-  id: string;
+  filmId: string;
   title: string;
   posterUrl: string;
   likeStatus: boolean;

@@ -10,9 +10,4 @@ export interface IReview {
   createdAt: string;
 }
 
-export interface IReviewWithFilm extends IFilm {
-  reviewId: string;
-  content: string;
-  rating: number;
-  createdAt: string;
-}
+export interface IReviewWithFilm extends IFilm, IReview {}

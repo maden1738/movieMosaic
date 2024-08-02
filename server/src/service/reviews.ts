@@ -64,3 +64,7 @@ export async function getReviewByUserId(userId: number) {
 export async function getRating(filmId: string, userId: string) {
      return await ReviewsModel.getRating(+filmId, +userId);
 }
+
+export async function getReviewDetail(reviewId: number) {
+     return await ReviewsModel.getReview(reviewId);
+}
