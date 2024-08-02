@@ -34,6 +34,10 @@ const loginErrorContainer = document.querySelector(
 ) as HTMLDivElement;
 const loginBody = document.getElementById("login-body") as HTMLElement;
 const searchBody = document.getElementById("search-body") as HTMLElement;
+const searchFilmIcon = document.getElementById("search-movie-icon");
+const searchFIlmInputEL = document.getElementById(
+  "search-movie-input",
+) as HTMLInputElement;
 const popularMoviesContainer = document.querySelector(
   ".popular-movies",
 ) as HTMLDivElement;
@@ -135,6 +139,11 @@ searchIconEl.addEventListener("click", () => {
   }
 
   searchBody.classList.toggle("hidden");
+
+  searchFilmIcon?.addEventListener("click", () => {
+    const query = searchFIlmInputEL.value.trim();
+    window.location.href = `./src/pages/searchResult/?q=${query}`;
+  });
 });
 
 window.onload = async () => {

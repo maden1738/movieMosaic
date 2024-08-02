@@ -203,7 +203,8 @@
                   />
                 </div>
                 <a
-                  class="text-sm font-extrabold uppercase text-text"
+                  href="#"
+                  class="text-sm font-extrabold uppercase text-text hover:text-white"
                   id="user-name"
                 ></a>
               </div>
@@ -284,51 +285,24 @@
       </div>
     </div>
 
-    <section class="wrapper">
-      <div class="flex items-center gap-2 pb-2 pt-4">
-        <div class="aspect-square w-[24px] overflow-hidden rounded-full">
-          <img
-            src="/whitebg.avif"
-            alt="profile picture"
-            class="h-full w-full"
-          />
-        </div>
-        <div class="username text-sm font-extrabold text-white"></div>
-      </div>
-
-      <div class="mt-4 flex gap-4">
-        <a
-          id="following"
-          class="cursor-pointer text-xs uppercase text-accent underline-offset-4 hover:underline"
-        >
-          following
-        </a>
-        <a
-          id="followers"
-          class="cursor-pointer text-xs uppercase text-accent underline-offset-4 hover:underline"
-        >
-          Followers
-        </a>
-      </div>
-
-      <div class="my-1 h-[1px] bg-primaryDark"></div>
-    </section>
-
-    <section class="wrapper" id="content">
-      <!-- <div class="flex items-center gap-4 py-2">
-               <div class="aspect-square w-[40px] overflow-hidden rounded-full">
-                    <img
-                    src="/whitebg.avif"
-                    alt="profile picture"
-                    class="h-full w-full"
-                    />
-               </div>
-               <a href="#" class="font-semibold text-white">Hira</a>
+    <section class="wrapper" id="search-result">
+      <!-- <div class="py-4">
+        <div class="grid grid-cols-layout2 gap-4">
+          <div class="h-[105px] w-[70px] overflow-hidden rounded-md">
+            <img src="/pastlives.png" alt="film poster" class="h-full w-full" />
           </div>
-          <div class="my-1 h-[1px] bg-primaryDark"></div> -->
+          <div class="pt-4">
+            <a href="#" class="mr-2 inline text-xl font-semibold text-white">
+              Past Lives
+            </a>
+            <span class="text-subText">2011</span>
+          </div>
+        </div>
+      </div>
+      <div class="h-[1px] bg-primary"></div> -->
     </section>
 
     <script type="module" src="../../common/navbar.ts"></script>
-    <script type="module" defer src="./index.ts"></script>
+    <script type="module" src="./index.ts"></script>
   </body>
 </html>

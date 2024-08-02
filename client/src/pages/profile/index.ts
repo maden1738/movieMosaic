@@ -1,5 +1,4 @@
 import axiosInstance from "../../axios";
-import { IFilm } from "../../interface/film";
 import { IReviewWithFilm } from "../../interface/review";
 import {
   convertIntoStar,
@@ -37,6 +36,7 @@ const followingLink = document.getElementById(
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
+
 watchedLink.href = `../userFilms/?id=${id}&content=watched`;
 diaryLink.href = `../diary/?id=${id}`;
 followersLink.href = `../follow/?id=${id}&content=followers`;
@@ -207,7 +207,7 @@ function renderRecentReviews(reviewes: Array<IReviewWithFilm>) {
             </div>
             <div class=" mt-1 gap-3 items-center flex">
               <span class="text-xs text-subText">Watched ${review.createdAt}</span>
-              <span class="text-sm  text-accent flex items-center pb-1">${rating}</span>
+              <span class="text-xs  text-accent flex items-center pb-1">${rating}</span>
             </div>
             <div class="mt-2 text-sm text-text">
               ${review.content}

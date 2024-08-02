@@ -47,7 +47,7 @@ function renderDiary(logs: Array<ILogsResponse>) {
             <span class="block font-semibold text-white" id="film-title">
               ${log.title}
             </span>
-            <span class = "text-accent">
+            <span class = "text-accent text-xs">
               ${ratingStars}
             </span>
           </div>
