@@ -204,7 +204,7 @@ loginForm.addEventListener("submit", async (event) => {
 });
 
 navLikeCheckbox.addEventListener("change", () => {
-  renderLogIcon();
+  renderLogLikeIcon();
 });
 
 navStarEls.forEach((el) => {
@@ -364,7 +364,7 @@ async function fetchMovie(filmId: string) {
   }
 }
 
-function populateLogPanel(film: IFilm) {
+async function populateLogPanel(film: IFilm) {
   navLogForm.dataset.filmId = film.id;
 
   const filmPosterEl = document.getElementById(
@@ -372,11 +372,23 @@ function populateLogPanel(film: IFilm) {
   ) as HTMLImageElement;
   const filmTitleEl = document.getElementById("film-name") as HTMLDivElement;
 
+  const response = await axiosInstance.get(`/me/movie-status/${film.id}`);
+  const filmStatus = response.data.data;
+
+  if (filmStatus.likedStatus) {
+    navLikeCheckbox.checked = true;
+    renderLogLikeIcon();
+  }
+
+  if (filmStatus.rating) {
+    renderStars(filmStatus.rating);
+  }
+
   filmPosterEl.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
   filmTitleEl.innerHTML = film.title;
 }
 
-function renderLogIcon() {
+function renderLogLikeIcon() {
   if (navLikeCheckbox.checked) {
     navLikeIcon.style.color = "#F27405";
   } else {
@@ -406,17 +418,9 @@ function renderStars(rating: string) {
 }
 
 function clearRating() {
-  console.log("ehjr");
-
   navRatingEl.dataset.rating = "";
 
   navStarEls.forEach((el) => {
     el.style.color = "#324654";
   });
 }
-
-//  <a
-//                 class="block px-[10px] py-[8px] text-xs text-white hover:bg-accent"
-//               >
-//                 Parasite (2012)
-//               </a>

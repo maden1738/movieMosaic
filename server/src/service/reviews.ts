@@ -60,3 +60,7 @@ export async function updateReview(
 export async function getReviewByUserId(userId: number) {
      return await ReviewsModel.getByUserId(userId);
 }
+
+export async function getRating(filmId: string, userId: string) {
+     return await ReviewsModel.getRating(+filmId, +userId);
+}

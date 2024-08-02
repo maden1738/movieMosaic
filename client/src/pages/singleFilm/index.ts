@@ -6,6 +6,7 @@ import {
 } from "../../utils/formatter";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
+import { handleSearchItemClick } from "../../common/navbar";
 
 const movieDetailsEl = document.getElementById(
   "movie-details",
@@ -52,41 +53,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       "userpanel-close",
     ) as HTMLButtonElement;
 
-    const logpanelEl = document.getElementById("logpanel") as HTMLDivElement;
-    const logpanelOpenEl = document.getElementById(
-      "logpanel-open",
-    ) as HTMLDivElement;
-    const logpanelCloseEl = document.getElementById(
-      "logpanel-close",
-    ) as HTMLButtonElement;
-    const logLikeIcon = document.getElementById("log-like-icon") as HTMLElement;
     const logRatingEls = document.querySelectorAll(
       ".logRating",
     ) as NodeListOf<HTMLElement>;
-    const likeCheckbox = document.getElementById(
-      "likeCheckbox",
-    ) as HTMLInputElement;
-    const logForm = document.getElementById("log-form") as HTMLFormElement;
 
-    // open log panel
-    logpanelOpenEl.addEventListener("click", () => {
-      userpanelEl.classList.add("hidden");
-      userpanelEl.classList.remove("flex");
-
-      logpanelEl.classList.remove("hidden");
-      logpanelEl.classList.add("flex");
-
-      likeCheckbox.checked = likedStatus;
-      console.log(likeCheckbox.checked);
-
-      renderLogIcon();
-    });
-
-    // close log panel
-    logpanelCloseEl.addEventListener("click", () => {
-      logpanelEl.classList.add("hidden");
-      logpanelEl.classList.remove("flex");
-    });
+    const logpanelOpenEl = document.getElementById(
+      "logpanel-open",
+    ) as HTMLDivElement;
+    logpanelOpenEl.dataset.filmId = filmId;
+    logpanelOpenEl.addEventListener("click", handleSearchItemClick);
 
     logRatingEls.forEach((el) => {
       el.addEventListener("click", () => {});
@@ -173,15 +148,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    likeCheckbox.addEventListener("change", () => {
-      console.log(likeCheckbox.checked);
-      renderLogIcon();
-    });
-
-    logForm.addEventListener("submit", (event) => {
-      handleLogFormSubmit(event);
-    });
-
     function renderIcon() {
       if (watchedStatus) {
         watchIconEl.style.color = "#05ab1e";
@@ -213,19 +179,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         watchlistIconEl.style.color = "#99AABB";
       }
     }
-
-    /**
-     * The function `renderLogIcon` changes the color of an icon based on the state of a checkbox.
-     */
-    function renderLogIcon() {
-      if (likeCheckbox.checked) {
-        logLikeIcon.style.color = "#F27405";
-      } else {
-        logLikeIcon.style.color = "#20262e";
-      }
-    }
   } catch (error) {
-    console.log("here");
+    console.log(error);
   }
 
   fetchRecentReviews();
@@ -245,73 +200,8 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML = /*HTML*/ `  
+  movieDetailsEl.innerHTML = /*HTML*/ `
   <section class = "relative">
-      <div class="fixed inset-0 z-20 bg-black bg-opacity-55  hidden justify-center items-center" id="logpanel">
-      <section class="wrapper relative">
-        <div class="relative w-full rounded-lg bg-primary p-3 shadow-lg">
-          <button
-            id="logpanel-close"
-            class="absolute right-0 top-0 z-20 flex aspect-square w-[20px] translate-x-[50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
-          >
-            <i class="fa-regular fa-x text-sm font-semibold text-subText"></i>
-          </button>
-          <form id="log-form">
-            <div class="flex gap-4 pb-2">
-              <div class="aspect-[2/3] w-[65px] overflow-hidden rounded-md">
-                <img src="https://image.tmdb.org/t/p/w500${posterUrl}" alt="film poster" srcset="" />
-              </div>
-              <section class="w-full">
-                <div class="mb-3 text-xl font-bold text-white">${title}</div>
-                <div class="flex justify-between items-center">
-                  <div class="flex flex-col ">
-                    <select id="logRating" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
-                      <option selected disabled>Rating</option>
-                      <option value="0.5" >0.5</option>
-                      <option value="1">1</option>
-                      <option value="1.5">1.5</option>
-                      <option value="2">2</option>
-                      <option value="2.5">2.5</option>
-                      <option value="3.5">3</option>
-                      <option value="4">4</option>
-                      <option  value="5">5</option>
-                    </select>
-
-
-                  </div>
-                  <div>
-                    <label for="likeCheckbox">
-                      <div class="flex cursor-pointer flex-col items-center justify-between">
-                        <span class="text-xs text-white">Like</span>   
-                        <i class="fa-solid fa-heart text-secondary mt-1" id="log-like-icon" ></i>
-                      </div>
-                    </label>
-                    <input
-                        type="checkbox"
-                        id="likeCheckbox"
-                        class=""
-                    />
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <label for="review" class="text-xs text-white"> Add Review </label>
-            <textarea
-              id="review"
-              placeholder="Add a Review..."
-              class="mt-1 h-[80px] w-full rounded-md bg-backgroundLight px-3 py-1 text-text focus:bg-white focus:text-black"
-            >
-            </textarea>
-            <button
-              class="mt-4 rounded-md bg-accent px-3 py-1 text-xs font-bold text-white shadow-lg"r
-            >
-              SAVE
-            </button>
-          </form>
-        </div>
-      </section>
-    </div>
       <img src="https://image.tmdb.org/t/p/w500${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full"  />
        <button
         class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white"
@@ -427,18 +317,6 @@ function renderMovieDetails(data: IFilm) {
     </section>`;
 }
 
-function handleLogFormSubmit(event: SubmitEvent) {
-  event.preventDefault();
-  const target = event.target as HTMLFormElement;
-
-  const formData = {
-    content: target.review.value,
-    rating: target.logRating.value,
-  };
-
-  submitReview(formData);
-}
-
 async function fetchRecentReviews() {
   try {
     const response = await axiosInstance.get(`/movies/${id}/reviews/?size=3`);
@@ -490,14 +368,6 @@ function renderRecentReviews(data: Array<IReview>) {
 
     recentReviewEl.appendChild(divEl);
   });
-}
-
-async function submitReview(review: Pick<IReview, "content" | "rating">) {
-  try {
-    await axiosInstance.post(`/movies/${id}/reviews`, review);
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 function addToWatchedList(movieId: string) {

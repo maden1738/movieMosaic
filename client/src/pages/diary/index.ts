@@ -1,5 +1,6 @@
 import axiosInstance from "../../axios";
 import { ILogsResponse } from "../../interface/log";
+import { convertIntoStar } from "../../utils/formatter";
 
 const contentEl = document.getElementById("content") as HTMLElement;
 const avatar = document.getElementById("avatar") as HTMLImageElement;
@@ -29,6 +30,11 @@ async function fetchDiary() {
 function renderDiary(logs: Array<ILogsResponse>) {
   logs.forEach((log) => {
     const divEl = document.createElement("div");
+    let ratingStars = "";
+    if (log.rating) {
+      ratingStars = convertIntoStar(log.rating);
+    }
+
     divEl.innerHTML = `<div class="flex w-full gap-4 py-3">
         <div class="text-base text-primary min-w-fit">Jul 24</div>
 
@@ -40,12 +46,12 @@ function renderDiary(logs: Array<ILogsResponse>) {
             <span class="block font-semibold text-white" id="film-title">
               ${log.title}
             </span>
-            <span>
-              <i class="fa-solid fa-star text-xs text-accent"></i>
+            <span class = "text-accent">
+              ${ratingStars}
             </span>
           </div>
-          <div class="${log.content ? "" : "hidden"}" id="reviewed-icon"> 
-               <i class="fa-solid fa-ticket-simple text-xs text-subText pl-6"></i>
+          <div class="${log.content ? "" : "hidden"} " id="reviewed-icon"> 
+               <i class="fa-solid fa-ticket-simple text-xs text-subText pl-6 hover:text-white"></i>
           </div>
         </div>
       </div>

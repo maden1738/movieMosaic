@@ -1,8 +1,6 @@
-import { query } from "express";
 import { GetReviewsQuery, Review } from "../interface/reviews";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
-import { GetMoviesQuery } from "../interface/movies";
 
 const logger = loggerWithNameSpace("reviewsModel");
 
@@ -110,5 +108,16 @@ export class ReviewsModel extends BaseModel {
                .update(reviewToUpdate)
                .table("review")
                .where("id", reviewId);
+     }
+
+     static async getRating(filmId: number, userId: number) {
+          const data = await this.queryBuilder()
+               .table("review")
+               .select("rating")
+               .where({ filmId, reviewedBy: userId })
+               .orderBy("createdAt", "desc")
+               .first();
+
+          return data;
      }
 }

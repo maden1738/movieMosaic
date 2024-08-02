@@ -64,52 +64,57 @@ const userElements = document.querySelectorAll(".user");
 const logSearchEl = document.getElementById("log-search") as HTMLElement;
 const logCloseEl = document.getElementById("log-search-close") as HTMLElement;
 
-loginIconEl.addEventListener("click", () => {
-  if (!searchBody.classList.contains("hidden")) {
-    searchBody.classList.add("hidden");
-  }
-
-  if (!navbarEl.classList.contains("hidden")) {
-    navbarEl.classList.add("hidden");
-  }
-
-  loginBody.classList.toggle("hidden");
-});
-
-navbarOpenEl.addEventListener("click", () => {
-  navbarEl.classList.toggle("hidden");
-  if (!loginBody.classList.contains("hidden")) {
-    loginBody.classList.add("hidden");
-  }
-  if (!searchBody.classList.contains("hidden")) {
-    searchBody.classList.add("hidden");
-  }
-});
-
-searchIconEl.addEventListener("click", () => {
-  if (!loginBody.classList.contains("hidden")) {
-    loginBody.classList.add("hidden");
-  }
-  if (!navbarEl.classList.contains("hidden")) {
-    navbarEl.classList.add("hidden");
-  }
-
-  searchBody.classList.toggle("hidden");
-});
-
-logSearchEl.addEventListener("input", handleSearchInput);
-
-logSearchOpenEl.addEventListener("click", () => {
-  logSearchEl.classList.remove("hidden");
-  logSearchEl.classList.add("flex");
-});
-
-logCloseEl.addEventListener("click", () => {
-  logSearchEl.classList.remove("flex");
-  logSearchEl.classList.add("hidden");
-});
-
 window.onload = async () => {
+  loginIconEl.addEventListener("click", () => {
+    if (!searchBody.classList.contains("hidden")) {
+      searchBody.classList.add("hidden");
+    }
+
+    if (!navbarEl.classList.contains("hidden")) {
+      navbarEl.classList.add("hidden");
+    }
+
+    loginBody.classList.toggle("hidden");
+  });
+
+  navbarOpenEl.addEventListener("click", () => {
+    console.log("here");
+
+    console.log(navbarEl);
+    navbarEl.classList.toggle("hidden");
+    console.log(navbarEl);
+
+    if (!loginBody.classList.contains("hidden")) {
+      loginBody.classList.add("hidden");
+    }
+    if (!searchBody.classList.contains("hidden")) {
+      searchBody.classList.add("hidden");
+    }
+  });
+
+  searchIconEl.addEventListener("click", () => {
+    if (!loginBody.classList.contains("hidden")) {
+      loginBody.classList.add("hidden");
+    }
+    if (!navbarEl.classList.contains("hidden")) {
+      navbarEl.classList.add("hidden");
+    }
+
+    searchBody.classList.toggle("hidden");
+  });
+
+  logSearchEl.addEventListener("input", handleSearchInput);
+
+  logSearchOpenEl.addEventListener("click", () => {
+    logSearchEl.classList.remove("hidden");
+    logSearchEl.classList.add("flex");
+  });
+
+  logCloseEl.addEventListener("click", () => {
+    logSearchEl.classList.remove("flex");
+    logSearchEl.classList.add("hidden");
+  });
+
   try {
     const response = await axiosInstance.get("/users/me");
 
@@ -122,14 +127,12 @@ window.onload = async () => {
     likesEl.href = `../userFilms/?id=${id}&content=likes`;
     userNameEl.innerHTML = `${name}`;
     userNameEl.href = `.././profile/?id=${id}`;
-    diaryEl.href = ".././diary/";
+    diaryEl.href = `.././diary/?id=${id}`;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
     });
   } catch (error) {
-    console.log("hereeee");
-
     localStorage.clear();
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");
@@ -137,9 +140,7 @@ window.onload = async () => {
   }
 };
 
-navLikeCheckbox.addEventListener("change", () => {
-  renderLogIcon();
-});
+navLikeCheckbox.addEventListener("change", renderLogLikeIcon);
 
 navStarEls.forEach((el) => {
   el.addEventListener("click", handleStarClick);
@@ -245,7 +246,7 @@ function renderSearchItems() {
 }
 
 // rendering log panel
-function handleSearchItemClick(event: MouseEvent) {
+export function handleSearchItemClick(event: MouseEvent) {
   const navLogModal = document.getElementById(
     "nav-log-modal",
   ) as HTMLDivElement;
@@ -277,7 +278,7 @@ async function fetchMovie(filmId: string) {
   }
 }
 
-function populateLogPanel(film: IFilm) {
+async function populateLogPanel(film: IFilm) {
   navLogForm.dataset.filmId = film.id;
 
   const filmPosterEl = document.getElementById(
@@ -285,11 +286,23 @@ function populateLogPanel(film: IFilm) {
   ) as HTMLImageElement;
   const filmTitleEl = document.getElementById("film-name") as HTMLDivElement;
 
+  const response = await axiosInstance.get(`/me/movie-status/${film.id}`);
+  const filmStatus = response.data.data;
+
+  if (filmStatus.likedStatus) {
+    navLikeCheckbox.checked = true;
+    renderLogLikeIcon();
+  }
+
+  if (filmStatus.rating) {
+    renderStars(filmStatus.rating);
+  }
+
   filmPosterEl.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
   filmTitleEl.innerHTML = film.title;
 }
 
-function renderLogIcon() {
+function renderLogLikeIcon() {
   if (navLikeCheckbox.checked) {
     navLikeIcon.style.color = "#F27405";
   } else {
