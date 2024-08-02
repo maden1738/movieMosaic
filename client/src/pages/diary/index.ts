@@ -4,7 +4,7 @@ import { convertIntoStar } from "../../utils/formatter";
 
 const contentEl = document.getElementById("content") as HTMLElement;
 const avatar = document.getElementById("avatar") as HTMLImageElement;
-const userNameEl = document.getElementById("name") as HTMLDivElement;
+const userNameEl = document.getElementById("name") as HTMLAnchorElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
@@ -12,9 +12,8 @@ const user = JSON.parse(localStorage.getItem("user") as string);
 
 document.addEventListener("DOMContentLoaded", () => {
   avatar.src = user.avatarUrl;
-  console.log(user.name);
-  console.log(userNameEl);
   userNameEl.innerHTML = user.name;
+  userNameEl.href = `.././profile/?id=${id}`;
   fetchDiary();
 });
 
