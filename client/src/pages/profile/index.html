@@ -309,19 +309,19 @@
 
     <section class="wrapper grid grid-cols-3">
       <a href="#" class="group flex flex-col items-center" id="films-link">
-        <div id="no-of-films" class="text-xl font-bold text-heading">200</div>
+        <div id="no-of-films" class="text-xl font-bold text-heading"></div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           films
         </div>
       </a>
       <a href="#" class="group flex flex-col items-center" id="followers-link">
-        <div class="text-xl font-bold text-heading" id="followers">20</div>
+        <div class="text-xl font-bold text-heading" id="followers"></div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           Followers
         </div>
       </a>
       <a href="#" class="group flex flex-col items-center" id="following-link">
-        <div class="text-xl font-bold text-heading" id="following">11</div>
+        <div class="text-xl font-bold text-heading" id="following"></div>
         <div class="text-xs uppercase text-subText group-hover:text-accent2">
           Following
         </div>
@@ -329,15 +329,26 @@
     </section>
 
     <section class="wrapper mt-10">
-      <div class="flex justify-between">
+      <div class="flex items-center justify-between">
         <div class="text-xs uppercase text-subText">recent activity</div>
-        <a class="text-xs uppercase text-subText" href="#" id="watched-link"
-          >all</a
-        >
+        <span>
+          <a
+            href="#"
+            class="pr-4 text-xs uppercase text-subText hover:text-accent2"
+            id="diary-link"
+            >diary</a
+          >
+          <a
+            class="text-xs uppercase text-subText hover:text-accent2"
+            href="#"
+            id="watched-link"
+            >all</a
+          >
+        </span>
       </div>
       <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
 
-      <div class="grid grid-cols-4 gap-2" id="recent-activity"></div>
+      <div class="grid grid-cols-4 gap-1" id="recent-activity"></div>
 
       <div class="mt-7 flex justify-between">
         <div class="text-xs uppercase text-subText">Recent Reviews</div>

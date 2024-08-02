@@ -4,3 +4,7 @@ export interface ILogs {
      rating?: number;
      content?: string;
 }
+
+export interface GetLogsQuery {
+     size?: number;
+}

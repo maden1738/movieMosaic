@@ -7,6 +7,7 @@ import {
   extractYear,
 } from "../../utils/formatter";
 import { IUser } from "../../interface/user";
+import { ILogsResponse } from "../../interface/log";
 
 const profileUserNameEl = document.getElementById(
   "profile-user-name",
@@ -17,6 +18,7 @@ const recentActivityEl = document.getElementById(
 const watchedLink = document.getElementById(
   "watched-link",
 ) as HTMLAnchorElement;
+const diaryLink = document.getElementById("diary-link") as HTMLAnchorElement;
 const filmsEl = document.getElementById("no-of-films") as HTMLDivElement;
 const followersEl = document.getElementById("followers") as HTMLDivElement;
 const followingEl = document.getElementById("following") as HTMLDivElement;
@@ -36,6 +38,7 @@ const followingLink = document.getElementById(
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 watchedLink.href = `../userFilms/?id=${id}&content=watched`;
+diaryLink.href = `../diary/?id=${id}`;
 followersLink.href = `../follow/?id=${id}&content=followers`;
 followingLink.href = `../follow/?id=${id}&content=following`;
 let followingStatus = false;
@@ -59,6 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   displayUserName();
   fetchNoOfFollowers();
   fetchNoOfFollowing();
+  fetchNoOfMovies();
   fetchRecentActivity();
   fetchRecentReviews();
 });
@@ -107,10 +111,9 @@ async function fetchRecentReviews() {
 
 async function fetchRecentActivity() {
   const response = await axiosInstance.get(
-    `/users/${id}/watched?size=4&sortBy=whenAddedDesc`,
+    `/users/${id}/logs?size=4&sortBy=whenAddedDesc`,
   );
 
-  renderNoOfWatchedMovies(response.data.meta.total);
   renderRecentMovies(response.data.data);
 }
 
@@ -122,6 +125,12 @@ async function fetchNoOfFollowers() {
 async function fetchNoOfFollowing() {
   const response = await axiosInstance.get(`/users/${id}/follow`);
   renderFollowing(response.data.data.length);
+}
+
+async function fetchNoOfMovies() {
+  const response = await axiosInstance.get(`/users/${id}/watched?size=1`);
+
+  renderNoOfWatchedMovies(response.data.meta.total);
 }
 
 function renderFollowButton() {
@@ -144,16 +153,34 @@ function renderFollowing(noOfFollowing: number) {
   followingEl.innerHTML = String(noOfFollowing);
 }
 
-function renderRecentMovies(data: Array<IFilm>) {
+function renderRecentMovies(data: Array<ILogsResponse>) {
   data.forEach((film) => {
+    let ratingStars = "";
+    if (film.rating) {
+      ratingStars = convertIntoStar(film.rating);
+    }
+
     const link = document.createElement("a");
-    link.href = `../singleFilm/?id=${parseInt(film.id)}`;
+    link.href = `../singleFilm/?id=${parseInt(film.filmId)}`;
     const recentfilmContainer = document.createElement("div");
     recentfilmContainer.className = "rounded-md overflow-hidden";
     const poster = document.createElement("img");
     poster.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
     recentfilmContainer.appendChild(poster);
+    const divEl = document.createElement("div");
+    divEl.style.height = "16px";
+
+    divEl.innerHTML = `
+          <div class="${film.rating ? "text-[10px] inline text-subText" : "hidden"}">${ratingStars}</div>
+      <div class="${film.likeStatus ? "inline" : "hidden"}">
+        <i class="fa-solid fa-heart text-[10px] text-subText"></i>
+      </div>
+      <a  href=".././singleReview/?id=${film.reviewId}" class="${film.content ? "inline hover:text-accent2" : "hidden"}">
+        <i class="fa-solid fa-ticket-simple text-[10px] text-subText"></i>
+      </a>
+    `;
     link.appendChild(recentfilmContainer);
+    link.appendChild(divEl);
 
     recentActivityEl.appendChild(link);
   });

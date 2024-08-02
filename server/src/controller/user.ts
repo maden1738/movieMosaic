@@ -122,9 +122,10 @@ export async function createLog(
 
 export async function getLogs(req: Request, res: Response, next: NextFunction) {
      const { id } = req.params;
+     const { query } = req;
 
      try {
-          const data = await UserService.getLogs(+id);
+          const data = await UserService.getLogs(+id, query);
           res.status(HttpStatusCodes.OK).json({
                data,
           });

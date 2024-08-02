@@ -1,4 +1,4 @@
-import { ILogs } from "../interface/logs";
+import { GetLogsQuery, ILogs } from "../interface/logs";
 import { LogsModel } from "../model/logs";
 import * as LikedMoviesService from "./likedMovies";
 import * as ReviewsService from "./reviews";
@@ -24,6 +24,6 @@ export async function createLog(userId: number, log: ILogs) {
      await LogsModel.create(filmId, userId, reviewId, likeStatus);
 }
 
-export async function getLogs(userId: number) {
-     return await LogsModel.getLogs(userId);
+export async function getLogs(userId: number, query: GetLogsQuery) {
+     return await LogsModel.getLogs(userId, query);
 }

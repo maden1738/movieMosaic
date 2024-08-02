@@ -1,3 +1,4 @@
+import { GetLogsQuery } from "../interface/logs";
 import { BaseModel } from "./base";
 
 export class LogsModel extends BaseModel {
@@ -16,7 +17,9 @@ export class LogsModel extends BaseModel {
           await this.queryBuilder().table("logs").insert(dataToBeInserted);
      }
 
-     static async getLogs(userId: number) {
+     static async getLogs(userId: number, query: GetLogsQuery) {
+          const { size } = query;
+
           const data = this.queryBuilder()
                .table("logs")
                .select(
@@ -26,6 +29,7 @@ export class LogsModel extends BaseModel {
                     "film.title",
                     "film.posterUrl",
                     "logs.likeStatus",
+                    "logs.createdAt",
                     "review.content",
                     "review.rating",
                     "review.id as reviewId"
@@ -33,7 +37,9 @@ export class LogsModel extends BaseModel {
                .join("film", "logs.filmId", "film.id")
                .join("user", "logs.userId", "user.id")
                .join("review", "logs.reviewId", "review.id")
-               .where("logs.userId", userId);
+               .where("logs.userId", userId)
+               .limit(size!)
+               .orderBy("logs.createdAt", "desc");
 
           return data;
      }

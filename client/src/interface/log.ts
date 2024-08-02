@@ -15,4 +15,5 @@ export interface ILogsResponse {
   likeStatus: boolean;
   content: string | null;
   rating: number | null;
+  createdAt: string;
 }

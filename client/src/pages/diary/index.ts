@@ -1,6 +1,6 @@
 import axiosInstance from "../../axios";
 import { ILogsResponse } from "../../interface/log";
-import { convertIntoStar } from "../../utils/formatter";
+import { convertIntoStar, extractDayAndMonth } from "../../utils/formatter";
 
 const contentEl = document.getElementById("content") as HTMLElement;
 const avatar = document.getElementById("avatar") as HTMLImageElement;
@@ -34,8 +34,10 @@ function renderDiary(logs: Array<ILogsResponse>) {
       ratingStars = convertIntoStar(log.rating);
     }
 
+    const logDate = extractDayAndMonth(log.createdAt);
+
     divEl.innerHTML = `<div class="flex w-full gap-4 py-3">
-        <div class="text-base text-primary min-w-fit">Jul 24</div>
+        <div class="text-base text-primary min-w-fit">${logDate}</div>
 
         <div class="h-[52px] min-w-[35px] overflow-hidden">
           <img src="https://image.tmdb.org/t/p/w500${log.posterUrl}" alt="film poster" class="h-full w-full" />

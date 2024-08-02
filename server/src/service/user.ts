@@ -15,7 +15,7 @@ import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { UploadApiResponse } from "cloudinary";
-import { ILogs } from "../interface/logs";
+import { GetLogsQuery, ILogs } from "../interface/logs";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -110,8 +110,8 @@ export async function createLog(userId: number, log: ILogs) {
      // logsModel.create(filmid, userid, reviewid, likestatus)
 }
 
-export async function getLogs(userId: number) {
-     return await LogsService.getLogs(userId);
+export async function getLogs(userId: number, query: GetLogsQuery) {
+     return await LogsService.getLogs(userId, query);
 }
 
 export async function getUserById(id: number) {
