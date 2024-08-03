@@ -11,24 +11,22 @@ import { handleSearchItemClick } from "../../common/navbar";
 const movieDetailsEl = document.getElementById(
   "movie-details",
 ) as HTMLDivElement;
+const friendReviewSection = document.getElementById(
+  "friend-reviews-section",
+) as HTMLElement;
 
+// checking if user is logged in
 let isUserLoggedIn = false;
 const USER = JSON.parse(localStorage.getItem("user") as string);
-console.log(USER.id);
+if (USER) {
+  isUserLoggedIn = true;
+}
 
+// getting filmId from url
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // checking if user is logged in
-  try {
-    const response = await axiosInstance.get("/users/me");
-    localStorage.setItem("user", JSON.stringify(response.data.data));
-    isUserLoggedIn = true;
-  } catch (error) {
-    console.log(error);
-  }
-
   try {
     let likedStatus = false;
     let watchedStatus = false;
@@ -324,6 +322,10 @@ async function fetchFriendReviews() {
     const response = await axiosInstance.get(
       `/users/${USER.id}/followers/reviews/movies/${id}?size=3`,
     );
+
+    if (response.data.data.length === 0) {
+      friendReviewSection.classList.add("hidden");
+    }
 
     renderFriendReviews(response.data.data);
   } catch (error) {

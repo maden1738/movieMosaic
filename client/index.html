@@ -374,8 +374,96 @@
       </div>
     </div>
 
+    <!-- add film to db -->
+    <section class="wrapper mb-10" id="add-film-section">
+      <h1 class="my-4 text-2xl font-light text-text">
+        Add film to our database
+      </h1>
+      <div class="mb-5 mt-1 h-[1px] bg-primaryDark"></div>
+      <form id="add-film-form">
+        <div class="flex flex-col gap-2">
+          <label for="new-film-name" class="text-sm font-semibold text-white"
+            >Film Name</label
+          >
+          <input
+            id="new-film-name"
+            type="text"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="new-film-date" class="text-sm font-semibold text-white"
+            >Release Date</label
+          >
+          <input
+            id="new-film-date"
+            type="text"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label for="new-film-trailer" class="text-sm font-semibold text-white"
+            >Trailer</label
+          >
+          <input
+            id="new-film-trailer"
+            type="text"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label
+            class="block text-sm font-medium dark:text-white"
+            for="new-film-poster"
+            >Film Poster</label
+          >
+          <input
+            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+            id="new-film-poster"
+            type="file"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label
+            class="block text-sm font-medium dark:text-white"
+            for="new-backdrop-poster"
+            >Backrop Poster</label
+          >
+          <input
+            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+            id="new-backdrop-poster"
+            type="file"
+          />
+        </div>
+        <div class="mt-5 flex flex-col gap-2">
+          <label
+            for="new-film-overview"
+            class="text-sm font-semibold text-white"
+            >Overview</label
+          >
+          <textarea
+            id="new-film-overview"
+            type="text"
+            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+          ></textarea>
+        </div>
+
+        <div class="h-8" id="new-error-container"></div>
+
+        <button
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          id="new-film-btn"
+        >
+          add film
+        </button>
+      </form>
+    </section>
+
     <!-- friend-activity section -->
-    <section class="wrapper user hidden text-white">
+    <section
+      class="wrapper user hidden text-white"
+      id="new-from-friend-section"
+    >
       <h3 class="mb-4 font-bold">New from friend</h3>
       <div class="grid grid-cols-3 gap-2" id="new-from-friend"></div>
     </section>

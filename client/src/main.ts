@@ -45,6 +45,10 @@ const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
 const introUserEl = document.getElementById("intro-name") as HTMLAnchorElement;
 
+const newFromFriendSection = document.getElementById(
+  "new-from-friend-section",
+) as HTMLElement;
+
 const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
@@ -328,6 +332,13 @@ function handleSearchInput() {
 async function fetchLogsOfFriends(userId: string) {
   try {
     const response = await axiosInstance.get(`users/${userId}/follow/logs`);
+
+    if (response.data.data.length === 0) {
+      console.log("here");
+
+      newFromFriendSection.classList.add("hidden");
+      return;
+    }
     renderLogsOfFriends(response.data.data);
   } catch (error) {
     console.log(error);
@@ -342,9 +353,9 @@ function renderLogsOfFriends(logsArr: Array<ILogsResponse>) {
   logsArr.forEach((log) => {
     const divEl = document.createElement("div");
     const ratingStars = convertIntoStar(log.rating!);
-    divEl.innerHTML = `<div class="rounded-t-md">
-          <a href="./src/pages/singleFilm/?id=${log.filmId}">
-            <img src="https://image.tmdb.org/t/p/w500${log.posterUrl}" alt="film poster" class="h-full w-full" />
+    divEl.innerHTML = `<div class="rounded-t-md overflow-hidden">
+          <a href="./src/pages/singleFilm/?id=${log.filmId} h-full">
+            <img src="${log.posterUrl}" alt="film poster" class="h-full w-full" />
           </a>
 
           <div class="flex items-center rounded-b-md bg-primaryDark p-1">
@@ -361,15 +372,15 @@ function renderLogsOfFriends(logsArr: Array<ILogsResponse>) {
               >${log.name}</a
             >
           </div>
-          <div class="h-4">
+          <div class="">
             <span class="text-[10px] text-subText">
               ${ratingStars}
             </span>
-            <span class="${log.likeStatus ? "px-[1px] text-[10px] " : "hidden"}">
-              <i class="fa-solid fa-heart text-xs text-subText pb-1"></i>
+            <span class="${log.likeStatus ? "px-[1px] text-[10px]" : "hidden"}">
+              <i class="fa-solid fa-heart text-xs text-subText "></i>
             </span>
             <a class="${log.content ? "px-[1px] text-[10px]" : "hidden"}" href="./src/pages/singleReview/?id=${log.reviewId}">
-              <i class="fa-solid fa-ticket-simple text-xs text-subText hover:text-white pb-1"></i>
+              <i class="fa-solid fa-ticket-simple text-xs text-subText hover:text-white  "></i>
             </a>
           </div>
         </div>`;
@@ -383,8 +394,9 @@ function renderPopularMovies(data: Array<IFilm>) {
     link.href = `./src/pages/singleFilm/?id=${parseInt(film.id)}`;
     const filmContainer = document.createElement("div");
     const poster = document.createElement("img");
-    poster.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
+    poster.src = `${film.posterUrl}`;
     filmContainer.appendChild(poster);
+    filmContainer.className = "rounded-md overflow-hidden";
     link.appendChild(filmContainer);
     popularMoviesContainer.appendChild(link);
   });

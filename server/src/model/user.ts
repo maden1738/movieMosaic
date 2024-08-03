@@ -50,9 +50,10 @@ export class UserModel extends BaseModel {
 
      static async getUserByEmail(email: string) {
           const data = await this.queryBuilder()
-               .select("id", "email", "password")
-               .table("user")
-               .where({ email });
+               .select("u.id", "u.email", "u.password", "r.role")
+               .table("user as u")
+               .leftJoin("roles as r", "u.id", "r.userId")
+               .where("u.email", email);
 
           if (data.length > 0) {
                return data[0];
@@ -63,9 +64,10 @@ export class UserModel extends BaseModel {
           logger.info("getUserById");
 
           const data = await this.queryBuilder()
-               .select("id", "email", "name", "bio", "avatarUrl")
+               .select("user.id", "email", "name", "bio", "avatarUrl", "role")
                .table("user")
-               .where({ id });
+               .leftJoin("roles", "user.id", "roles.userId")
+               .where("user.id", id);
 
           if (data.length > 0) {
                return data[0];
