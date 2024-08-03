@@ -100,7 +100,7 @@ function renderMovies(data: Array<IFilm>) {
     link.href = `../singleFilm/?id=${parseInt(film.id)}`;
     const filmContainer = document.createElement("div");
     const poster = document.createElement("img");
-    poster.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
+    poster.src = film.posterUrl;
     poster.alt = "film poster";
     filmContainer.appendChild(poster);
     link.appendChild(filmContainer);

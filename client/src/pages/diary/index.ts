@@ -40,7 +40,7 @@ function renderDiary(logs: Array<ILogsResponse>) {
         <div class="text-base text-primary min-w-fit">${logDate}</div>
 
         <div class="h-[52px] min-w-[35px] overflow-hidden">
-          <img src="https://image.tmdb.org/t/p/w500${log.posterUrl}" alt="film poster" class="h-full w-full" />
+          <img src="${log.posterUrl}" alt="film poster" class="h-full w-full" />
         </div>
         <div class="flex flex-grow justify-between">
           <div>

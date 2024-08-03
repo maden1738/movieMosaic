@@ -169,7 +169,7 @@ function renderRecentMovies(data: Array<ILogsResponse>) {
     const recentfilmContainer = document.createElement("div");
     recentfilmContainer.className = "rounded-md overflow-hidden";
     const poster = document.createElement("img");
-    poster.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
+    poster.src = film.posterUrl;
     recentfilmContainer.appendChild(poster);
     const divEl = document.createElement("div");
     divEl.style.height = "16px";
@@ -202,7 +202,7 @@ function renderRecentReviews(reviewes: Array<IReviewWithFilm>) {
 
     divEl.innerHTML = `<div class="grid-cols-layout2 grid gap-4 pb-5">
           <a class="h-[105px] w-[70px] overflow-hidden rounded-md " href="../singleFilm/?id=${review.filmId}" >
-            <img src="https://image.tmdb.org/t/p/w500${review.posterUrl}" alt="film poster" />
+            <img src="${review.posterUrl}" alt="film poster" />
           </a>
           <div >
             <div>

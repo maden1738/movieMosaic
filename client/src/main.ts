@@ -469,7 +469,7 @@ async function populateLogPanel(film: IFilm) {
     renderStars(filmStatus.rating);
   }
 
-  filmPosterEl.src = `https://image.tmdb.org/t/p/w500${film.posterUrl}`;
+  filmPosterEl.src = film.posterUrl;
   filmTitleEl.innerHTML = film.title;
 }
 

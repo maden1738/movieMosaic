@@ -201,9 +201,9 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML = /*HTML*/ `
+  movieDetailsEl.innerHTML = `
   <section class = "relative">
-      <img src="https://image.tmdb.org/t/p/w500${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full"  />
+      <img src="${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full"  />
        <button
         class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white"
         id="userpanel-open"
@@ -279,7 +279,7 @@ function renderMovieDetails(data: IFilm) {
         </div>
       </div>
       <div class="pt-2 w-[110px]  overflow-hidden rounded-lg">
-        <img src="https://image.tmdb.org/t/p/w500${posterUrl}" alt="poster" class = "w-full" />
+        <img src="${posterUrl}"" alt="poster" class = "w-full" />
       </div>
     </section>
 

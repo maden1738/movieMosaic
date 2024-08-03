@@ -29,7 +29,7 @@ function renderResult(films: Array<IFilm>) {
         <div class="grid grid-cols-layout2 gap-4">
           <div class="h-[105px] w-[70px] overflow-hidden rounded-md">
             <a href=".././singleFilm/?id=${film.id}">
-               <img src="https://image.tmdb.org/t/p/w500${film.posterUrl}" alt="film poster" class="h-full w-full" />
+               <img src="${film.posterUrl}" alt="film poster" class="h-full w-full" />
             </a>
           </div>
           <div class="pt-4">

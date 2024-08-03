@@ -53,6 +53,6 @@ function renderReview(review: IReviewWithFilm) {
   ratingEl.innerHTML = convertIntoStar(review.rating);
   releaseDateEl.innerHTML = extractYear(review.releaseDate);
   reviewDateEl.innerHTML = extractDate(review.createdAt);
-  filmPosterEl.src = `https://image.tmdb.org/t/p/w500${review.posterUrl}`;
+  filmPosterEl.src = review.posterUrl;
   reviewContentEl.innerHTML = review.content || "";
 }
