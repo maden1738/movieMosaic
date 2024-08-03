@@ -71,9 +71,9 @@ function renderReviews(data: Array<IReview>) {
           class="aspect-square h-[40px] w-[40px] grow overflow-hidden rounded-full hover:cursor-pointer"
         >
           <img
-            src="/whitebg.avif"
+            src=${review.avatarUrl}
             alt="profile picture"
-            class="h-full w-full"
+            class="h-full w-full object-cover"
           />
         </div>
         <div>

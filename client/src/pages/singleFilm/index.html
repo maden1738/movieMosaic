@@ -204,7 +204,8 @@
                   <img
                     src="/whitebg.avif"
                     alt="profile picture"
-                    class="h-full w-full"
+                    class="h-full w-full object-cover"
+                    id="nav-profile-picture"
                   />
                 </div>
                 <a
@@ -274,7 +275,19 @@
             class="absolute left-0 z-10 hidden w-full bg-background p-4"
             id="search-body"
           >
-            <input type="text" class="w-full bg-secondary px-2 py-1" />
+            <input
+              type="text"
+              class="w-full bg-secondary px-2 py-1 focus:bg-white focus:text-black"
+              id="search-movie-input"
+            />
+            <button
+              class="absolute right-0 translate-x-[-200%] translate-y-[10%]"
+            >
+              <i
+                class="fa-solid fa-magnifying-glass cursor-pointer text-xs text-subText"
+                id="search-movie-icon"
+              ></i>
+            </button>
           </div>
         </div>
       </div>

@@ -56,7 +56,10 @@ const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
 
-const userNameEl = document.getElementById("user-name") as HTMLDivElement;
+const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
+const navProfilePicEl = document.getElementById(
+  "nav-profile-picture",
+) as HTMLImageElement;
 
 // log search modal
 const logSearchOpenEl = document.getElementById(
@@ -151,12 +154,16 @@ window.onload = async () => {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    filmsEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watched`;
-    watchlistLink.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=watchlist`;
-    likesEl.href = `./src/pages/userFilms/?id=${response.data.data.id}&content=likes`;
-    diaryEl.href = `./src/pages/diary/?id=${response.data.data.id}`;
+    const { id, name, avatarUrl } = response.data.data;
 
-    userNameEl.innerHTML = `${response.data.data.name}`;
+    filmsEl.href = `./src/pages/userFilms/?id=${id}&content=watched`;
+    watchlistLink.href = `./src/pages/userFilms/?id=${id}&content=watchlist`;
+    likesEl.href = `./src/pages/userFilms/?id=${id}&content=likes`;
+    diaryEl.href = `./src/pages/diary/?id=${id}`;
+
+    userNameEl.innerHTML = name;
+    userNameEl.href = `./src/pages/profile/?id=${id}`;
+    navProfilePicEl.src = avatarUrl;
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");

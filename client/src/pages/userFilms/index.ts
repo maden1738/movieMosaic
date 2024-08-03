@@ -5,6 +5,9 @@ const contentEl = document.getElementById("content") as HTMLDivElement;
 const listTitleEl = document.getElementById("list-title") as HTMLDivElement;
 
 const userNameElements = document.querySelectorAll(".username");
+const titleProfilePicEl = document.getElementById(
+  "title-profile-pic",
+) as HTMLImageElement;
 
 // sort by modal
 const sortByIconEl = document.getElementById("sort-open") as HTMLElement;
@@ -37,11 +40,13 @@ const contentType = params.get("content");
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await axiosInstance.get(`/users/${id}`);
-    const { name } = response.data.data;
+    const { name, avatarUrl } = response.data.data;
 
     userNameElements.forEach((el) => {
       el.innerHTML = name;
     });
+
+    titleProfilePicEl.src = avatarUrl;
   } catch (error) {
     console.log(error);
   }

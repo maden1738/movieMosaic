@@ -28,6 +28,9 @@ const navbarOpenEl = document.getElementById("navbar-open") as HTMLElement;
 const navbarEl = document.getElementById("navbar") as HTMLDivElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
+const navProfilePicEl = document.getElementById(
+  "nav-profile-picture",
+) as HTMLImageElement;
 const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
 
 const logSearchOpenEl = document.getElementById(
@@ -129,13 +132,14 @@ window.onload = async () => {
 
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    const { id, name } = response.data.data;
+    const { id, name, avatarUrl } = response.data.data;
 
     filmsEl.href = `../userFilms/?id=${id}&content=watched`;
     watchlistLink.href = `../userFilms/?id=${id}&content=watchlist`;
     likesEl.href = `../userFilms/?id=${id}&content=likes`;
     userNameEl.innerHTML = `${name}`;
     userNameEl.href = `.././profile/?id=${id}`;
+    navProfilePicEl.src = avatarUrl;
     diaryEl.href = `.././diary/?id=${id}`;
 
     userElements.forEach((el) => {
