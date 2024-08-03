@@ -45,7 +45,7 @@ export async function getFollowers(userId: number) {
 }
 
 export async function getFollowing(userId: number) {
-     logger.info("getFollowers");
+     logger.info("getFollowing");
 
      const data = await UserService.getUserById(userId);
 

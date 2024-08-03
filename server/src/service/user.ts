@@ -208,3 +208,14 @@ export async function getReviewOfFollowing(
 ) {
      return await ReviewsService.getReviewOfFollowing(filmId, userId, query);
 }
+
+export async function getLogsOfFollowing(userId: number) {
+     logger.info("getLogsOfFOllowing");
+     const data = UserModel.getById(userId);
+
+     if (!data) {
+          throw new NotFoundError(`User with id: ${userId} not found`);
+     }
+
+     return await LogsService.getLogsOfFollowing(userId);
+}

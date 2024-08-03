@@ -1,14 +1,14 @@
 import { SignupSchema } from "./schema/user";
 import { validateForm } from "./utils/validator";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { ISignupData } from "./interface/user";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
 import { displayErrors } from "./utils/displayError";
-import { extractYear } from "./utils/formatter";
-import { ILogs } from "./interface/log";
+import { convertIntoStar, extractYear } from "./utils/formatter";
+import { ILogs, ILogsResponse } from "./interface/log";
 
 let debounceTimer: number | null = null;
 const DEBOUNCE_DELAY = 300; // milliseconds
@@ -171,11 +171,20 @@ window.onload = async () => {
 
     introUserEl.innerHTML = response.data.data.name;
     introUserEl.href = `./src/pages/profile/?id=${response.data.data.id}`;
+
+    fetchLogsOfFriends(id);
   } catch (error) {
     localStorage.clear();
     nonUserElements.forEach((el) => {
       el.classList.remove("hidden");
     });
+  }
+
+  try {
+    const response = await axiosInstance.get("/movies?sortBy=popularityDesc");
+    renderPopularMovies(response.data.data);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -285,10 +294,6 @@ async function submitLogForm(data: ILogs) {
   }
 }
 
-axios.get("http://localhost:3000/movies?sortBy=popularityDesc").then((res) => {
-  renderPopularMovies(res.data.data);
-});
-
 async function searchMovies(query: string) {
   try {
     const response = await axiosInstance.get(
@@ -318,6 +323,58 @@ function handleSearchInput() {
       renderSearchItems();
     }
   }, DEBOUNCE_DELAY);
+}
+
+async function fetchLogsOfFriends(userId: string) {
+  try {
+    const response = await axiosInstance.get(`users/${userId}/follow/logs`);
+    renderLogsOfFriends(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderLogsOfFriends(logsArr: Array<ILogsResponse>) {
+  const logsOfFriendEl = document.getElementById(
+    "new-from-friend",
+  ) as HTMLDivElement;
+
+  logsArr.forEach((log) => {
+    const divEl = document.createElement("div");
+    const ratingStars = convertIntoStar(log.rating!);
+    divEl.innerHTML = `<div class="rounded-t-md">
+          <a href="./src/pages/singleFilm/?id=${log.filmId}">
+            <img src="https://image.tmdb.org/t/p/w500${log.posterUrl}" alt="film poster" class="h-full w-full" />
+          </a>
+
+          <div class="flex items-center rounded-b-md bg-primaryDark p-1">
+            <div
+              class="mr-1 aspect-square w-[13px] overflow-hidden rounded-full"
+            >
+              <img
+                src="${log.avatarUrl}"
+                alt="profile picture"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <a href="./src/pages/profile/?id=${log.userId}" class="text-xs font-bold text-backgroundLight hover:text-white"
+              >${log.name}</a
+            >
+          </div>
+          <div class="h-4">
+            <span class="text-[10px] text-subText">
+              ${ratingStars}
+            </span>
+            <span class="${log.likeStatus ? "px-[1px] text-[10px] " : "hidden"}">
+              <i class="fa-solid fa-heart text-xs text-subText pb-1"></i>
+            </span>
+            <a class="${log.content ? "px-[1px] text-[10px]" : "hidden"}" href="./src/pages/singleReview/?id=${log.reviewId}">
+              <i class="fa-solid fa-ticket-simple text-xs text-subText hover:text-white pb-1"></i>
+            </a>
+          </div>
+        </div>`;
+    logsOfFriendEl.appendChild(divEl);
+  });
 }
 
 function renderPopularMovies(data: Array<IFilm>) {

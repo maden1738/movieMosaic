@@ -3,6 +3,7 @@ import { RequestWithUser } from "../interface/auth";
 import * as UserService from "../service/user";
 import { ForbiddenError } from ".././errors/ForbiddenError";
 import HttpStatusCodes from "http-status-codes";
+import { log } from "console";
 
 export async function getUserById(
      req: Request,
@@ -444,6 +445,22 @@ export async function getReviewOfFollowing(
           res.status(HttpStatusCodes.OK).json({
                data,
           });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function getLogsOfFollowing(
+     req: Request,
+     res: Response,
+     next: NextFunction
+) {
+     const { id } = req.params;
+     console.log(id);
+     try {
+          const data = await UserService.getLogsOfFollowing(+id);
+
+          res.status(HttpStatusCodes.OK).json({ data });
      } catch (error) {
           next(error);
      }

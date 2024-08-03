@@ -2,7 +2,6 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { GetMoviesQuery } from "../interface/movies";
 import { WatchListModel } from "../model/watchList";
-import { GetMoviesQuerySchema } from "../schema/movies";
 import loggerWithNameSpace from "../utils/logger";
 import { getMoviesById } from "./movies";
 
@@ -35,10 +34,9 @@ export async function addWatchedMovies(movieId: string, userId: string) {
 
      const data = await WatchListModel.getMovie(movieId, userId, true);
 
+     // already watched movie
      if (data.length > 0) {
-          throw new BadRequestError(
-               "movie already exists on watched movies list"
-          );
+          return;
      }
 
      await WatchListModel.create(movieId, userId, true);
@@ -83,10 +81,9 @@ export async function getWatchedMovies(userId: string, query: GetMoviesQuery) {
 export async function deleteFromWatchList(movieId: string, userId: string) {
      const data = await WatchListModel.getMovie(movieId, userId, false);
 
+     // movie isnt in watchlist
      if (data.length === 0) {
-          throw new NotFoundError(
-               `movie with id: ${movieId} doesnt exist on watchList`
-          );
+          return;
      }
 
      await WatchListModel.deleteFromWatchList(movieId, userId);

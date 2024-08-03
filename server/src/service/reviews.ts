@@ -78,7 +78,5 @@ export async function getReviewOfFollowing(
      const followersId = await FollowListService.getFollowing(+userId);
      const followersIdArr = followersId.map((follower) => follower.id);
 
-     console.log(followersIdArr);
-
      return await ReviewsModel.getByFollowingIds(filmId, followersIdArr, query);
 }

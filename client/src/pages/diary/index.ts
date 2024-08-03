@@ -44,18 +44,22 @@ function renderDiary(logs: Array<ILogsResponse>) {
         </div>
         <div class="flex flex-grow justify-between">
           <div>
-            <span class="block font-semibold text-white" id="film-title">
+            <a href=".././singleFilm/?id=${log.filmId}" class="block font-semibold text-white hover:text-accent2"  id="film-title">
               ${log.title}
-            </span>
-            <span class = "text-accent text-xs">
+            </a>
+            <span class = "text-accent text-xs pr-2">
               ${ratingStars}
             </span>
+            <span class= "${log.likeStatus ? "text-orange text-xs" : "hidden"} ">
+                <i class = "fa-solid fa-heart"></i>
+            </span>
           </div>
-          <div class="${log.content ? "" : "hidden"} " id="reviewed-icon"> 
+          <div class="${log.content ? "inline pl-2 " : "hidden"} " id="reviewed-icon"> 
                 <a href=".././singleReview/?id=${log.reviewId}" >
-                  <i class="fa-solid fa-ticket-simple text-xs text-subText pl-6 hover:text-white"></i>
+                  <i class="fa-solid fa-ticket-simple text-xs text-subText  hover:text-white"></i>
                 </a>
           </div>
+
         </div>
       </div>
       <div class="h-[1px] bg-primary"></div>`;

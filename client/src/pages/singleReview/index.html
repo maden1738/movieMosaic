@@ -309,11 +309,20 @@
             </a>
           </div>
           <div>
-            <span class="mr-1 text-xl text-white" id="review-film-title"></span>
+            <a
+              class="mr-1 text-xl text-white hover:text-accent2"
+              id="review-film-title"
+            ></a>
             <span class="font-light text-text" id="release-date"></span>
           </div>
-          <div class="mb-5 text-accent" id="rating-stars"></div>
-          <div class="text-xs text-subText">
+          <div
+            class="mb-5 inline pr-2 text-sm text-accent"
+            id="rating-stars"
+          ></div>
+          <span class="inline">
+            <i class="fa-solid fa-heart text-sm text-orange"></i>
+          </span>
+          <div class="mt-1 text-xs text-subText">
             Watched on <span id="review-date"></span>
           </div>
         </div>
@@ -327,7 +336,7 @@
           />
         </div>
       </div>
-      <p class="text-sm text-text" id="review-content"></p>
+      <p class="mt-2 text-sm text-text" id="review-content"></p>
     </section>
 
     <script type="module" src="../../common/navbar.ts"></script>

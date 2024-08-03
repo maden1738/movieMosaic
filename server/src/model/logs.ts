@@ -1,5 +1,8 @@
 import { GetLogsQuery } from "../interface/logs";
 import { BaseModel } from "./base";
+import loggerWithNameSpace from "../utils/logger";
+
+const logger = loggerWithNameSpace("LogsModel");
 
 export class LogsModel extends BaseModel {
      static async create(
@@ -17,7 +20,7 @@ export class LogsModel extends BaseModel {
           await this.queryBuilder().table("logs").insert(dataToBeInserted);
      }
 
-     static async getLogs(userId: number, query: GetLogsQuery) {
+     static async getByUserId(userId: number, query: GetLogsQuery) {
           const { size } = query;
 
           const data = this.queryBuilder()
@@ -36,7 +39,7 @@ export class LogsModel extends BaseModel {
                )
                .join("film", "logs.filmId", "film.id")
                .join("user", "logs.userId", "user.id")
-               .join("review", "logs.reviewId", "review.id")
+               .leftJoin("review", "logs.reviewId", "review.id")
                .where("logs.userId", userId)
                .limit(size!)
                .orderBy("logs.createdAt", "desc");
@@ -45,10 +48,29 @@ export class LogsModel extends BaseModel {
      }
 
      static async getByFollowingIds(followingArr: Array<string>) {
+          logger.info("getByFollowingIds");
+          console.log(followingArr);
+
           const data = this.queryBuilder()
-               .table("logs l")
-               .join("user u", "l.userId", "u.userId")
-               .whereIn("u.id", followingArr);
+               .select(
+                    "f.id as filmId",
+                    "f.title",
+                    "f.posterUrl",
+                    "u.name",
+                    "u.id as userId",
+                    "r.id as reviewId",
+                    "r.content",
+                    "r.rating",
+                    "l.likeStatus",
+                    "u.avatarUrl",
+                    "r.createdAt"
+               )
+               .table("logs as l")
+               .leftJoin("review as r", "l.reviewId", "r.id")
+               .join("film as f", "l.filmId", "f.id")
+               .join("user as u", "l.userId", "u.id")
+               .limit(6)
+               .whereIn("l.userId", followingArr);
 
           return data;
      }

@@ -33,6 +33,7 @@ import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
 import { upload } from "../middleware/multer";
 import { CreateLogSchema } from "../schema/logs";
 import { getReviewSchema } from "../schema/reviews";
+import { getLogsOfFollowing } from "../controller/user";
 
 const router = express();
 
@@ -120,6 +121,9 @@ router.delete("/:id/follow", authenticate, unfollowUser);
 router.get("/:id/followers", getFollowers);
 // get users that a user is following
 router.get("/:id/follow", getFollowing);
+
+// get logs of  following
+router.get("/:id/follow/logs", getLogsOfFollowing);
 
 // get reviews of all followers
 router.get(

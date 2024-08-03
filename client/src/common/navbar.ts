@@ -127,6 +127,56 @@ window.onload = async () => {
     logSearchEl.classList.add("hidden");
   });
 
+  navLogForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+
+    const formData: ILogs = {
+      filmId: target.dataset.filmId!,
+      likeStatus: navLikeCheckbox.checked,
+      // content: navReviewContentEl.value.trim() || undefined,
+    };
+
+    if (navReviewContentEl.value.trim()) {
+      formData["content"] = navReviewContentEl.value.trim();
+    }
+
+    if (navRatingEl.dataset.rating) {
+      formData["rating"] = +navRatingEl.dataset.rating;
+    }
+
+    submitLogForm(formData);
+  });
+
+  navLikeCheckbox.addEventListener("change", renderLogLikeIcon);
+
+  navStarEls.forEach((el) => {
+    el.addEventListener("click", handleStarClick);
+  });
+
+  clearRatingEl.addEventListener("click", clearRating);
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+
+    const formData = {
+      email: target.loginEmail.value,
+      password: target.loginPassword.value,
+    };
+
+    try {
+      const response = await axiosInstance.post("/auth/login", formData);
+      localStorage.setItem("token", response.data.data.accessToken);
+      loginBody.classList.toggle("hidden");
+      location.reload();
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        displayErrors(error.response.data.message, loginErrorContainer);
+      }
+    }
+  });
+
   try {
     const response = await axiosInstance.get("/users/me");
 
@@ -153,56 +203,6 @@ window.onload = async () => {
   }
 };
 
-navLikeCheckbox.addEventListener("change", renderLogLikeIcon);
-
-navStarEls.forEach((el) => {
-  el.addEventListener("click", handleStarClick);
-});
-
-clearRatingEl.addEventListener("click", clearRating);
-
-navLogForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const target = event.target as HTMLFormElement;
-
-  const formData: ILogs = {
-    filmId: target.dataset.filmId!,
-    likeStatus: navLikeCheckbox.checked,
-    // content: navReviewContentEl.value.trim() || undefined,
-  };
-
-  if (navReviewContentEl.value.trim()) {
-    formData["content"] = navReviewContentEl.value.trim();
-  }
-
-  if (navRatingEl.dataset.rating) {
-    formData["rating"] = +navRatingEl.dataset.rating;
-  }
-
-  submitLogForm(formData);
-});
-
-loginForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const target = event.target as HTMLFormElement;
-
-  const formData = {
-    email: target.loginEmail.value,
-    password: target.loginPassword.value,
-  };
-
-  try {
-    const response = await axiosInstance.post("/auth/login", formData);
-    localStorage.setItem("token", response.data.data.accessToken);
-    loginBody.classList.toggle("hidden");
-    location.reload();
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      displayErrors(error.response.data.message, loginErrorContainer);
-    }
-  }
-});
-
 async function submitLogForm(data: ILogs) {
   try {
     const user = JSON.parse(localStorage.getItem("user") as string);
@@ -226,7 +226,7 @@ async function searchMovies(query: string) {
 }
 
 function handleSearchInput() {
-  const query = filmTitleInput.value.trim();
+  const query = filmTitleInput.value;
 
   // Clear any existing debounce timer
   if (debounceTimer !== null) {

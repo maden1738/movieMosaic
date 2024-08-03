@@ -252,18 +252,7 @@ function renderMovieDetails(data: IFilm) {
                 </div>
               </div>
             </div>
-            <div class="h-[1px] bg-[#324654]"></div>
-            <div class="flex flex-col items-center py-4">
-              <div class="text-center text-sm">Rate</div>
-              <div>
-                <i class="fa-solid fa-star text-sm text-[#324654]"></i>
-                <i class="fa-solid fa-star text-sm text-[#324654]"></i>
-                <i class="fa-solid fa-star text-sm text-[#324654]"></i>
-                <i class="fa-solid fa-star text-sm text-[#324654]"></i>
-                <i class="fa-solid fa-star text-sm text-[#324654]"></i>
-              </div>
-            </div>
-            <div class="h-[1px] bg-[#324654]"></div>
+            <div class="h-[1px] bg-[#324654]"></div>  
             <div class="flex cursor-pointer flex-col items-center py-4 text-sm hover:text-white" id="logpanel-open">
               Review or log
             </div>
@@ -372,7 +361,7 @@ function renderRecentReviews(data: Array<IReview>) {
                 id="profile-picture"
                 class="h-full w-full object-cover"
                 />
-            </a>
+              </a>
             </div>
             <span class="pl-1">Review By </span>
             <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
@@ -413,14 +402,16 @@ function renderFriendReviews(data: Array<IReview>) {
     const divEl = document.createElement("div");
     divEl.innerHTML = `<section class="py-4">
           <div class="flex items-center gap-1 text-sm text-subText">
-            <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
-              <img
+             <div class="w-[18px] aspect-square overflow-hidden rounded-full">
+              <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
+                <img
                 src="${review.avatarUrl}"
                 alt="profile picture"
-                id="profile-picture
-                class="h-full "
-              />
-            </a>
+                id="profile-picture"
+                class="h-full w-full object-cover"
+                />
+              </a>
+            </div>
             <span class="pl-1">Review By </span>
             <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
               >${review.name}</a

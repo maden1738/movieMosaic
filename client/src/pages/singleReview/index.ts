@@ -10,7 +10,7 @@ const avatarEl = document.getElementById("avatar") as HTMLImageElement;
 const nameEl = document.getElementById("review-user-name") as HTMLAnchorElement;
 const filmTitleEl = document.getElementById(
   "review-film-title",
-) as HTMLSpanElement;
+) as HTMLAnchorElement;
 const releaseDateEl = document.getElementById(
   "release-date",
 ) as HTMLSpanElement;
@@ -49,9 +49,10 @@ function renderUserInfo() {
 
 function renderReview(review: IReviewWithFilm) {
   filmTitleEl.innerHTML = review.title;
+  filmTitleEl.href = `.././singleFilm/?id=${review.filmId}`;
   ratingEl.innerHTML = convertIntoStar(review.rating);
   releaseDateEl.innerHTML = extractYear(review.releaseDate);
   reviewDateEl.innerHTML = extractDate(review.createdAt);
   filmPosterEl.src = `https://image.tmdb.org/t/p/w500${review.posterUrl}`;
-  reviewContentEl.innerHTML = review.content;
+  reviewContentEl.innerHTML = review.content || "";
 }

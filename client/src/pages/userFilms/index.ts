@@ -4,7 +4,9 @@ import { IFilm, IPagination } from "../../interface/film";
 const contentEl = document.getElementById("content") as HTMLDivElement;
 const listTitleEl = document.getElementById("list-title") as HTMLDivElement;
 
-const userNameElements = document.querySelectorAll(".username");
+const userNameElements = document.querySelectorAll(
+  ".username",
+) as NodeListOf<HTMLAnchorElement>;
 const titleProfilePicEl = document.getElementById(
   "title-profile-pic",
 ) as HTMLImageElement;
@@ -44,6 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     userNameElements.forEach((el) => {
       el.innerHTML = name;
+      el.href = `.././profile/?id=${id}`;
     });
 
     titleProfilePicEl.src = avatarUrl;

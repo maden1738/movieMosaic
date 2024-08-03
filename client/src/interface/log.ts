@@ -16,4 +16,5 @@ export interface ILogsResponse {
   content: string | null;
   rating: number | null;
   createdAt: string;
+  userId: string;
 }
