@@ -1,8 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import * as MoviesService from ".././service/movies";
-import { GetMoviesQuery } from "../interface/movies";
+import { GetMoviesQuery, IFilmImage } from "../interface/movies";
 import HttpStatusCode from "http-status-codes";
 import { RequestWithUser } from "../interface/auth";
+import { string } from "joi";
+import { BadRequestError } from "../errors/BadRequestError";
+import { MulterRequest } from "../interface/multer";
+import multer from "multer";
 
 export async function getMovies(
      req: Request<any, any, any, GetMoviesQuery>,
@@ -31,6 +35,35 @@ export async function getMoviesById(
           const data = await MoviesService.getMoviesById(id);
 
           res.status(HttpStatusCode.OK).json({ data });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function createMovie(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const multerReq = req as MulterRequest;
+     const { files } = multerReq;
+
+     try {
+          if (!files || Object.keys(files).length === 0) {
+               next(new BadRequestError("no files uploaded"));
+               return;
+          }
+
+          const imagesPath: IFilmImage = {
+               poster: files.poster[0].path,
+               backdrop: files.backdrop[0].path,
+          };
+
+          await MoviesService.createMovie(req.body, imagesPath, req.user?.id!);
+
+          res.status(HttpStatusCode.OK).json({
+               message: "New film added",
+          });
      } catch (error) {
           next(error);
      }

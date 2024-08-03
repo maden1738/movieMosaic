@@ -1,9 +1,13 @@
 import { NotFoundError } from "../errors/NotFoundError";
-import { GetMoviesQuery } from "../interface/movies";
+import { GetMoviesQuery, IFilmImage, IMovie } from "../interface/movies";
 import { GetReviewsQuery, Review } from "../interface/reviews";
 import { MoviesModel } from "../model/movies";
 import loggerWithNameSpace from "../utils/logger";
 import * as ReviewsService from "../service/reviews";
+import { error, info } from "console";
+import { create } from "domain";
+import { UploadApiErrorResponse, UploadApiResponse } from "cloudinary";
+import { uploadOnCloudinary } from "../utils/cloudinary";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -25,6 +29,31 @@ export async function getMovies(query: GetMoviesQuery) {
      };
 
      return { meta, data };
+}
+
+export async function createMovie(
+     film: IMovie,
+     imagesPath: IFilmImage,
+     userId: number
+) {
+     logger.info("createMovie");
+
+     const posterImage = await uploadOnCloudinary(imagesPath.poster!);
+     const backdropImage = await uploadOnCloudinary(imagesPath.backdrop);
+
+     if (!posterImage || !backdropImage) {
+          throw new Error();
+     }
+
+     await MoviesModel.create(
+          {
+               ...film,
+               posterUrl: posterImage.url,
+               backdropUrl: backdropImage.url,
+               popularity: 0,
+          },
+          userId
+     );
 }
 
 export async function getMoviesById(id: string) {

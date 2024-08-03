@@ -5,6 +5,7 @@ import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 import { verify } from "jsonwebtoken";
 import config from "../config";
 import { User } from "../interface/user";
+import { ForbiddenError } from "../errors/ForbiddenError";
 
 const logger = loggerWithNameSpace("AuthMiddleware");
 
@@ -39,4 +40,17 @@ export function authenticate(
 
      logger.info("user authenticated");
      next();
+}
+
+export function authorize(role: string) {
+     return (req: RequestWithUser, res: Response, next: NextFunction) => {
+          const user = req.user!;
+
+          if (user.role !== role) {
+               next(new ForbiddenError("Forbidden Request"));
+               return;
+          }
+          logger.info("user authorized");
+          next();
+     };
 }

@@ -1,9 +1,8 @@
-import { NextFunction, query, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { RequestWithUser } from "../interface/auth";
 import * as UserService from "../service/user";
 import { ForbiddenError } from ".././errors/ForbiddenError";
 import HttpStatusCodes from "http-status-codes";
-import { log } from "console";
 
 export async function getUserById(
      req: Request,

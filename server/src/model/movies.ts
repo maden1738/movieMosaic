@@ -1,4 +1,5 @@
-import { GetMoviesQuery } from "../interface/movies";
+import { table } from "console";
+import { GetMoviesQuery, IMovie } from "../interface/movies";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
 
@@ -59,6 +60,23 @@ export class MoviesModel extends BaseModel {
           }
 
           return data;
+     }
+
+     static async create(film: IMovie, userId: number) {
+          logger.info("create");
+
+          const dataToBeInserted = {
+               title: film.title,
+               posterUrl: film.posterUrl,
+               backdropUrl: film.backdropUrl,
+               releaseDate: film.releaseDate,
+               trailer: film.trailer,
+               popularity: film.popularity,
+               overview: film.overview,
+               createdBy: userId,
+          };
+
+          await this.queryBuilder().table("film").insert(dataToBeInserted);
      }
 
      static async getById(id: number) {

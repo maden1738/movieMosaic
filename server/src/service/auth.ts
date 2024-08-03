@@ -6,6 +6,7 @@ import config from "../config";
 import { sign, verify } from "jsonwebtoken";
 import { UnauthenticatedError } from ".././errors/UnauthenticatedError";
 import { RefreshToken } from ".././interface/auth";
+import { resolve } from "path";
 
 const logger = loggerWithNameSpace("AuthService");
 
@@ -38,6 +39,7 @@ export async function login(body: Pick<User, "email" | "password">) {
           id: existingUser.id,
           name: existingUser.name,
           email: existingUser.email,
+          role: existingUser.role,
      };
 
      const accessToken = sign(payload, config.jwt.secret!, {
