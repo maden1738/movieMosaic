@@ -16,6 +16,7 @@ import { UnauthenticatedError } from "../errors/UnauthenticatedError";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { UploadApiResponse } from "cloudinary";
 import { GetLogsQuery, ILogs } from "../interface/logs";
+import { GetReviewsQuery } from "../interface/reviews";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -198,4 +199,12 @@ export async function deleteLikedMovies(filmId: string, userId: string) {
 
 export async function getReviewByUserId(userId: number) {
      return await ReviewsService.getReviewByUserId(userId);
+}
+
+export async function getReviewOfFollowing(
+     filmId: string,
+     userId: string,
+     query: GetReviewsQuery
+) {
+     return await ReviewsService.getReviewOfFollowing(filmId, userId, query);
 }

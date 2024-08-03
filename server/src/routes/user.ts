@@ -21,6 +21,7 @@ import {
      updateAvatar,
      createLog,
      getLogs,
+     getReviewOfFollowing,
 } from "../controller/user";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
 import {
@@ -31,6 +32,7 @@ import { getCurrentUserDetails } from "../controller/user";
 import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
 import { upload } from "../middleware/multer";
 import { CreateLogSchema } from "../schema/logs";
+import { getReviewSchema } from "../schema/reviews";
 
 const router = express();
 
@@ -118,6 +120,13 @@ router.delete("/:id/follow", authenticate, unfollowUser);
 router.get("/:id/followers", getFollowers);
 // get users that a user is following
 router.get("/:id/follow", getFollowing);
+
+// get reviews of all followers
+router.get(
+     "/:id/followers/reviews/movies/:movieId",
+     validateReqQuery(getReviewSchema),
+     getReviewOfFollowing
+);
 
 //get all reviews of a user
 router.get("/:id/reviews", getReviewByUserId);

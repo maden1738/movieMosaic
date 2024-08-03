@@ -43,4 +43,13 @@ export class LogsModel extends BaseModel {
 
           return data;
      }
+
+     static async getByFollowingIds(followingArr: Array<string>) {
+          const data = this.queryBuilder()
+               .table("logs l")
+               .join("user u", "l.userId", "u.userId")
+               .whereIn("u.id", followingArr);
+
+          return data;
+     }
 }

@@ -1,3 +1,4 @@
+import { log } from "console";
 import { GetReviewsQuery, Review } from "../interface/reviews";
 import loggerWithNameSpace from "../utils/logger";
 import { BaseModel } from "./base";
@@ -46,6 +47,35 @@ export class ReviewsModel extends BaseModel {
           if (sortBy === "recent") {
                data.orderBy("review.createdAt");
           }
+
+          return data;
+     }
+
+     static async getByFollowingIds(
+          filmId: string,
+          followingArr: Array<string>,
+          query: GetReviewsQuery
+     ) {
+          logger.info("getReviewOfFollowers");
+          const { size, page, sortBy } = query;
+
+          console.log(filmId, followingArr, size);
+
+          const data = this.queryBuilder()
+               .select(
+                    "r.content",
+                    "u.name",
+                    "u.avatarUrl",
+                    "r.rating",
+                    "u.id as userId",
+                    "r.createdAt"
+               )
+               .from("review as r")
+               .join("film as f", "r.filmId", "f.id")
+               .join("user as u", "r.reviewedBy", "u.id")
+               .whereIn("r.reviewedBy", followingArr)
+               .andWhere("f.id", filmId)
+               .limit(size!);
 
           return data;
      }

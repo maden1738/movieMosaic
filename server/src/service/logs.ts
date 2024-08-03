@@ -27,3 +27,5 @@ export async function createLog(userId: number, log: ILogs) {
 export async function getLogs(userId: number, query: GetLogsQuery) {
      return await LogsModel.getLogs(userId, query);
 }
+
+export async function getLogsOfFollowing() {}

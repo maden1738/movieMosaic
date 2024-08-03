@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, query, Request, Response } from "express";
 import { RequestWithUser } from "../interface/auth";
 import * as UserService from "../service/user";
 import { ForbiddenError } from ".././errors/ForbiddenError";
@@ -419,6 +419,28 @@ export async function getReviewByUserId(
           const { id } = req.params;
 
           const data = await UserService.getReviewByUserId(+id);
+          res.status(HttpStatusCodes.OK).json({
+               data,
+          });
+     } catch (error) {
+          next(error);
+     }
+}
+
+export async function getReviewOfFollowing(
+     req: RequestWithUser,
+     res: Response,
+     next: NextFunction
+) {
+     const { id, movieId } = req.params;
+     const { query } = req;
+     try {
+          const data = await UserService.getReviewOfFollowing(
+               movieId,
+               id,
+               query
+          );
+
           res.status(HttpStatusCodes.OK).json({
                data,
           });

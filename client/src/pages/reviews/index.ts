@@ -3,17 +3,26 @@ import { IReview } from "../../interface/review";
 import { convertIntoStar, extractDate } from "../../utils/formatter";
 
 const reviewsEl = document.getElementById("reviews") as HTMLDivElement;
-const filmTitleEl = document.getElementById("film-title") as HTMLAnchorElement;
+const filmTitleEl = document.getElementById(
+  "review-film-title",
+) as HTMLAnchorElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 const contentType = params.get("content");
 
+const user = JSON.parse(localStorage.getItem("user") as string);
+
 document.addEventListener("DOMContentLoaded", () => {
   renderMovieName();
 
   filmTitleEl.innerHTML = filmTitleEl.href = `../singleFilm/?id=${id}`;
-  fetchReviews();
+
+  if (contentType === "recent") {
+    fetchReviews();
+  } else if (contentType === "friend") {
+    fetchFriendReviews();
+  }
 });
 
 async function renderMovieName() {
@@ -28,6 +37,17 @@ async function fetchReviews() {
       `movies/${id}/reviews/?size=10&sortBy=${contentType}`,
     );
 
+    renderReviews(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fetchFriendReviews() {
+  try {
+    const response = await axiosInstance.get(
+      `users/${user.id}/followers/reviews/movies/${id}?size=10`,
+    );
     renderReviews(response.data.data);
   } catch (error) {
     console.log(error);

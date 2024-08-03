@@ -2,6 +2,7 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { GetReviewsQuery, Review } from "../interface/reviews";
 import { ReviewsModel } from "../model/reviews";
 import { getMoviesById } from "./movies";
+import * as FollowListService from "./followList";
 
 export async function createReviews(
      filmId: number,
@@ -67,4 +68,17 @@ export async function getRating(filmId: string, userId: string) {
 
 export async function getReviewDetail(reviewId: number) {
      return await ReviewsModel.getReview(reviewId);
+}
+
+export async function getReviewOfFollowing(
+     filmId: string,
+     userId: string,
+     query: GetReviewsQuery
+) {
+     const followersId = await FollowListService.getFollowing(+userId);
+     const followersIdArr = followersId.map((follower) => follower.id);
+
+     console.log(followersIdArr);
+
+     return await ReviewsModel.getByFollowingIds(filmId, followersIdArr, query);
 }

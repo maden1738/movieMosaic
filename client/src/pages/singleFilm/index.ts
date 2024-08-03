@@ -13,6 +13,8 @@ const movieDetailsEl = document.getElementById(
 ) as HTMLDivElement;
 
 let isUserLoggedIn = false;
+const USER = JSON.parse(localStorage.getItem("user") as string);
+console.log(USER.id);
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
@@ -184,6 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   fetchRecentReviews();
+  fetchFriendReviews();
 });
 
 function renderMovieDetails(data: IFilm) {
@@ -327,6 +330,18 @@ async function fetchRecentReviews() {
   }
 }
 
+async function fetchFriendReviews() {
+  try {
+    const response = await axiosInstance.get(
+      `/users/${USER.id}/followers/reviews/movies/${id}?size=3`,
+    );
+
+    renderFriendReviews(response.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function renderRecentReviews(data: Array<IReview>) {
   const recentReviewEl = document.getElementById(
     "recent-reviews",
@@ -340,24 +355,30 @@ function renderRecentReviews(data: Array<IReview>) {
   recentReviewEl.innerHTML = "";
 
   data.forEach((review) => {
+    if (!review.content) {
+      return;
+    }
+
     const rating = convertIntoStar(review.rating);
 
     const divEl = document.createElement("div");
     divEl.innerHTML = `<section class="py-4">
           <div class="flex items-center gap-1 text-sm text-subText">
-            <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
-              <img
-                src="/vite.svg"
+            <div class="w-[18px] aspect-square overflow-hidden rounded-full">
+              <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
+                <img
+                src="${review.avatarUrl}"
                 alt="profile picture"
-                id="profile-picture
-                class="h-full "
-              />
+                id="profile-picture"
+                class="h-full w-full object-cover"
+                />
             </a>
+            </div>
             <span class="pl-1">Review By </span>
             <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
-            <span class="pl-1 text-accent flex items-center" id="rating">${rating}</span>
+            <span class="pl-1 text-accent flex items-center text-sm pb-1" id="rating">${rating}</span>
             <!-- review content -->
           </div>
           <div class="mt-2 text-base text-subText" id="content">
@@ -367,6 +388,53 @@ function renderRecentReviews(data: Array<IReview>) {
         <div class="border-[0.1px] border-[#8ea4b4]"></div>`;
 
     recentReviewEl.appendChild(divEl);
+  });
+}
+
+function renderFriendReviews(data: Array<IReview>) {
+  const friendReviewEl = document.getElementById(
+    "friend-reviews",
+  ) as HTMLDivElement;
+  const friedReviewLink = document.getElementById(
+    "friend-reviews-link",
+  ) as HTMLAnchorElement;
+
+  friedReviewLink.href = `.././reviews/?id=${id}&content=friend`;
+
+  friendReviewEl.innerHTML = "";
+
+  data.forEach((review) => {
+    if (!review.content) {
+      return;
+    }
+
+    const rating = convertIntoStar(review.rating);
+
+    const divEl = document.createElement("div");
+    divEl.innerHTML = `<section class="py-4">
+          <div class="flex items-center gap-1 text-sm text-subText">
+            <a class="aspect-square w-[18px] overflow-hidden rounded-full" href=".././profile/?id=${review.userId}">
+              <img
+                src="${review.avatarUrl}"
+                alt="profile picture"
+                id="profile-picture
+                class="h-full "
+              />
+            </a>
+            <span class="pl-1">Review By </span>
+            <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
+              >${review.name}</a
+            >
+            <span class="pl-1 pb-1 text-accent flex items-center" id="rating">${rating}</span>
+            <!-- review content -->
+          </div>
+          <div class="mt-2 text-base text-subText" id="content">
+            <p>${review.content}</p>
+          </div>
+        </section>
+        <div class="border-[0.1px] border-[#8ea4b4]"></div>`;
+
+    friendReviewEl.appendChild(divEl);
   });
 }
 

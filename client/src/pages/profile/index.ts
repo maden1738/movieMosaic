@@ -33,6 +33,9 @@ const followersLink = document.getElementById(
 const followingLink = document.getElementById(
   "following-link",
 ) as HTMLAnchorElement;
+const profilePictureEl = document.getElementById(
+  "profile-picture",
+) as HTMLImageElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
@@ -80,6 +83,7 @@ followBtn.addEventListener("click", async () => {
 async function displayUserName() {
   const response = await axiosInstance.get(`/users/${id}`);
   profileUserNameEl.innerHTML = response.data.data.name;
+  profilePictureEl.src = response.data.data.avatarUrl;
 }
 
 async function isFollowingUser(userId: string, followingId: string) {
