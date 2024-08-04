@@ -4,9 +4,6 @@ import { GetReviewsQuery, Review } from "../interface/reviews";
 import { MoviesModel } from "../model/movies";
 import loggerWithNameSpace from "../utils/logger";
 import * as ReviewsService from "../service/reviews";
-import { error, info } from "console";
-import { create } from "domain";
-import { UploadApiErrorResponse, UploadApiResponse } from "cloudinary";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 
 const logger = loggerWithNameSpace("UserService");

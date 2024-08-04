@@ -31,7 +31,7 @@ import {
 import { getCurrentUserDetails } from "../controller/user";
 import { updatePasswordSchema, updateProfileSchema } from "../schema/user";
 import { upload } from "../middleware/multer";
-import { CreateLogSchema } from "../schema/logs";
+import { CreateLogSchema, GetLogsQuerySchema } from "../schema/logs";
 import { getReviewSchema } from "../schema/reviews";
 import { getLogsOfFollowing } from "../controller/user";
 
@@ -69,7 +69,7 @@ router.get("/me", authenticate, getCurrentUserDetails);
 router.get("/:id", getUserById);
 
 // get logs of a user
-router.get("/:id/logs", getLogs);
+router.get("/:id/logs", validateReqQuery(GetLogsQuerySchema), getLogs);
 
 router.post(
      "/:id/logs",

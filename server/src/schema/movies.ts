@@ -1,6 +1,4 @@
 import Joi from "joi";
-import { join } from "path";
-import { title } from "process";
 
 export const GetMoviesQuerySchema = Joi.object({
      q: Joi.string().optional(),

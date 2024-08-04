@@ -21,7 +21,7 @@ export class LogsModel extends BaseModel {
      }
 
      static async getByUserId(userId: number, query: GetLogsQuery) {
-          const { size } = query;
+          const { size, page } = query;
 
           const data = this.queryBuilder()
                .table("logs")
@@ -42,7 +42,21 @@ export class LogsModel extends BaseModel {
                .leftJoin("review", "logs.reviewId", "review.id")
                .where("logs.userId", userId)
                .limit(size!)
+               .offset((page! - 1) * size!)
                .orderBy("logs.createdAt", "desc");
+
+          return data;
+     }
+
+     static async count(userId: number) {
+          const data = this.queryBuilder()
+               .table("logs")
+               .count("*")
+               .join("film", "logs.filmId", "film.id")
+               .join("user", "logs.userId", "user.id")
+               .leftJoin("review", "logs.reviewId", "review.id")
+               .where("logs.userId", userId)
+               .first();
 
           return data;
      }

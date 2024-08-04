@@ -126,9 +126,7 @@ export async function getLogs(req: Request, res: Response, next: NextFunction) {
 
      try {
           const data = await UserService.getLogs(+id, query);
-          res.status(HttpStatusCodes.OK).json({
-               data,
-          });
+          res.status(HttpStatusCodes.OK).json(data);
      } catch (error) {
           next(error);
      }

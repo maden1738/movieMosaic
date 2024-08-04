@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import axiosInstance from "../../axios";
 import { ILogsResponse } from "../../interface/log";
 import { convertIntoStar, extractDayAndMonth } from "../../utils/formatter";
+import { IPagination } from "../../interface/film";
 
 const contentEl = document.getElementById("content") as HTMLElement;
 const avatar = document.getElementById("avatar") as HTMLImageElement;
@@ -29,14 +30,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   fetchDiary();
 });
 
-async function fetchDiary() {
+async function fetchDiary(page: number = 1) {
   try {
-    const response = await axiosInstance.get(`users/${id}/logs`);
+    const response = await axiosInstance.get(
+      `users/${id}/logs?page=${page}&size=3`,
+    );
     renderDiary(response.data.data);
+
+    const pagination = {
+      page: response.data.meta.page,
+      totalPages: response.data.meta.totalPages,
+    };
+
+    renderPagination(pagination);
   } catch (error) {}
 }
 
 function renderDiary(logs: Array<ILogsResponse>) {
+  contentEl.innerHTML = "";
   logs.forEach((log) => {
     const divEl = document.createElement("div");
     let ratingStars = "";
@@ -76,4 +87,26 @@ function renderDiary(logs: Array<ILogsResponse>) {
 
     contentEl.appendChild(divEl);
   });
+}
+
+function renderPagination(pagination: IPagination) {
+  const paginationEl = document.getElementById("pagination") as HTMLDivElement;
+
+  paginationEl.innerHTML = "";
+
+  for (let i = 1; i <= pagination.totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i.toString();
+    pageButton.className =
+      "mx-1 aspect-square px-2 py-1 disabled:opacity-50 hover:bg-[#667788]";
+    pageButton.addEventListener("click", () => changePage(i));
+    if (i === pagination.page) {
+      pageButton.disabled = true;
+    }
+    paginationEl.appendChild(pageButton);
+  }
+}
+
+async function changePage(page: number) {
+  await fetchDiary(page);
 }

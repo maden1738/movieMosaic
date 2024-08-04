@@ -7,4 +7,5 @@ export interface ILogs {
 
 export interface GetLogsQuery {
      size?: number;
+     page?: number;
 }

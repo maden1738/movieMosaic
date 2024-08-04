@@ -36,7 +36,23 @@ export async function createLog(userId: number, log: ILogs) {
 }
 
 export async function getLogs(userId: number, query: GetLogsQuery) {
-     return await LogsModel.getByUserId(userId, query);
+     logger.info("getLogs");
+
+     const data = await LogsModel.getByUserId(userId, query);
+     const count = await LogsModel.count(userId);
+
+     const { size } = query;
+
+     const total = +count.count;
+
+     const meta = {
+          page: query.page,
+          size: data.length,
+          total,
+          totalPages: Math.ceil(total / size!),
+     };
+
+     return { meta, data };
 }
 
 export async function getLogsOfFollowing(userId: number) {
