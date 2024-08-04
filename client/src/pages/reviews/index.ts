@@ -2,7 +2,7 @@ import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 import { convertIntoStar, extractDate } from "../../utils/formatter";
 
-const reviewsEl = document.getElementById("reviews") as HTMLDivElement;
+const reviewsEl = document.getElementById("reviews-content") as HTMLDivElement;
 const filmTitleEl = document.getElementById(
   "review-film-title",
 ) as HTMLAnchorElement;
@@ -55,11 +55,13 @@ async function fetchFriendReviews() {
 }
 
 function renderReviews(data: Array<IReview>) {
+  console.log(data);
+
   reviewsEl.innerHTML = "";
   data.forEach((review) => {
-    if (review.content === null) {
-      return;
-    }
+    // if (!review.content) {
+    //   return;
+    // }
 
     const rating = convertIntoStar(review.rating);
 

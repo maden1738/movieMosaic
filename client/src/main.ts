@@ -61,6 +61,8 @@ const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
 const reviewsEl = document.getElementById("reviews") as HTMLAnchorElement;
+const profileEl = document.getElementById("profile") as HTMLAnchorElement;
+const logoutEl = document.getElementById("logout") as HTMLAnchorElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
 const navProfilePicEl = document.getElementById(
@@ -199,6 +201,8 @@ window.onload = async () => {
     likesEl.href = `./src/pages/userFilms/?id=${id}&content=likes`;
     diaryEl.href = `./src/pages/diary/?id=${id}`;
     reviewsEl.href = `./src/pages/userReviews/?id=${id}`;
+    profileEl.href = `./src/pages/profile/?id=${id}`;
+    logoutEl.addEventListener("click", logout);
 
     userNameEl.innerHTML = name;
     userNameEl.href = `./src/pages/profile/?id=${id}`;
@@ -323,6 +327,11 @@ async function submitSignupForm(formData: ISignupData) {
       displayErrors(error.response.data.message, signupErrorContainer);
     }
   }
+}
+
+function logout() {
+  localStorage.clear();
+  location.reload();
 }
 
 function handleAddFilmSubmit(event: SubmitEvent) {

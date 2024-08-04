@@ -64,6 +64,8 @@ const watchlistLink = document.getElementById(
   "watchlist-link",
 ) as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
+const reviewsEl = document.getElementById("reviews") as HTMLAnchorElement;
+const logoutEl = document.getElementById("logout") as HTMLAnchorElement;
 
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
@@ -190,6 +192,8 @@ window.onload = async () => {
     userNameEl.href = `.././profile/?id=${id}`;
     navProfilePicEl.src = avatarUrl;
     diaryEl.href = `.././diary/?id=${id}`;
+    reviewsEl.href = `.././userReviews/?id=${id}`;
+    logoutEl.addEventListener("click", logout);
 
     userElements.forEach((el) => {
       el.classList.remove("hidden");
@@ -201,6 +205,11 @@ window.onload = async () => {
     });
   }
 };
+
+function logout() {
+  localStorage.clear();
+  window.location.href = "/";
+}
 
 async function submitLogForm(data: ILogs) {
   try {

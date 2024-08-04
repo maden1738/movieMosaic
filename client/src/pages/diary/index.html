@@ -182,15 +182,20 @@
           </div>
         </div>
         <div class="user hidden">
-          <i class="fa-solid fa-plus text-text" id="log-search-open"></i>
+          <i
+            class="fa-solid fa-plus cursor-pointer text-text hover:text-white"
+            id="log-search-open"
+          ></i>
         </div>
         <div>
-          <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>
+          <i
+            class="fa-solid fa-bars cursor-pointer text-primary hover:text-white"
+            id="navbar-open"
+          ></i>
           <div
             class="absolute left-0 z-10 hidden w-full bg-background"
             id="navbar"
           >
-            <!-- user links -->
             <div class="wrapper user hidden">
               <div class="flex items-center gap-2 pb-2 pt-4">
                 <div
@@ -204,19 +209,20 @@
                   />
                 </div>
                 <a
+                  href="#"
+                  class="text-sm font-extrabold uppercase text-text hover:text-white"
                   id="user-name"
-                  class="user-name text-sm font-extrabold uppercase text-text"
-                >
-                  killakuen
-                </a>
+                ></a>
               </div>
               <section class="px-[28px]">
                 <div class="my-2 h-[1px] bg-[#324654]"></div>
                 <nav class="">
                   <ul class="grid grid-cols-2 text-xs font-bold text-subText">
-                    <li class="py-1 hover:text-white"><a href="#">HOME</a></li>
                     <li class="py-1 hover:text-white">
-                      <a href="#">PROFILE</a>
+                      <a href="../../../">HOME</a>
+                    </li>
+                    <li class="py-1 hover:text-white">
+                      <a href="#" id="profile">PROFILE</a>
                     </li>
                     <li class="py-1 hover:text-white">
                       <a href="#" id="films">FILMS</a>
@@ -225,7 +231,7 @@
                       <a href="#" id="diary">DIARY</a>
                     </li>
                     <li class="py-1 hover:text-white">
-                      <a href="#">REVIEWS</a>
+                      <a href="#" id="reviews">REVIEWS</a>
                     </li>
                     <li class="py-1 hover:text-white">
                       <a href="#" id="watchlist-link">WATCHLIST</a>
@@ -234,28 +240,20 @@
                       <a href="#" id="likes">LIKES</a>
                     </li>
                     <li class="py-1 hover:text-white">
-                      <a href="#">LOGOUT</a>
+                      <a href="#" id="logout">LOGOUT</a>
                     </li>
                   </ul>
                 </nav>
                 <div class="my-2 h-[1px] bg-[#324654]"></div>
               </section>
             </div>
-
             <div class="wrapper">
               <ul>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
-                  <i class="fa-solid fa-bolt-lightning"></i>
-                  <a href="#" class="font-extrabold uppercase hover:text-white"
-                    >activity</a
-                  >
-                </li>
-                <div class="h-[1px] bg-[#324654]"></div>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
+                <li
+                  class="flex cursor-pointer items-center gap-3 py-3 text-sm text-text hover:text-white"
+                >
                   <i class="fa-solid fa-film"></i>
-                  <a class="font-extrabold uppercase hover:text-white" href="#"
-                    >Films</a
-                  >
+                  <a class="font-extrabold uppercase" href="../films/">Films</a>
                 </li>
               </ul>
             </div>
@@ -263,7 +261,7 @@
         </div>
         <div>
           <i
-            class="fa-solid fa-magnifying-glass text-primary"
+            class="fa-solid fa-magnifying-glass cursor-pointer text-primary hover:text-white"
             id="search-icon"
           ></i>
           <div

@@ -145,9 +145,11 @@
 
       <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
       <div class="flex gap-4">
-        <!-- <i class="fa-solid fa-plus text-primary"></i> -->
         <div class="non-user hidden">
-          <i class="fa-solid fa-user text-primary" id="login-icon"></i>
+          <i
+            class="fa-solid fa-user cursor-pointer text-primary hover:text-white"
+            id="login-icon"
+          ></i>
           <!-- login-form -->
           <div
             class="absolute left-0 z-10 hidden w-full bg-background p-4"
@@ -180,13 +182,19 @@
             </form>
           </div>
         </div>
-        <div class="user hidden">
-          <i class="fa-solid fa-plus text-text" id="log-search-open"></i>
+        <div class="user hidden cursor-pointer">
+          <i
+            class="fa-solid fa-plus text-text hover:text-white"
+            id="log-search-open"
+          ></i>
         </div>
         <div>
-          <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>
+          <i
+            class="fa-solid fa-bars cursor-pointer text-primary hover:text-white"
+            id="navbar-open"
+          ></i>
           <div
-            class="absolute left-0 z-10 hidden w-full bg-background"
+            class="absolute left-0 z-10 hidden w-full cursor-pointer bg-background"
             id="navbar"
           >
             <div class="wrapper user hidden">
@@ -215,7 +223,7 @@
                       <a href="#">HOME</a>
                     </li>
                     <li class="cursor-pointer py-1 hover:text-white">
-                      <a href="#">PROFILE</a>
+                      <a href="#" id="profile">PROFILE</a>
                     </li>
                     <li class="cursor-pointer py-1 hover:text-white">
                       <a href="#" id="films">FILMS</a>
@@ -233,7 +241,7 @@
                       <a href="#" id="likes">LIKES</a>
                     </li>
                     <li class="cursor-pointer py-1 hover:text-white">
-                      <a href="#">LOGOUT</a>
+                      <a href="#" id="logout">LOGOUT</a>
                     </li>
                   </ul>
                 </nav>
@@ -242,14 +250,9 @@
             </div>
             <div class="wrapper">
               <ul>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
-                  <i class="fa-solid fa-bolt-lightning"></i>
-                  <a href="./src/pages/films/" class="font-extrabold uppercase"
-                    >activity</a
-                  >
-                </li>
-                <div class="h-[1px] bg-[#324654]"></div>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
+                <li
+                  class="flex items-center gap-3 py-3 text-sm text-text hover:text-white"
+                >
                   <i class="fa-solid fa-film"></i>
                   <a class="font-extrabold uppercase" href="./src/pages/films/"
                     >Films</a
@@ -261,7 +264,7 @@
         </div>
         <div>
           <i
-            class="fa-solid fa-magnifying-glass text-primary"
+            class="fa-solid fa-magnifying-glass cursor-pointer text-primary hover:text-white"
             id="search-icon"
           ></i>
           <div

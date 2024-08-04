@@ -182,10 +182,16 @@
           </div>
         </div>
         <div class="user hidden">
-          <i class="fa-solid fa-plus text-text" id="log-search-open"></i>
+          <i
+            class="fa-solid fa-plus cursor-pointer text-text hover:text-white"
+            id="log-search-open"
+          ></i>
         </div>
         <div>
-          <i class="fa-solid fa-bars text-primary" id="navbar-open"></i>
+          <i
+            class="fa-solid fa-bars cursor-pointer text-primary hover:text-white"
+            id="navbar-open"
+          ></i>
           <div
             class="absolute left-0 z-10 hidden w-full bg-background"
             id="navbar"
@@ -234,7 +240,7 @@
                       <a href="#" id="likes">LIKES</a>
                     </li>
                     <li class="py-1 hover:text-white">
-                      <a href="#">LOGOUT</a>
+                      <a href="#" id="logout">LOGOUT</a>
                     </li>
                   </ul>
                 </nav>
@@ -243,14 +249,9 @@
             </div>
             <div class="wrapper">
               <ul>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
-                  <i class="fa-solid fa-bolt-lightning"></i>
-                  <a href="../films/" class="font-extrabold uppercase"
-                    >activity</a
-                  >
-                </li>
-                <div class="h-[1px] bg-[#324654]"></div>
-                <li class="flex items-center gap-3 py-3 text-sm text-text">
+                <li
+                  class="flex cursor-pointer items-center gap-3 py-3 text-sm text-text hover:text-white"
+                >
                   <i class="fa-solid fa-film"></i>
                   <a class="font-extrabold uppercase" href="../films/">Films</a>
                 </li>
@@ -260,7 +261,7 @@
         </div>
         <div>
           <i
-            class="fa-solid fa-magnifying-glass text-primary"
+            class="fa-solid fa-magnifying-glass cursor-pointer text-primary hover:text-white"
             id="search-icon"
           ></i>
           <div
