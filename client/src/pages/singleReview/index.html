@@ -20,10 +20,13 @@
         class="wrapper fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55"
         id="log-search"
       >
-        <div class="wrapper rounded-md bg-primary p-3">
+        <div class="wrapper w-[600px] rounded-md bg-primary p-3">
           <div class="flex justify-between">
             <h1 class="uppercase text-text">Add to your films</h1>
-            <i class="fa-solid fa-x text-text" id="log-search-close"></i>
+            <i
+              class="fa-solid fa-x cursor-pointer text-text hover:text-white"
+              id="log-search-close"
+            ></i>
           </div>
 
           <div class="relative mt-5 flex flex-col gap-2">
@@ -53,12 +56,16 @@
         id="nav-log-modal"
       >
         <section class="wrapper relative">
-          <div class="relative w-full rounded-lg bg-primary p-3 shadow-lg">
+          <div
+            class="relative mx-auto w-full rounded-lg bg-primary p-3 shadow-lg lg:w-[600px]"
+          >
             <button
               id="nav-log-close"
               class="absolute right-0 top-0 z-20 flex aspect-square w-[20px] translate-x-[50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
             >
-              <i class="fa-regular fa-x text-sm font-semibold text-subText"></i>
+              <i
+                class="fa-regular fa-x cursor-pointer text-sm font-semibold text-subText hover:text-white"
+              ></i>
             </button>
             <form id="nav-log-form">
               <div class="grid grid-cols-layout2 gap-4 pb-2">
@@ -70,9 +77,10 @@
                   />
                 </div>
                 <section class="w-auto pt-2">
-                  <div class="mb-3 text-xl font-bold text-white" id="film-name">
-                    Past Lives
-                  </div>
+                  <div
+                    class="mb-3 text-xl font-bold text-white"
+                    id="film-name"
+                  ></div>
                   <div class="flex items-center gap-8">
                     <div class="flex flex-col justify-between">
                       <span id="nav-rating">Rating</span>
@@ -214,6 +222,7 @@
                   id="user-name"
                 ></a>
               </div>
+              <!-- userlinks -->
               <section class="px-[28px]">
                 <div class="my-2 h-[1px] bg-[#324654]"></div>
                 <nav class="">
@@ -264,24 +273,24 @@
             class="fa-solid fa-magnifying-glass cursor-pointer text-primary hover:text-white"
             id="search-icon"
           ></i>
-          <div
-            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+          <form
+            class="lg:wrapper absolute left-0 z-10 hidden w-full bg-background p-4"
             id="search-body"
           >
             <input
               type="text"
-              class="w-full bg-secondary px-2 py-1 focus:bg-white focus:text-black"
+              class="w-full bg-secondary px-2 py-1 focus:bg-white focus:text-black lg:ml-auto lg:w-[30%]"
               id="search-movie-input"
             />
             <button
-              class="absolute right-0 translate-x-[-200%] translate-y-[10%]"
+              class="absolute right-0 translate-x-[-200%] translate-y-[10%] lg:right-auto"
             >
               <i
                 class="fa-solid fa-magnifying-glass cursor-pointer text-xs text-subText"
                 id="search-movie-icon"
               ></i>
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
