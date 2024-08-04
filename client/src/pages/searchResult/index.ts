@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchResult() {
   try {
-    const response = await axiosInstance.get(`/movies/?q=${query}&size=6`);
+    const response = await axiosInstance.get(`/movies/?q=${query}&size=8`);
 
     renderResult(response.data.data);
   } catch (error) {}

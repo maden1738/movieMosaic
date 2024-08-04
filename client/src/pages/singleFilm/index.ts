@@ -223,7 +223,7 @@ function renderMovieDetails(data: IFilm) {
   movieDetailsEl.innerHTML = `
   <section class = "relative">
       <div class="lg:px-[15%] rounded-md overflow-hidden bg-background ">
-        <img src="${backdropUrl}" alt="backdrop photo" class="w-full object-contain lg:rounded-md brightness-50"  />
+        <img src="${backdropUrl}" alt="backdrop photo" class="w-full object-contain lg:rounded-md brightness-75"  />
       </div>
        <button
         class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white lg:hidden"

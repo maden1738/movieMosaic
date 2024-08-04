@@ -32,9 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchDiary(page: number = 1) {
   try {
-    const response = await axiosInstance.get(
-      `users/${id}/logs?page=${page}&size=3`,
-    );
+    const response = await axiosInstance.get(`users/${id}/logs?page=${page}`);
     renderDiary(response.data.data);
 
     const pagination = {

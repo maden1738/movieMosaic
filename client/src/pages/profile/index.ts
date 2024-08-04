@@ -125,7 +125,7 @@ async function fetchRecentReviews() {
 }
 
 async function fetchRecentActivity() {
-  const response = await axiosInstance.get(`/users/${id}/logs?`);
+  const response = await axiosInstance.get(`/users/${id}/logs?size=4`);
 
   renderRecentMovies(response.data.data);
 }
