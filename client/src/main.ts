@@ -224,7 +224,9 @@ window.onload = async () => {
   }
 
   try {
-    const response = await axiosInstance.get("/movies?sortBy=popularityDesc");
+    const response = await axiosInstance.get(
+      "/movies?sortBy=popularityDesc&size=12",
+    );
     renderPopularMovies(response.data.data);
   } catch (error) {
     console.log(error);

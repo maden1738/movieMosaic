@@ -291,17 +291,21 @@
 
     <!-- intro user -->
     <section class="user mb-7 mt-3 hidden text-center text-2xl">
-      <p class="text-white">
+      <p class="text-white lg:mt-16">
         <span class="text-text"> Welcome back, </span>
-        <a id="intro-name"></a>
+        <a id="intro-name" class="underline underline-offset-4"></a>
       </p>
     </section>
 
     <!-- get started section -->
     <section class="non-user relative hidden">
-      <img src="/signup-bg.jpg" alt="" />
+      <img
+        src="/signup-bg.jpg"
+        alt=""
+        class="object-cover brightness-50 md:w-full"
+      />
       <section
-        class="relative top-[-50px] flex flex-col items-center text-white"
+        class="relative top-[-50px] flex flex-col items-center text-white lg:absolute lg:inset-0 lg:top-[40%]"
       >
         <div class="mb-6 flex items-center gap-2">
           <img
@@ -309,9 +313,9 @@
             alt="logo"
             class="h-[24px] w-[60px]"
           />
-          <div class="text-2xl font-bold">MovieMosaic</div>
+          <div class="text-2xl font-bold lg:text-5xl">MovieMosaic</div>
         </div>
-        <div class="text-center text-xl">
+        <div class="text-center text-xl lg:text-4xl lg:font-bold">
           Track films you have watched.
           <br />
           Save those you want to see.
@@ -390,7 +394,7 @@
           <input
             id="new-film-name"
             type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black lg:w-[50%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -398,10 +402,10 @@
             >Release Date</label
           >
           <input
-            placeholder="DD-MM-YYYY"
+            placeholder="YYYY-MM-DD"
             id="new-film-date"
             type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg placeholder:text-sm focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg placeholder:text-sm focus:bg-white focus:text-black lg:w-[20%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -412,7 +416,7 @@
             required
             id="new-film-trailer"
             type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black lg:w-[30%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -423,7 +427,7 @@
           >
           <input
             required
-            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none lg:w-[20%]"
             id="new-film-poster"
             type="file"
           />
@@ -436,7 +440,7 @@
           >
           <input
             required
-            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none lg:w-[20%]"
             id="new-backdrop-poster"
             type="file"
           />
@@ -451,14 +455,14 @@
             required
             id="new-film-overview"
             type="text"
-            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="h-[110px] w-[50%] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
           ></textarea>
         </div>
 
         <div class="h-8" id="new-error-container"></div>
 
         <button
-          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg disabled:brightness-50"
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg hover:brightness-75 disabled:brightness-50"
           id="new-film-btn"
         >
           add film
@@ -471,17 +475,20 @@
 
     <!-- friend-activity section -->
     <section
-      class="wrapper user hidden text-white"
+      class="wrapper user hidden text-white lg:mt-8"
       id="new-from-friend-section"
     >
       <h3 class="mb-4 font-bold">New from friend</h3>
-      <div class="grid grid-cols-3 gap-2" id="new-from-friend"></div>
+      <div
+        class="grid grid-cols-3 gap-2 lg:grid-cols-6"
+        id="new-from-friend"
+      ></div>
     </section>
 
     <!-- popular movies section -->
-    <section class="wrapper mt-10 text-white">
+    <section class="wrapper mt-10 text-white lg:mt-16">
       <h3 class="mb-4 font-bold">Popular this weeek</h3>
-      <div class="popular-movies grid grid-cols-3 gap-2"></div>
+      <div class="popular-movies grid grid-cols-3 gap-2 lg:grid-cols-6"></div>
     </section>
 
     <script type="module" src="/src/main.ts"></script>

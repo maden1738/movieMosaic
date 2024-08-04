@@ -202,72 +202,30 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML = `
+  movieDetailsEl.innerHTML =
+    /*HTML*/
+    `
   <section class = "relative">
-      <img src="${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full"  />
+      <img src="${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full lg:px-[15%] lg:rounded-xl lg:shadow-2xl object-contain lg:brightness-75"  />
        <button
-        class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white"
+        class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white lg:hidden"
         id="userpanel-open"
       >
         <span class="aspect-square w-1 rounded-full bg-subText"></span>
         <span class="aspect-square w-1 rounded-full bg-subText"></span>
         <span class="aspect-square w-1 rounded-full bg-subText"></span>
       </button>
-       <!-- userpanel -->
-      <div
-        class="fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55"
-        id="userpanel"
-      >
-        <section class="wrapper relative text-text">
-          <button
-            id="userpanel-close"
-            class="absolute right-0 top-0 flex aspect-square w-[22px] translate-x-[-50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
-          >
-            <i class="fa-regular fa-x text-sm font-semibold"></i>
-          </button>
-          <div class="w-full bg-primaryDark">
-            <div class="grid grid-cols-3 py-4">
-              <div
-                class="group flex cursor-pointer flex-col items-center gap-1"
-                id="watch"
-              >
-                <i class="fa-regular fa-eye text-3xl text-text" id="watch-icon"></i>
-                <p class="text-sm text-text group-hover:text-white" id="watch-text">Watch</p>
-              </div>
-              <div
-                class="group flex cursor-pointer flex-col items-center gap-1"
-                id="like"
-              >
-                <i class="fa-regular fa-heart text-3xl text-text" id="like-icon"></i>
-                <div class="text-sm text-text group-hover:text-white" id="like-text">Like</div>
-              </div>
-              <div
-                class="group flex cursor-pointer flex-col items-center gap-1"
-                id="watchlist"
-              >
-                <i class="fa-regular fa-clock text-3xl text-text" id="watchlist-icon"></i>
-                <div class="text-sm text-text group-hover:text-white" id="watchlist-text">
-                  Watchlist
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] bg-[#324654]"></div>  
-            <div class="flex cursor-pointer flex-col items-center py-4 text-sm hover:text-white" id="logpanel-open">
-              Review or log
-            </div>
-          </div>
-        </section>
-      </div>
+      
     </section>
 
-    <section class="wrapper flex justify-between">
-      <div class="pt-4">
-        <div id="title" class="text-xl font-medium text-white max-w-[200px]">${title}</div>
+    <section class="wrapper flex justify-between lg:gap-6  ">
+      <div class="pt-4 lg:order-2" >
+        <div id="title" class="text-xl font-medium text-white max-w-[200px] lg:max-w-[400px]">${title}</div>
 
-        <div class="mt-4 text-sm text-subText">DIRECTED BY</div>
+        <div class="mt-4 text-sm text-subText lg:mt-2">DIRECTED BY</div>
         <div class="font-bold text-text">Swarna Jang Maden</div>
 
-        <div class="mt-6 flex items-center gap-4">
+        <div class="mt-6 flex items-center gap-4 lg:mt-3">
           <a id="trailer" href="${trailer}">
             <button
               class="rounded-lg bg-primary px-2 py-[2px] text-sm text-text"
@@ -277,16 +235,63 @@ function renderMovieDetails(data: IFilm) {
           </a>
 
           <div class="text-sm text-text" id="date">${releaseDate}</div>
-        </div>
+        </div>     
+        <p class="mt-8 text-subText lg:max-w-[40ch] lg:mt-4" id="overview">
+          ${overview}
+        </p>
       </div>
-      <div class="pt-2 w-[110px]  overflow-hidden rounded-lg">
-        <img src="${posterUrl}"" alt="poster" class = "w-full" />
+
+        <!-- userpanel -->
+        <div
+          class="fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55 lg:static lg:flex lg:order-2 lg:bg-transparent w-auto"
+          id="userpanel"
+        >
+          <section class="wrapper relative text-text lg:px-0">
+            <button
+              id="userpanel-close"
+              class="lg:hidden absolute right-0 top-0 flex aspect-square w-[22px] translate-x-[-50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
+            >
+              <i class="fa-regular fa-x text-sm font-semibold"></i>
+            </button>
+            <div class="w-full bg-primaryDark">
+              <div class="grid grid-cols-3 py-4 lg:gap-4 lg:px-4">
+                <div
+                  class="group flex cursor-pointer flex-col items-center gap-1"
+                  id="watch"
+                >
+                  <i class="fa-regular fa-eye text-3xl text-text" id="watch-icon"></i>
+                  <p class="text-sm text-text group-hover:text-white" id="watch-text">Watch</p>
+                </div>
+                <div
+                  class="group flex cursor-pointer flex-col items-center gap-1"
+                  id="like"
+                >
+                  <i class="fa-regular fa-heart text-3xl text-text" id="like-icon"></i>
+                  <div class="text-sm text-text group-hover:text-white" id="like-text">Like</div>
+                </div>
+                <div
+                  class="group flex cursor-pointer flex-col items-center gap-1"
+                  id="watchlist"
+                >
+                  <i class="fa-regular fa-clock text-3xl text-text" id="watchlist-icon"></i>
+                  <div class="text-sm text-text group-hover:text-white" id="watchlist-text">
+                    Watchlist
+                  </div>
+                </div>
+              </div>
+              <div class="h-[1px] bg-[#324654]"></div>  
+              <div class="flex cursor-pointer flex-col items-center py-4 text-sm hover:text-white" id="logpanel-open">
+                Review or log
+              </div>
+            </div>
+          </section>
+        </div>
+
+      <div class="pt-2 w-[110px] h-fit absolute right-[5%] lg:w-[230px] overflow-hidden rounded-xl lg:order-1 lg:static">
+        <img src="${posterUrl}"" alt="poster" class = "w-full h-auto" />
       </div>
     </section>
 
-    <p class="wrapper mt-6 text-subText" id="overview">
-     ${overview}
-    </p>
 
     <!-- rating -->
     <section class="wrapper">
