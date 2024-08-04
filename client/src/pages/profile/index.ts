@@ -158,6 +158,13 @@ function renderFollowing(noOfFollowing: number) {
 }
 
 function renderRecentMovies(data: Array<ILogsResponse>) {
+  if (data.length === 0) {
+    recentActivityEl.className =
+      "text-center text-text uppercase min-h-[50px] pt-5 font-light";
+    return;
+  }
+
+  recentActivityEl.innerHTML = "";
   data.forEach((film) => {
     let ratingStars = "";
     if (film.rating) {
@@ -190,8 +197,15 @@ function renderRecentMovies(data: Array<ILogsResponse>) {
   });
 }
 
-function renderRecentReviews(reviewes: Array<IReviewWithFilm>) {
-  reviewes.forEach((review) => {
+function renderRecentReviews(reviews: Array<IReviewWithFilm>) {
+  if (reviews.length === 0) {
+    reviewsEl.className =
+      "text-center text-text uppercase min-h-[50px] pt-5 font-light";
+    return;
+  }
+
+  reviewsEl.innerHTML = "";
+  reviews.forEach((review) => {
     if (!review.content) {
       return;
     }
