@@ -159,7 +159,7 @@
           <i class="fa-solid fa-user text-primary" id="login-icon"></i>
           <!-- login-form -->
           <div
-            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            class="lg:wrapper absolute left-0 z-10 hidden w-full bg-background p-4"
             id="login-body"
           >
             <form id="login-form">
@@ -168,7 +168,7 @@
                 <input
                   type="text"
                   id="loginEmail"
-                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black lg:w-[30%]"
                 />
               </div>
               <div class="flex flex-col gap-2">
@@ -176,13 +176,13 @@
                 <input
                   type="password"
                   id="loginPassword"
-                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black lg:w-[30%]"
                 />
               </div>
-              <div class="login-error-container h-8"></div>
+              <div class="login-error-container h-4"></div>
 
               <button
-                class="cursor mb-4 mt-6 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+                class="cursor mb-4 mt-3 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
               >
                 LOG IN
               </button>

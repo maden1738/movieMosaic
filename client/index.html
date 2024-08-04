@@ -160,7 +160,7 @@
           ></i>
           <!-- login-form -->
           <div
-            class="absolute left-0 z-10 hidden w-full bg-background p-4"
+            class="lg:wrapper absolute left-0 z-10 hidden w-full bg-background p-4"
             id="login-body"
           >
             <form id="login-form">
@@ -169,7 +169,7 @@
                 <input
                   type="text"
                   id="loginEmail"
-                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black lg:w-[30%]"
                 />
               </div>
               <div class="flex flex-col gap-2">
@@ -177,13 +177,13 @@
                 <input
                   type="password"
                   id="loginPassword"
-                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black"
+                  class="mb-2 rounded-md bg-backgroundLight px-2 py-1 text-black lg:w-[30%]"
                 />
               </div>
-              <div class="login-error-container h-8"></div>
+              <div class="login-error-container h-4"></div>
 
               <button
-                class="cursor mb-4 mt-6 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+                class="cursor mb-4 mt-3 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
               >
                 LOG IN
               </button>
@@ -348,7 +348,7 @@
       <div
         class="wrapper flex min-h-screen items-center justify-center bg-black bg-opacity-55"
       >
-        <form class="w-full bg-primary p-3" id="sign-up">
+        <form class="w-full bg-primary p-3 lg:w-[60%]" id="sign-up">
           <div class="flex justify-between">
             <h2 class="mb-4 text-text">Join MovieMosaic</h2>
             <i
@@ -362,7 +362,7 @@
             <input
               type="email"
               id="email"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1 lg:w-[50%]"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -370,7 +370,7 @@
             <input
               type="text"
               id="username"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1 lg:w-[50%]"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -378,12 +378,12 @@
             <input
               type="password"
               id="password"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
+              class="mb-2 rounded-md bg-backgroundLight px-2 py-1 lg:w-[50%]"
             />
           </div>
-          <div class="signup-error-container h-8"></div>
+          <div class="signup-error-container h-4"></div>
           <button
-            class="cursor mb-4 mt-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
+            class="cursor mb-4 mt-5 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
           >
             SIGN UP
           </button>
