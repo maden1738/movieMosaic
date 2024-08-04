@@ -104,6 +104,7 @@ router.post(
 
 // add to liked movies
 router.post("/:id/likes", authenticate, likeMovie);
+
 //get liked movies of a user
 router.get(
      "/:id/likes",

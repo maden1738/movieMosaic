@@ -181,6 +181,8 @@ window.onload = async () => {
     if (!accessToken) {
       throw new Error();
     }
+
+    // checking the validaity of access token
     const response = await axiosInstance.get("/users/me");
 
     localStorage.setItem("user", JSON.stringify(response.data.data));

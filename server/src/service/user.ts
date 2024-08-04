@@ -113,7 +113,6 @@ export async function updatePassword(
 
 export async function createLog(userId: number, log: ILogs) {
      await LogsService.createLog(userId, log);
-     // logsModel.create(filmid, userid, reviewid, likestatus)
 }
 
 export async function getLogs(userId: number, query: GetLogsQuery) {

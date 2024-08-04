@@ -3,7 +3,6 @@ import { validateForm } from "./utils/validator";
 import { AxiosError } from "axios";
 import { ISignupData } from "./interface/user";
 import Swal from "sweetalert2";
-import "toastify-js/src/toastify.css";
 import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
 import { displayErrors } from "./utils/displayError";
@@ -192,6 +191,7 @@ window.onload = async () => {
       throw new Error();
     }
 
+    // checking the validaity of access token
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
