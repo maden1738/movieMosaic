@@ -177,6 +177,10 @@ window.onload = async () => {
   });
 
   try {
+    const accessToken = localStorage.getItem("token");
+    if (!accessToken) {
+      throw new Error();
+    }
     const response = await axiosInstance.get("/users/me");
 
     localStorage.setItem("user", JSON.stringify(response.data.data));

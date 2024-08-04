@@ -187,6 +187,11 @@ searchIconEl.addEventListener("click", () => {
 
 window.onload = async () => {
   try {
+    const accessToken = localStorage.getItem("token");
+    if (!accessToken) {
+      throw new Error();
+    }
+
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
@@ -223,6 +228,10 @@ window.onload = async () => {
     });
   }
 
+  fetchPopularMovies();
+};
+
+async function fetchPopularMovies() {
   try {
     const response = await axiosInstance.get(
       "/movies?sortBy=popularityDesc&size=12",
@@ -235,7 +244,7 @@ window.onload = async () => {
       background: "#435666",
     });
   }
-};
+}
 
 signupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
