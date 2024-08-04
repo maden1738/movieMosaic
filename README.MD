@@ -1,22 +1,23 @@
 # MovieMosaic
 
-Basic [Letterboxd]("https://letterboxd.com/") Clone
+Basic [Letterboxd]("https://letterboxd.com/") Clone.
 
 ## Features
 
 1. Explore film database with search functionality, filtering, pagination and sorting options.
 2. Users can add movies to their watchlist, like, rate and review movies.
 3. Users can log their watched movies.
-4. User can view other user's profile and see their activities.
-5. Allow user to update their profile info, avatar and password.
+4. Keep a diary of your film watching
+5. User can view other user's profile and see their activities.
+6. Allow user to update their profile info, avatar and password.
 
 ## Screenshots
 
-![Screen-shot of diary](./client/public/diary-ss.png "Diary")
+![Screen-shot of diary](./client/public/diaryss.png "Diary")
 
 ![screen-shot of log-panel](./client/public/log.png "Logging a Movie")
 
-![Screen-shot of profile-page](./client/public/profile-page.png)
+![Screen-shot of profile-page](./client/public/profile.png)
 
 ## How to run Locally
 
