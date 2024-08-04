@@ -298,7 +298,7 @@
           <input
             id="username"
             type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[20%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -308,7 +308,7 @@
           <input
             id="email"
             type="email"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[30%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -316,33 +316,33 @@
           <textarea
             id="bio"
             type="text"
-            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[40%]"
           ></textarea>
         </div>
 
         <div class="h-8" id="profile-error-container"></div>
 
         <button
-          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg hover:brightness-75"
           id="profile-btn"
         >
           SAVE Changes
         </button>
       </form>
       <!-- <h2 class="mt-8 text-xl font-light text-text"></h2> -->
-      <form id="avatar-form" class="mt-4">
+      <form id="avatar-form" class="mt-6">
         <label
-          class="mb-2 mt-5 block text-sm font-medium dark:text-white"
+          class="mt-5 block text-sm font-medium dark:text-white"
           for="new-avatar"
           >New Avatar</label
         >
         <input
-          class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
+          class="mb-3 mt-2 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none md:w-[30%]"
           id="new-avatar"
           type="file"
         />
         <button
-          class="mt-2 flex items-center rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg disabled:brightness-50"
+          class="mt-4 flex items-center rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg hover:brightness-75 disabled:brightness-50"
           id="new-avatar-btn"
         >
           select new avatar
@@ -362,7 +362,7 @@
           <input
             id="currentPassword"
             type="password"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[30%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -372,7 +372,7 @@
           <input
             id="newPassword"
             type="password"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[30%]"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -382,12 +382,12 @@
           <input
             id="confirmPassword"
             type="password"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black md:w-[30%]"
           />
         </div>
-        <div class="mt-1 h-8" id="password-error-container"></div>
+        <div class="mt-1 h-4" id="password-error-container"></div>
         <button
-          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg hover:brightness-75"
           id="password-btn"
         >
           Change

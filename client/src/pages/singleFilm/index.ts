@@ -220,7 +220,7 @@ function renderMovieDetails(data: IFilm) {
 
     <section class="wrapper flex justify-between lg:gap-6  ">
       <div class="pt-4 lg:order-2" >
-        <div id="title" class="text-xl font-medium text-white max-w-[200px] lg:max-w-[400px]">${title}</div>
+        <div id="title" class="text-xl font-medium text-white max-w-[200px] lg:max-w-[400px] lg:text-3xl lg:font-bold">${title}</div>
 
         <div class="mt-4 text-sm text-subText lg:mt-2">DIRECTED BY</div>
         <div class="font-bold text-text">Swarna Jang Maden</div>
@@ -243,17 +243,17 @@ function renderMovieDetails(data: IFilm) {
 
         <!-- userpanel -->
         <div
-          class="fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55 lg:static lg:flex lg:order-2 lg:bg-transparent w-auto"
+          class="fixed inset-0 z-10 hidden items-center justify-center bg-black bg-opacity-55 lg:static lg:inline lg:pt-10 lg:order-2 lg:bg-transparent w-auto "
           id="userpanel"
         >
-          <section class="wrapper relative text-text lg:px-0">
+          <section class="wrapper relative text-text lg:px-0  ">
             <button
               id="userpanel-close"
               class="lg:hidden absolute right-0 top-0 flex aspect-square w-[22px] translate-x-[-50%] translate-y-[-50%] cursor-pointer items-center justify-center rounded-full bg-orange shadow-lg"
             >
               <i class="fa-regular fa-x text-sm font-semibold"></i>
             </button>
-            <div class="w-full bg-primaryDark">
+            <div class="w-full bg-primaryDark rounded-xl">
               <div class="grid grid-cols-3 py-4 lg:gap-4 lg:px-4">
                 <div
                   class="group flex cursor-pointer flex-col items-center gap-1"
@@ -372,7 +372,7 @@ function renderRecentReviews(data: Array<IReview>) {
               </a>
             </div>
             <span class="pl-1">Review By </span>
-            <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
+            <a id="username" class="font-semibold capitalize text-text" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
             <span class="pl-1 text-accent flex items-center text-sm pb-1" id="rating">${rating}</span>
@@ -421,7 +421,7 @@ function renderFriendReviews(data: Array<IReview>) {
               </a>
             </div>
             <span class="pl-1">Review By </span>
-            <a id="username" class="font-semibold capitalize text-subText" href=".././profile/?id=${review.userId}"
+            <a id="username" class="font-semibold capitalize text-text" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
             <span class="pl-1 pb-1 text-accent flex items-center" id="rating">${rating}</span>

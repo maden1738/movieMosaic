@@ -180,7 +180,8 @@ function renderRecentMovies(data: Array<ILogsResponse>) {
     const link = document.createElement("a");
     link.href = `../singleFilm/?id=${parseInt(film.filmId)}`;
     const recentfilmContainer = document.createElement("div");
-    recentfilmContainer.className = "rounded-md overflow-hidden";
+    recentfilmContainer.className =
+      "overflow-hidden rounded-lg  hover:outline outline-[4px] outline-offset-[-3px] outline-accent transition-all duration-200 ease-in";
     const poster = document.createElement("img");
     poster.src = film.posterUrl;
     recentfilmContainer.appendChild(poster);
@@ -192,8 +193,8 @@ function renderRecentMovies(data: Array<ILogsResponse>) {
       <div class="${film.likeStatus ? "inline" : "hidden"}">
         <i class="fa-solid fa-heart text-[10px] text-subText"></i>
       </div>
-      <a  href=".././singleReview/?id=${film.reviewId}" class="${film.content ? "inline hover:text-accent2" : "hidden"}">
-        <i class="fa-solid fa-ticket-simple text-[10px] text-subText"></i>
+      <a  href=".././singleReview/?id=${film.reviewId}" class="${film.content ? "inlin" : "hidden"}  ">
+        <i class="fa-solid fa-ticket-simple text-[10px] text-subText hover:text-white"></i>
       </a>
     `;
     link.appendChild(recentfilmContainer);
@@ -226,14 +227,14 @@ function renderRecentReviews(reviews: Array<IReviewWithFilm>) {
           </a>
           <div >
             <div>
-              <a class="text-xl pr-2 font-bold text-white hover:text-accent2" href="../singleFilm/?id=${review.filmId}" >${review.title}</a>
+              <a class="text-xl  pr-2 font-bold text-white hover:text-accent2" href="../singleFilm/?id=${review.filmId}" >${review.title}</a>
               <span class="font-light text-text">${review.releaseDate}</span>
             </div>
             <div class=" mt-1 gap-3 items-center flex">
               <span class="text-xs text-subText">Watched ${review.createdAt}</span>
               <span class="text-xs  text-accent flex items-center pb-1">${rating}</span>
             </div>
-            <div class="mt-2 text-sm text-text">
+            <div class="mt-2 text-sm text-text lg:text-base lg:mt-3">
               ${review.content}
             </div>
           </div>

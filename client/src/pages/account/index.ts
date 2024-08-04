@@ -131,6 +131,7 @@ async function submitUpdateProfileForm(formData: IUpdateUserProfile) {
     if (error instanceof AxiosError && error.response) {
       displayErrors(error.response.data.message, profileErrorContainer);
     }
+    profileBtn.disabled = false;
   }
 }
 
@@ -149,6 +150,7 @@ async function submitUpdatePasswordForm({
     if (error instanceof AxiosError && error.response) {
       displayErrors(error.response.data.message, passwordErrorContainer);
     }
+    passwordBtn.disabled = false;
   }
 }
 

@@ -4,7 +4,9 @@ import { IUser } from "../../interface/user";
 const contentEl = document.getElementById("content") as HTMLDivElement;
 const followersEl = document.getElementById("followers") as HTMLAnchorElement;
 const followingEl = document.getElementById("following") as HTMLAnchorElement;
-const userNameEl = document.querySelector(".username") as HTMLDivElement;
+
+const nameEl = document.getElementById("title-name") as HTMLAnchorElement;
+const avatarEl = document.getElementById("title-avatar") as HTMLImageElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
@@ -30,7 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchUserName() {
   const response = await axiosInstance.get(`/users/${id}`);
 
-  userNameEl.innerHTML = response.data.data.name;
+  nameEl.innerHTML = response.data.data.name;
+  nameEl.href = `.././profile${response.data.data.id}`;
+  avatarEl.src = response.data.data.avatarUrl;
 }
 
 async function fetchFollowers() {
@@ -49,9 +53,9 @@ function renderList(users: Array<IUser>) {
     divContainer.innerHTML = `<div class="flex items-center gap-4 py-2">
         <div class="aspect-square w-[40px] overflow-hidden rounded-full">
           <img
-            src="/whitebg.avif"
+            src="${user.avatarUrl}"
             alt="profile picture"
-            class="h-full w-full"
+            class="h-full w-full object-cover" 
           />
         </div>
         <a href=".././profile/?id=${user.id}" class="font-semibold text-white">${user.name}</a>

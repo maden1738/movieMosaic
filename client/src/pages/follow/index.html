@@ -292,10 +292,15 @@
           <img
             src="/whitebg.avif"
             alt="profile picture"
-            class="h-full w-full"
+            class="h-full w-full object-cover"
+            id="title-avatar"
           />
         </div>
-        <div class="username text-sm font-extrabold text-white"></div>
+        <a
+          href="#"
+          class="text-sm font-extrabold text-white"
+          id="title-name"
+        ></a>
       </div>
 
       <div class="mt-4 flex gap-4">
@@ -316,19 +321,7 @@
       <div class="my-1 h-[1px] bg-primaryDark"></div>
     </section>
 
-    <section class="wrapper" id="content">
-      <!-- <div class="flex items-center gap-4 py-2">
-               <div class="aspect-square w-[40px] overflow-hidden rounded-full">
-                    <img
-                    src="/whitebg.avif"
-                    alt="profile picture"
-                    class="h-full w-full"
-                    />
-               </div>
-               <a href="#" class="font-semibold text-white">Hira</a>
-          </div>
-          <div class="my-1 h-[1px] bg-primaryDark"></div> -->
-    </section>
+    <section class="wrapper" id="content"></section>
 
     <script type="module" src="../../common/navbar.ts"></script>
     <script type="module" defer src="./index.ts"></script>

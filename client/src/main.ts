@@ -452,12 +452,13 @@ function renderLogsOfFriends(logsArr: Array<ILogsResponse>) {
   logsArr.forEach((log) => {
     const divEl = document.createElement("div");
     const ratingStars = convertIntoStar(log.rating!);
-    divEl.innerHTML = `<div class="rounded-t-md overflow-hidden">
+    divEl.innerHTML = `
+      <div class="rounded-t-md overflow-hidden">
           <a href="./src/pages/singleFilm/?id=${log.filmId}" class="h-full">
             <img src="${log.posterUrl}" alt="film poster" class="h-full w-full" />
           </a>
 
-          <div class="flex items-center rounded-b-md bg-primaryDark p-1">
+          <div class="flex items-center rounded-b-md bg-primaryDark p-1 ">
             <div
               class="mr-1 aspect-square w-[13px] overflow-hidden rounded-full"
             >
@@ -492,10 +493,11 @@ function renderPopularMovies(data: Array<IFilm>) {
     const link = document.createElement("a");
     link.href = `./src/pages/singleFilm/?id=${parseInt(film.id)}`;
     const filmContainer = document.createElement("div");
+    filmContainer.className =
+      "overflow-hidden rounded-md  hover:outline outline-[4px] outline-offset-[-3px] outline-accent transition-all duration-200 ease-in";
     const poster = document.createElement("img");
     poster.src = `${film.posterUrl}`;
     filmContainer.appendChild(poster);
-    filmContainer.className = "rounded-md overflow-hidden";
     link.appendChild(filmContainer);
     popularMoviesContainer.appendChild(link);
   });

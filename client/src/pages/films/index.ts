@@ -36,7 +36,7 @@ async function fetchMovies(
 ) {
   try {
     const response = await axiosInstance.get(
-      `/movies/?sortBy=${sortParams}&size=27&page=${page}`,
+      `/movies/?sortBy=${sortParams}&size=30&page=${page}`,
     );
 
     renderMovies(response.data.data);
@@ -58,6 +58,8 @@ function renderMovies(data: Array<IFilm>) {
     const link = document.createElement("a");
     link.href = `../singleFilm/?id=${parseInt(film.id)}`;
     const filmContainer = document.createElement("div");
+    filmContainer.className =
+      "overflow-hidden rounded-md  hover:outline outline-[4px] outline-offset-[-3px] outline-accent transition-all duration-200 ease-in";
     const poster = document.createElement("img");
     poster.src = film.posterUrl;
     poster.alt = "film poster";
