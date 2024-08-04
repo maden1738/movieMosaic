@@ -35,9 +35,6 @@ const profileErrorContainer = document.getElementById(
 const passwordErrorContainer = document.getElementById(
   "password-error-container",
 ) as HTMLDivElement;
-// const currentPasswordEl = document.getElementById(
-//   "currentPassword",
-// ) as HTMLInputElement;
 const newPasswordEl = document.getElementById(
   "newPassword",
 ) as HTMLInputElement;

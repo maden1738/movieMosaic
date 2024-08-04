@@ -10,7 +10,7 @@
 
 @layer components {
   .wrapper {
-    @apply w-full px-[5%] lg:px-[17%];
+    @apply w-full px-[5%] lg:px-[10%] xl:px-[17%];
   }
 }
 /* px-[5%] md:px-[10%] lg:px-[5%] xl:px-[10%] 2xl:px-[20%]; */

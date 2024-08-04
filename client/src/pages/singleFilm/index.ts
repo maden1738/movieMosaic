@@ -18,6 +18,7 @@ const friendReviewSection = document.getElementById(
 // checking if user is logged in
 let isUserLoggedIn = false;
 const USER = JSON.parse(localStorage.getItem("user") as string);
+
 if (USER) {
   isUserLoggedIn = true;
 }
@@ -37,6 +38,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // get film status for logged in user
     if (isUserLoggedIn) {
+      console.log("here");
+
       const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
       likedStatus = filmStatus.data.data.likedStatus;
       watchedStatus = filmStatus.data.data.watchedStatus;
@@ -184,7 +187,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   fetchRecentReviews();
-  fetchFriendReviews();
+  if (isUserLoggedIn) {
+    fetchFriendReviews();
+  }
 });
 
 function renderMovieDetails(data: IFilm) {
@@ -202,9 +207,7 @@ function renderMovieDetails(data: IFilm) {
   releaseDate = extractYear(releaseDate);
   rating = convertRating(rating);
 
-  movieDetailsEl.innerHTML =
-    /*HTML*/
-    `
+  movieDetailsEl.innerHTML = `
   <section class = "relative">
       <div class="lg:px-[15%] rounded-md overflow-hidden bg-background ">
         <img src="${backdropUrl}" alt="backdrop photo" class="w-full object-contain lg:rounded-md brightness-50"  />
@@ -255,8 +258,11 @@ function renderMovieDetails(data: IFilm) {
             >
               <i class="fa-regular fa-x text-sm font-semibold"></i>
             </button>
-            <div class="w-full bg-primaryDark rounded-xl">
-              <div class="grid grid-cols-3 py-4 lg:gap-4 lg:px-4">
+            <div class="w-full bg-primaryDark rounded-xl ">
+              <div class="text-text text-sm px-4 text-center py-4 ${isUserLoggedIn ? "hidden" : ""}">
+                  Signin to rate, log or review
+              </div>
+              <div class="grid grid-cols-3 py-4 lg:gap-4 lg:px-4 ${isUserLoggedIn ? "" : "hidden"}">
                 <div
                   class="group flex cursor-pointer flex-col items-center gap-1"
                   id="watch"
@@ -281,8 +287,8 @@ function renderMovieDetails(data: IFilm) {
                   </div>
                 </div>
               </div>
-              <div class="h-[1px] bg-[#324654]"></div>  
-              <div class="flex cursor-pointer flex-col items-center py-4 text-sm hover:text-white" id="logpanel-open">
+              <div class="h-[1px] bg-[#324654] ${isUserLoggedIn ? "" : "hidden"}"></div>  
+              <div class="flex cursor-pointer flex-col items-center py-4 text-sm hover:text-white  ${isUserLoggedIn ? "" : "hidden"}" id="logpanel-open">
                 Review or log
               </div>
             </div>

@@ -180,6 +180,9 @@ window.onload = async () => {
   });
 
   try {
+    if (!JSON.parse(localStorage.getItem("user") as string)) {
+      throw new Error();
+    }
     const response = await axiosInstance.get("/users/me");
 
     localStorage.setItem("user", JSON.stringify(response.data.data));

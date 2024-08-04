@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const user = JSON.parse(localStorage.getItem("user") as string);
 
-  if (user.id && user.id === id) {
+  if (user && user.id && user.id === id) {
     editProfile.classList.remove("hidden");
     editProfile.href = `../account/?id=${id}`;
   }
 
-  if (user.id && user.id != id) {
+  if (user && user.id && user.id != id) {
     followBtn.classList.remove("hidden");
     followingStatus = await isFollowingUser(user.id, id!);
   }

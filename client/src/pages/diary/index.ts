@@ -8,12 +8,19 @@ const userNameEl = document.getElementById("name") as HTMLAnchorElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
-const user = JSON.parse(localStorage.getItem("user") as string);
 
-document.addEventListener("DOMContentLoaded", () => {
-  avatar.src = user.avatarUrl;
-  userNameEl.innerHTML = user.name;
-  userNameEl.href = `.././profile/?id=${id}`;
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await axiosInstance.get(`/users/${id}`);
+
+    const { avatarUrl, name } = response.data.data;
+
+    avatar.src = avatarUrl;
+    userNameEl.innerHTML = name;
+    userNameEl.href = `.././profile/?id=${id}`;
+  } catch (error) {
+    console.log(error);
+  }
   fetchDiary();
 });
 
