@@ -117,6 +117,8 @@ async function submitAvatarForm(formData: FormData) {
     location.reload();
   } catch (error) {
     console.log(error);
+    avatarBtn.disabled = false;
+    avatarSpinner.classList.toggle("hidden");
   }
 }
 

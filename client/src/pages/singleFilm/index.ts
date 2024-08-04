@@ -196,6 +196,7 @@ function renderMovieDetails(data: IFilm) {
     overview,
     ratingCount,
     rating,
+    trailer,
   } = data;
 
   releaseDate = extractYear(releaseDate);
@@ -267,7 +268,7 @@ function renderMovieDetails(data: IFilm) {
         <div class="font-bold text-text">Swarna Jang Maden</div>
 
         <div class="mt-6 flex items-center gap-4">
-          <a id="trailer" href="https://www.youtube.com/watch?v=mAKsZ26SabQ">
+          <a id="trailer" href="${trailer}">
             <button
               class="rounded-lg bg-primary px-2 py-[2px] text-sm text-text"
             >

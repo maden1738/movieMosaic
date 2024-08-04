@@ -9,6 +9,7 @@ import axiosInstance from "./axios";
 import { displayErrors } from "./utils/displayError";
 import { convertIntoStar, extractYear } from "./utils/formatter";
 import { ILogs, ILogsResponse } from "./interface/log";
+import { CreateMoviesBodySchema } from "./schema/film";
 
 let debounceTimer: number | null = null;
 const DEBOUNCE_DELAY = 300; // milliseconds
@@ -91,6 +92,34 @@ const navReviewContentEl = document.getElementById(
 const logSearchEl = document.getElementById("log-search") as HTMLElement;
 const logCloseEl = document.getElementById("log-search-close") as HTMLElement;
 
+const addFilmSection = document.getElementById(
+  "add-film-section",
+) as HTMLElement;
+const addFilmForm = document.getElementById("add-film-form") as HTMLFormElement;
+const newFilmNameEl = document.getElementById(
+  "new-film-name",
+) as HTMLInputElement;
+const newFilmDateEl = document.getElementById(
+  "new-film-date",
+) as HTMLInputElement;
+const newFilmTrailerEl = document.getElementById(
+  "new-film-trailer",
+) as HTMLInputElement;
+const newPosterEl = document.getElementById(
+  "new-film-poster",
+) as HTMLInputElement;
+const newBackdropEL = document.getElementById(
+  "new-backdrop-poster",
+) as HTMLInputElement;
+const newFilmOverviewEl = document.getElementById(
+  "new-film-overview",
+) as HTMLTextAreaElement;
+const newErrorContainer = document.getElementById(
+  "new-error-container",
+) as HTMLDivElement;
+const newFilmBtn = document.getElementById("new-film-btn") as HTMLButtonElement;
+const btnSpinner = document.getElementById("btn-spinner") as HTMLElement;
+
 const filmTitleInput = document.getElementById(
   "film-title",
 ) as HTMLInputElement;
@@ -158,7 +187,11 @@ window.onload = async () => {
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
-    const { id, name, avatarUrl } = response.data.data;
+    const { id, name, avatarUrl, role } = response.data.data;
+
+    if (role === "admin") {
+      addFilmSection.classList.remove("hidden");
+    }
 
     filmsEl.href = `./src/pages/userFilms/?id=${id}&content=watched`;
     watchlistLink.href = `./src/pages/userFilms/?id=${id}&content=watchlist`;
@@ -232,6 +265,8 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
+addFilmForm.addEventListener("submit", handleAddFilmSubmit);
+
 navLikeCheckbox.addEventListener("change", () => {
   renderLogLikeIcon();
 });
@@ -285,6 +320,57 @@ async function submitSignupForm(formData: ISignupData) {
     if (error instanceof AxiosError && error.response) {
       displayErrors(error.response.data.message, signupErrorContainer);
     }
+  }
+}
+
+function handleAddFilmSubmit(event: SubmitEvent) {
+  event.preventDefault();
+  console.log("here");
+
+  const formData = new FormData();
+
+  const poster = newPosterEl.files![0];
+  const backdrop = newBackdropEL.files![0];
+  formData.append("poster", poster);
+  formData.append("backdrop", backdrop);
+  formData.append("title", newFilmNameEl.value.trim());
+  formData.append("overview", newFilmOverviewEl.value);
+  formData.append("trailer", newFilmTrailerEl.value.trim());
+  formData.append("releaseDate", newFilmDateEl.value);
+
+  // Convert FormData to a plain object
+  const formObject: { [key: string]: any } = {};
+  formData.forEach((value, key) => {
+    formObject[key] = value;
+  });
+
+  const errors = validateForm(formObject, CreateMoviesBodySchema);
+
+  if (errors) {
+    displayErrors(errors[0].message, newErrorContainer);
+    return;
+  }
+
+  submitAddFilmForm(formData);
+}
+
+async function submitAddFilmForm(formData: FormData) {
+  try {
+    newFilmBtn.disabled = true;
+    btnSpinner.classList.toggle("hidden");
+    await axiosInstance.post("movies", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    location.reload();
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      displayErrors(error.response.data.message, newErrorContainer);
+    }
+
+    newFilmBtn.disabled = false;
+    btnSpinner.classList.toggle("hidden");
   }
 }
 

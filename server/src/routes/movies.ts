@@ -1,6 +1,6 @@
 import express from "express";
 import { validateReqBody, validateReqQuery } from "../middleware/validator";
-import { GetMoviesQuerySchema } from "../schema/movies";
+import { CreateMoviesBodySchema, GetMoviesQuerySchema } from "../schema/movies";
 import {
      createMovie,
      createReviews,
@@ -24,6 +24,7 @@ router.post(
           { name: "poster", maxCount: 1 },
           { name: "backdrop", maxCount: 1 },
      ]),
+     validateReqBody(CreateMoviesBodySchema),
      authenticate,
      authorize("admin"),
      createMovie

@@ -375,7 +375,7 @@
     </div>
 
     <!-- add film to db -->
-    <section class="wrapper mb-10" id="add-film-section">
+    <section class="wrapper mb-10 hidden" id="add-film-section">
       <h1 class="my-4 text-2xl font-light text-text">
         Add film to our database
       </h1>
@@ -396,9 +396,10 @@
             >Release Date</label
           >
           <input
+            placeholder="DD-MM-YYYY"
             id="new-film-date"
             type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
+            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg placeholder:text-sm focus:bg-white focus:text-black"
           />
         </div>
         <div class="mt-5 flex flex-col gap-2">
@@ -406,6 +407,7 @@
             >Trailer</label
           >
           <input
+            required
             id="new-film-trailer"
             type="text"
             class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
@@ -418,6 +420,7 @@
             >Film Poster</label
           >
           <input
+            required
             class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
             id="new-film-poster"
             type="file"
@@ -430,6 +433,7 @@
             >Backrop Poster</label
           >
           <input
+            required
             class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
             id="new-backdrop-poster"
             type="file"
@@ -442,6 +446,7 @@
             >Overview</label
           >
           <textarea
+            required
             id="new-film-overview"
             type="text"
             class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
@@ -451,10 +456,13 @@
         <div class="h-8" id="new-error-container"></div>
 
         <button
-          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg"
+          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg disabled:brightness-50"
           id="new-film-btn"
         >
           add film
+          <span id="btn-spinner" class="hidden">
+            <i class="fa-solid fa-spinner ml-2 animate-spin text-base"></i>
+          </span>
         </button>
       </form>
     </section>

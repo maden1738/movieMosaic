@@ -87,6 +87,7 @@ export class MoviesModel extends BaseModel {
                     "id",
                     "film_id",
                     "title",
+                    "trailer",
                     "poster_url",
                     "backdrop_url",
                     "release_date",

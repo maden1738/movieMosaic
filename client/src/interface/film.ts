@@ -7,6 +7,7 @@ export interface IFilm {
   releaseDate: string;
   backdropUrl: string;
   ratingCount: string;
+  trailer: string;
   rating: number;
 }
 

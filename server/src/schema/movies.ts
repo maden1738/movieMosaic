@@ -1,4 +1,6 @@
 import Joi from "joi";
+import { join } from "path";
+import { title } from "process";
 
 export const GetMoviesQuerySchema = Joi.object({
      q: Joi.string().optional(),
@@ -26,6 +28,13 @@ export const GetMoviesQuerySchema = Joi.object({
      }),
 }).options({
      stripUnknown: true,
+});
+
+export const CreateMoviesBodySchema = Joi.object({
+     title: Joi.string().required(),
+     overview: Joi.string().required(),
+     trailer: Joi.string().required(),
+     releaseDate: Joi.date().required(),
 });
 
 export const AddMoviesToWatchListSchema = Joi.object({
