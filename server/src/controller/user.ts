@@ -415,10 +415,11 @@ export async function getReviewByUserId(
      res: Response,
      next: NextFunction
 ) {
+     const { query } = req;
      try {
           const { id } = req.params;
 
-          const data = await UserService.getReviewByUserId(+id);
+          const data = await UserService.getReviewByUserId(+id, query);
           res.status(HttpStatusCodes.OK).json({
                data,
           });

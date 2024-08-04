@@ -66,6 +66,7 @@ const watchlistLink = document.getElementById(
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 const reviewsEl = document.getElementById("reviews") as HTMLAnchorElement;
 const logoutEl = document.getElementById("logout") as HTMLAnchorElement;
+const profileEl = document.getElementById("profile") as HTMLAnchorElement;
 
 const nonUserElements = document.querySelectorAll(".non-user");
 const userElements = document.querySelectorAll(".user");
@@ -193,6 +194,7 @@ window.onload = async () => {
     navProfilePicEl.src = avatarUrl;
     diaryEl.href = `.././diary/?id=${id}`;
     reviewsEl.href = `.././userReviews/?id=${id}`;
+    profileEl.href = `.././profile/?id=${id}`;
     logoutEl.addEventListener("click", logout);
 
     userElements.forEach((el) => {

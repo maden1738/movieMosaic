@@ -41,6 +41,7 @@ export class ReviewsModel extends BaseModel {
                .table("user")
                .join("review", "user.id", "review.reviewedBy")
                .where("review.filmId", filmId)
+               .whereNotNull("review.content")
                .limit(size!)
                .offset((page! - 1) * size!);
 
@@ -80,8 +81,10 @@ export class ReviewsModel extends BaseModel {
           return data;
      }
 
-     static async getByUserId(userId: number) {
+     static async getByUserId(userId: number, query: GetReviewsQuery) {
           logger.info("getUserById");
+
+          const { size } = query;
 
           const data = this.queryBuilder()
                .select(
@@ -98,7 +101,8 @@ export class ReviewsModel extends BaseModel {
                .table("review")
                .join("film", "review.filmId", "film.id")
                .orderBy("review.createdAt", "desc")
-               .limit(3)
+               .limit(size!)
+               .whereNotNull("review.content")
                .where("review.reviewedBy", userId);
 
           return data;

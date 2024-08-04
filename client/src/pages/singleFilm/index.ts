@@ -206,7 +206,9 @@ function renderMovieDetails(data: IFilm) {
     /*HTML*/
     `
   <section class = "relative">
-      <img src="${backdropUrl}" alt="backdrop photo" class="shadow-lg w-full lg:px-[15%] lg:rounded-xl lg:shadow-2xl object-contain lg:brightness-75"  />
+      <div class="lg:px-[15%] rounded-md overflow-hidden bg-background ">
+        <img src="${backdropUrl}" alt="backdrop photo" class="w-full object-contain lg:rounded-md brightness-50"  />
+      </div>
        <button
         class="absolute right-4 top-5  flex aspect-square w-[24px] items-center justify-center gap-[2px] rounded-full bg-white lg:hidden"
         id="userpanel-open"
@@ -375,7 +377,7 @@ function renderRecentReviews(data: Array<IReview>) {
             <a id="username" class="font-semibold capitalize text-text" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
-            <span class="pl-1 text-accent flex items-center text-sm pb-1" id="rating">${rating}</span>
+            <span class="pl-1 text-accent flex items-center pb-1 text-xs" id="rating">${rating}</span>
             <!-- review content -->
           </div>
           <div class="mt-2 text-base text-subText" id="content">
@@ -424,7 +426,7 @@ function renderFriendReviews(data: Array<IReview>) {
             <a id="username" class="font-semibold capitalize text-text" href=".././profile/?id=${review.userId}"
               >${review.name}</a
             >
-            <span class="pl-1 pb-1 text-accent flex items-center" id="rating">${rating}</span>
+            <span class="pl-1 pb-1 text-accent flex items-center text-xs" id="rating">${rating}</span>
             <!-- review content -->
           </div>
           <div class="mt-2 text-base text-subText" id="content">

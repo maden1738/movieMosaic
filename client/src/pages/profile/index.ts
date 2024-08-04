@@ -105,7 +105,7 @@ async function isFollowingUser(userId: string, followingId: string) {
 }
 
 async function fetchRecentReviews() {
-  const response = await axiosInstance.get(`/users/${id}/reviews/`);
+  const response = await axiosInstance.get(`/users/${id}/reviews/?size=3`);
 
   let { data } = response.data;
 

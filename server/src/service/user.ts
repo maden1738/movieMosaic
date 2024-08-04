@@ -202,8 +202,11 @@ export async function deleteLikedMovies(filmId: string, userId: string) {
      await LikedMoviesService.deleteLikedMovies(filmId, userId);
 }
 
-export async function getReviewByUserId(userId: number) {
-     return await ReviewsService.getReviewByUserId(userId);
+export async function getReviewByUserId(
+     userId: number,
+     query: GetReviewsQuery
+) {
+     return await ReviewsService.getReviewByUserId(userId, query);
 }
 
 export async function getReviewOfFollowing(
