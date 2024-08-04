@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/styles.css" />
-    <title>Vite + TS</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="../../styles.css" />
     <script
       src="https://kit.fontawesome.com/b81aca49ba.js"
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="bg-secondary font-lato">
+  <body class="bg-secondary">
     <!-- navbar -->
     <div
       class="wrapper relative flex h-10 items-center justify-between bg-background text-white"
@@ -143,9 +143,10 @@
         </section>
       </div>
 
-      <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
+      <a href="../../../">
+        <img src="/letterboxd-logo.png" alt="logo" class="w-[45px]" />
+      </a>
       <div class="flex gap-4">
-        <!-- <i class="fa-solid fa-plus text-primary"></i> -->
         <div class="non-user hidden">
           <i class="fa-solid fa-user text-primary" id="login-icon"></i>
           <!-- login-form -->
@@ -189,6 +190,7 @@
             class="absolute left-0 z-10 hidden w-full bg-background"
             id="navbar"
           >
+            <!-- user links -->
             <div class="wrapper user hidden">
               <div class="flex items-center gap-2 pb-2 pt-4">
                 <div
@@ -202,37 +204,36 @@
                   />
                 </div>
                 <a
-                  class="text-sm font-extrabold uppercase text-text"
                   id="user-name"
-                ></a>
+                  class="user-name text-sm font-extrabold uppercase text-text"
+                >
+                  killakuen
+                </a>
               </div>
-              <!-- userlinks -->
               <section class="px-[28px]">
                 <div class="my-2 h-[1px] bg-[#324654]"></div>
                 <nav class="">
                   <ul class="grid grid-cols-2 text-xs font-bold text-subText">
-                    <li class="cursor-pointer py-1 hover:text-white">
-                      <a href="#">HOME</a>
-                    </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white"><a href="#">HOME</a></li>
+                    <li class="py-1 hover:text-white">
                       <a href="#">PROFILE</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white">
                       <a href="#" id="films">FILMS</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white">
                       <a href="#" id="diary">DIARY</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
-                      <a href="#" id="reviews">REVIEWS</a>
+                    <li class="py-1 hover:text-white">
+                      <a href="#">REVIEWS</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white">
                       <a href="#" id="watchlist-link">WATCHLIST</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white">
                       <a href="#" id="likes">LIKES</a>
                     </li>
-                    <li class="cursor-pointer py-1 hover:text-white">
+                    <li class="py-1 hover:text-white">
                       <a href="#">LOGOUT</a>
                     </li>
                   </ul>
@@ -240,18 +241,19 @@
                 <div class="my-2 h-[1px] bg-[#324654]"></div>
               </section>
             </div>
+
             <div class="wrapper">
               <ul>
                 <li class="flex items-center gap-3 py-3 text-sm text-text">
                   <i class="fa-solid fa-bolt-lightning"></i>
-                  <a href="./src/pages/films/" class="font-extrabold uppercase"
+                  <a href="#" class="font-extrabold uppercase hover:text-white"
                     >activity</a
                   >
                 </li>
                 <div class="h-[1px] bg-[#324654]"></div>
                 <li class="flex items-center gap-3 py-3 text-sm text-text">
                   <i class="fa-solid fa-film"></i>
-                  <a class="font-extrabold uppercase" href="./src/pages/films/"
+                  <a class="font-extrabold uppercase hover:text-white" href="#"
                     >Films</a
                   >
                 </li>
@@ -286,201 +288,31 @@
       </div>
     </div>
 
-    <!-- intro user -->
-    <section class="user mb-7 mt-3 hidden text-center text-2xl">
-      <p class="text-white">
-        <span class="text-text"> Welcome back, </span>
-        <a id="intro-name"></a>
-      </p>
-    </section>
-
-    <!-- get started section -->
-    <section class="non-user relative hidden">
-      <img src="/signup-bg.jpg" alt="" />
-      <section
-        class="relative top-[-50px] flex flex-col items-center text-white"
-      >
-        <div class="mb-6 flex items-center gap-2">
-          <img
-            src="/letterboxd-logo.png"
-            alt="logo"
-            class="h-[24px] w-[60px]"
-          />
-          <div class="text-2xl font-bold">MovieMosaic</div>
-        </div>
-        <div class="text-center text-xl">
-          Track films you have watched.
-          <br />
-          Save those you want to see.
-          <br />
-          Tell your friends what good.
-        </div>
-        <button
-          class="cursor my-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold"
-          id="get-started-btn"
-        >
-          Get started - its free !
-        </button>
-        <p class="text-primary">The social platform for film lovers</p>
-      </section>
-    </section>
-
-    <!-- signup modal -->
-    <div id="signup-modal" class="fixed inset-0 z-10 hidden">
-      <div
-        class="wrapper flex min-h-screen items-center justify-center bg-black bg-opacity-55"
-      >
-        <form class="w-full bg-primary p-3" id="sign-up">
-          <div class="flex justify-between">
-            <h2 class="mb-4 text-text">Join MovieMosaic</h2>
-            <i
-              class="fa-solid fa-xmark cursor-pointer text-text"
-              id="exit-signup-modal"
-            ></i>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="email" class="text-white"> Email Addres</label>
-            <input
-              type="email"
-              id="email"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
-            />
-          </div>
-          <div class="flex flex-col gap-2">
-            <label for="username" class="text-white">Username </label>
-            <input
-              type="text"
-              id="username"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
-            />
-          </div>
-          <div class="flex flex-col gap-2">
-            <label for="password" class="text-white"> Password</label>
-            <input
-              type="password"
-              id="password"
-              class="mb-2 rounded-md bg-backgroundLight px-2 py-1"
-            />
-          </div>
-          <div class="signup-error-container h-8"></div>
-          <button
-            class="cursor mb-4 mt-9 cursor-pointer rounded-lg bg-accent px-5 py-2 font-bold text-white"
-          >
-            SIGN UP
-          </button>
-        </form>
+    <section class="wrapper flex items-center gap-2 pb-2 pt-4">
+      <div class="aspect-square w-[24px] overflow-hidden rounded-full">
+        <img
+          src="/whitebg.avif"
+          alt="profile picture"
+          class="h-full w-full object-cover"
+          id="title-profile-pic"
+        />
       </div>
-    </div>
-
-    <!-- add film to db -->
-    <section class="wrapper mb-10 hidden" id="add-film-section">
-      <h1 class="my-4 text-2xl font-light text-text">
-        Add film to our database
-      </h1>
-      <div class="mb-5 mt-1 h-[1px] bg-primaryDark"></div>
-      <form id="add-film-form">
-        <div class="flex flex-col gap-2">
-          <label for="new-film-name" class="text-sm font-semibold text-white"
-            >Film Name</label
-          >
-          <input
-            id="new-film-name"
-            type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
-          />
-        </div>
-        <div class="mt-5 flex flex-col gap-2">
-          <label for="new-film-date" class="text-sm font-semibold text-white"
-            >Release Date</label
-          >
-          <input
-            placeholder="DD-MM-YYYY"
-            id="new-film-date"
-            type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg placeholder:text-sm focus:bg-white focus:text-black"
-          />
-        </div>
-        <div class="mt-5 flex flex-col gap-2">
-          <label for="new-film-trailer" class="text-sm font-semibold text-white"
-            >Trailer</label
-          >
-          <input
-            required
-            id="new-film-trailer"
-            type="text"
-            class="rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
-          />
-        </div>
-        <div class="mt-5 flex flex-col gap-2">
-          <label
-            class="block text-sm font-medium dark:text-white"
-            for="new-film-poster"
-            >Film Poster</label
-          >
-          <input
-            required
-            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
-            id="new-film-poster"
-            type="file"
-          />
-        </div>
-        <div class="mt-5 flex flex-col gap-2">
-          <label
-            class="block text-sm font-medium dark:text-white"
-            for="new-backdrop-poster"
-            >Backrop Poster</label
-          >
-          <input
-            required
-            class="mb-3 block w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-700 text-xs text-gray-400 placeholder-gray-400 focus:outline-none"
-            id="new-backdrop-poster"
-            type="file"
-          />
-        </div>
-        <div class="mt-5 flex flex-col gap-2">
-          <label
-            for="new-film-overview"
-            class="text-sm font-semibold text-white"
-            >Overview</label
-          >
-          <textarea
-            required
-            id="new-film-overview"
-            type="text"
-            class="h-[110px] rounded-lg bg-[#2d3440] p-2 text-text shadow-lg focus:bg-white focus:text-black"
-          ></textarea>
-        </div>
-
-        <div class="h-8" id="new-error-container"></div>
-
-        <button
-          class="mt-2 rounded-md bg-accent px-3 py-2 text-xs font-bold uppercase text-white shadow-lg disabled:brightness-50"
-          id="new-film-btn"
-        >
-          add film
-          <span id="btn-spinner" class="hidden">
-            <i class="fa-solid fa-spinner ml-2 animate-spin text-base"></i>
-          </span>
-        </button>
-      </form>
+      <a
+        class="text-sm font-extrabold text-white hover:text-accent2"
+        id="title-name"
+      ></a>
     </section>
 
-    <!-- friend-activity section -->
-    <section
-      class="wrapper user hidden text-white"
-      id="new-from-friend-section"
-    >
-      <h3 class="mb-4 font-bold">New from friend</h3>
-      <div class="grid grid-cols-3 gap-2" id="new-from-friend"></div>
+    <section class="wrapper">
+      <div class="mt-4 flex justify-between text-xs">
+        <div class="uppercase text-accent">Reviews</div>
+      </div>
+      <div class="my-2 h-[1px] bg-[#8ea4b4]"></div>
+
+      <section id="content"></section>
     </section>
 
-    <!-- popular movies section -->
-    <section class="wrapper mt-10 text-white">
-      <h3 class="mb-4 font-bold">Popular this weeek</h3>
-      <div class="popular-movies grid grid-cols-3 gap-2"></div>
-    </section>
-
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="../../common/navbar.ts"></script>
+    <script type="module" src="./index.ts"></script>
   </body>
 </html>

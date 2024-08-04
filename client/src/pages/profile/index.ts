@@ -22,6 +22,9 @@ const filmsEl = document.getElementById("no-of-films") as HTMLDivElement;
 const followersEl = document.getElementById("followers") as HTMLDivElement;
 const followingEl = document.getElementById("following") as HTMLDivElement;
 const filmsLink = document.getElementById("films-link") as HTMLAnchorElement;
+const reviewsLink = document.getElementById(
+  "reviews-link",
+) as HTMLAnchorElement;
 const reviewsEl = document.getElementById("recent-reviews") as HTMLDivElement;
 const editProfile = document.getElementById(
   "edit-profile",
@@ -36,6 +39,7 @@ const followingLink = document.getElementById(
 const profilePictureEl = document.getElementById(
   "profile-picture",
 ) as HTMLImageElement;
+const bioEl = document.getElementById("bio") as HTMLParagraphElement;
 
 let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
@@ -48,6 +52,7 @@ let followingStatus = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
   filmsLink.href = `../userFilms/?id=${id}&content=watched`;
+  reviewsLink.href = `../userReviews/?id=${id}`;
 
   const user = JSON.parse(localStorage.getItem("user") as string);
 
@@ -84,6 +89,7 @@ async function displayUserName() {
   const response = await axiosInstance.get(`/users/${id}`);
   profileUserNameEl.innerHTML = response.data.data.name;
   profilePictureEl.src = response.data.data.avatarUrl;
+  bioEl.innerText = response.data.data.bio;
 }
 
 async function isFollowingUser(userId: string, followingId: string) {

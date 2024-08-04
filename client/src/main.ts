@@ -60,6 +60,7 @@ const watchlistLink = document.getElementById(
 const filmsEl = document.getElementById("films") as HTMLAnchorElement;
 const likesEl = document.getElementById("likes") as HTMLAnchorElement;
 const diaryEl = document.getElementById("diary") as HTMLAnchorElement;
+const reviewsEl = document.getElementById("reviews") as HTMLAnchorElement;
 
 const userNameEl = document.getElementById("user-name") as HTMLAnchorElement;
 const navProfilePicEl = document.getElementById(
@@ -197,6 +198,7 @@ window.onload = async () => {
     watchlistLink.href = `./src/pages/userFilms/?id=${id}&content=watchlist`;
     likesEl.href = `./src/pages/userFilms/?id=${id}&content=likes`;
     diaryEl.href = `./src/pages/diary/?id=${id}`;
+    reviewsEl.href = `./src/pages/userReviews/?id=${id}`;
 
     userNameEl.innerHTML = name;
     userNameEl.href = `./src/pages/profile/?id=${id}`;
