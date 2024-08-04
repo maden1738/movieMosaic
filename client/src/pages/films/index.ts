@@ -47,9 +47,7 @@ async function fetchMovies(
     };
 
     renderPagination(pagination);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderMovies(data: Array<IFilm>) {

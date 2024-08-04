@@ -34,9 +34,7 @@ async function fetchReview() {
   try {
     const response = await axiosInstance.get(`/reviews/${id}`);
     renderReview(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderReview(review: IReviewWithFilm) {

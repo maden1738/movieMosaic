@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import axiosInstance from "../../axios";
 import { IFilm, IPagination } from "../../interface/film";
 
@@ -51,7 +52,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     titleProfilePicEl.src = avatarUrl;
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 
   renderTitle();
@@ -88,9 +93,7 @@ async function fetchMovies(
       totalPages: response.data.meta.totalPages,
     };
     renderPagination(pagination);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderMovies(data: Array<IFilm>) {

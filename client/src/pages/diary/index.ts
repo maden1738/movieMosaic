@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import axiosInstance from "../../axios";
 import { ILogsResponse } from "../../interface/log";
 import { convertIntoStar, extractDayAndMonth } from "../../utils/formatter";
@@ -19,7 +20,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     userNameEl.innerHTML = name;
     userNameEl.href = `.././profile/?id=${id}`;
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
   fetchDiary();
 });
@@ -28,9 +33,7 @@ async function fetchDiary() {
   try {
     const response = await axiosInstance.get(`users/${id}/logs`);
     renderDiary(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderDiary(logs: Array<ILogsResponse>) {

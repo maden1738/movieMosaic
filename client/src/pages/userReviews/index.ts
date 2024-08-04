@@ -6,6 +6,7 @@ import {
   extractYear,
 } from "../../utils/formatter";
 import { IUser } from "../../interface/user";
+import Swal from "sweetalert2";
 
 const contentEl = document.getElementById("content") as HTMLElement;
 const titleProfilePicEl = document.getElementById(
@@ -26,7 +27,11 @@ async function fetchUserInfo() {
     const response = await axiosInstance.get(`/users/${id}`);
     renderUserInfo(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -35,7 +40,11 @@ async function fetchReviews() {
     const response = await axiosInstance.get(`/users/${id}/reviews`);
     renderReviews(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 

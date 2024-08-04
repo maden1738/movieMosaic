@@ -7,6 +7,7 @@ import {
 } from "../../utils/formatter";
 import { IUser } from "../../interface/user";
 import { ILogsResponse } from "../../interface/log";
+import Swal from "sweetalert2";
 
 const profileUserNameEl = document.getElementById(
   "profile-user-name",
@@ -100,7 +101,11 @@ async function isFollowingUser(userId: string, followingId: string) {
 
     return followingList.some((user: IUser) => user.id === followingId);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      background: "#435666",
+      color: "#ccdded",
+    });
   }
 }
 

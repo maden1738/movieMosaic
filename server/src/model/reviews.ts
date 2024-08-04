@@ -60,8 +60,6 @@ export class ReviewsModel extends BaseModel {
           logger.info("getReviewOfFollowers");
           const { size, page, sortBy } = query;
 
-          console.log(filmId, followingArr, size);
-
           const data = this.queryBuilder()
                .select(
                     "r.content",

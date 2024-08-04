@@ -7,6 +7,7 @@ import {
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 import { handleSearchItemClick } from "../../common/navbar";
+import Swal from "sweetalert2";
 
 const movieDetailsEl = document.getElementById(
   "movie-details",
@@ -38,8 +39,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // get film status for logged in user
     if (isUserLoggedIn) {
-      console.log("here");
-
       const filmStatus = await axiosInstance.get(`/me/movie-status/${filmId}`);
       likedStatus = filmStatus.data.data.likedStatus;
       watchedStatus = filmStatus.data.data.watchedStatus;
@@ -112,7 +111,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         watchedStatus = false;
         renderIcon();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: "Something went wrong",
+          color: "#ccdded",
+          background: "#435666",
+        });
       }
     });
 
@@ -129,13 +132,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         likedStatus = false;
         renderIcon();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: "Something went wrong",
+          color: "#ccdded",
+          background: "#435666",
+        });
       }
     });
 
     watchlistEl.addEventListener("click", () => {
-      console.log("clicked");
-
       try {
         if (!watchListStatus) {
           addToWatchList(filmId);
@@ -147,7 +152,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         watchListStatus = false;
         renderIcon();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: "Something went wrong",
+          color: "#ccdded",
+          background: "#435666",
+        });
       }
     });
 
@@ -183,7 +192,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 
   fetchRecentReviews();
@@ -327,7 +340,11 @@ async function fetchRecentReviews() {
 
     renderRecentReviews(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -342,9 +359,7 @@ async function fetchFriendReviews() {
     }
 
     renderFriendReviews(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderRecentReviews(data: Array<IReview>) {

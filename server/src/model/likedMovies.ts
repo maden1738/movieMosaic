@@ -96,8 +96,6 @@ export class LikedMoviesModel extends BaseModel {
                .where({ userId, filmId })
                .first();
 
-          console.log(data);
-
           if (data.count > 0) {
                return true;
           }

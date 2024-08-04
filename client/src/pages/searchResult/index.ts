@@ -16,9 +16,7 @@ async function fetchResult() {
     const response = await axiosInstance.get(`/movies/?q=${query}&size=6`);
 
     renderResult(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderResult(films: Array<IFilm>) {

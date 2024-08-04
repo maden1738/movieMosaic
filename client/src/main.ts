@@ -2,7 +2,7 @@ import { SignupSchema } from "./schema/user";
 import { validateForm } from "./utils/validator";
 import { AxiosError } from "axios";
 import { ISignupData } from "./interface/user";
-import Toastify from "toastify-js";
+import Swal from "sweetalert2";
 import "toastify-js/src/toastify.css";
 import { IFilm } from "./interface/film";
 import axiosInstance from "./axios";
@@ -181,16 +181,12 @@ searchIconEl.addEventListener("click", () => {
   searchBody.addEventListener("submit", (event) => {
     event.preventDefault();
     const query = searchFilmInputEL.value.trim();
-    console.log(query);
     window.location.href = `./src/pages/searchResult/?q=${query}`;
   });
 });
 
 window.onload = async () => {
   try {
-    if (!JSON.parse(localStorage.getItem("user") as string)) {
-      throw new Error();
-    }
     const response = await axiosInstance.get("/users/me");
     localStorage.setItem("user", JSON.stringify(response.data.data));
 
@@ -233,7 +229,11 @@ window.onload = async () => {
     );
     renderPopularMovies(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 };
 
@@ -268,8 +268,9 @@ loginForm.addEventListener("submit", async (event) => {
   try {
     const response = await axiosInstance.post("/auth/login", formData);
     localStorage.setItem("token", response.data.data.accessToken);
+
     loginBody.classList.toggle("hidden");
-    location.reload();
+    window.location.reload();
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
       displayErrors(error.response.data.message, loginErrorContainer);
@@ -313,19 +314,11 @@ navLogForm.addEventListener("submit", (event) => {
 async function submitSignupForm(formData: ISignupData) {
   try {
     await axiosInstance.post("/auth/signup", formData);
-    Toastify({
-      text: "User signed up",
-      duration: 5000,
-      newWindow: true,
-      close: true,
-      gravity: "top", // `top` or `bottom`
-      position: "left", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: "black",
-        color: "white",
-      },
-    }).showToast();
+    Swal.fire({
+      title: "User signed up successfully",
+      color: "#ccdded",
+      background: "#435666",
+    });
 
     signupModalEl.classList.toggle("hidden");
   } catch (error) {
@@ -342,7 +335,6 @@ function logout() {
 
 function handleAddFilmSubmit(event: SubmitEvent) {
   event.preventDefault();
-  console.log("here");
 
   const formData = new FormData();
 
@@ -395,9 +387,14 @@ async function submitLogForm(data: ILogs) {
   try {
     const user = JSON.parse(localStorage.getItem("user") as string);
     await axiosInstance.post(`/users/${user.id}/logs`, data);
-    alert("film logged");
+    alert("film added to logs");
+    location.reload();
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -408,9 +405,7 @@ async function searchMovies(query: string) {
     );
     searchResults = response.data.data;
     renderSearchItems();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function handleSearchInput() {
@@ -437,14 +432,16 @@ async function fetchLogsOfFriends(userId: string) {
     const response = await axiosInstance.get(`users/${userId}/follow/logs`);
 
     if (response.data.data.length === 0) {
-      console.log("here");
-
       newFromFriendSection.classList.add("hidden");
       return;
     }
     renderLogsOfFriends(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -550,7 +547,11 @@ async function fetchMovie(filmId: string) {
     const response = await axiosInstance.get(`movies/${filmId}`);
     populateLogPanel(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 

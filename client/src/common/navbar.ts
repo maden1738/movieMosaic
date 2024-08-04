@@ -4,6 +4,7 @@ import { displayErrors } from "../utils/displayError";
 import { IFilm } from "../interface/film";
 import { ILogs } from "../interface/log";
 import { extractYear } from "../utils/formatter";
+import Swal from "sweetalert2";
 
 let debounceTimer: number | null = null;
 const DEBOUNCE_DELAY = 300; // milliseconds
@@ -88,11 +89,7 @@ window.onload = async () => {
   });
 
   navbarOpenEl.addEventListener("click", () => {
-    console.log("here");
-
-    console.log(navbarEl);
     navbarEl.classList.toggle("hidden");
-    console.log(navbarEl);
 
     if (!loginBody.classList.contains("hidden")) {
       loginBody.classList.add("hidden");
@@ -180,9 +177,6 @@ window.onload = async () => {
   });
 
   try {
-    if (!JSON.parse(localStorage.getItem("user") as string)) {
-      throw new Error();
-    }
     const response = await axiosInstance.get("/users/me");
 
     localStorage.setItem("user", JSON.stringify(response.data.data));
@@ -222,7 +216,11 @@ async function submitLogForm(data: ILogs) {
     await axiosInstance.post(`/users/${user.id}/logs`, data);
     alert("film logged");
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -233,9 +231,7 @@ async function searchMovies(query: string) {
     );
     searchResults = response.data.data;
     renderSearchItems();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function handleSearchInput() {
@@ -300,7 +296,11 @@ async function fetchMovie(filmId: string) {
     const response = await axiosInstance.get(`movies/${filmId}`);
     populateLogPanel(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 

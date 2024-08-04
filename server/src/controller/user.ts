@@ -456,7 +456,7 @@ export async function getLogsOfFollowing(
      next: NextFunction
 ) {
      const { id } = req.params;
-     console.log(id);
+
      try {
           const data = await UserService.getLogsOfFollowing(+id);
 

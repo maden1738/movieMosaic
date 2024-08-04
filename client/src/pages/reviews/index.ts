@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 import { convertIntoStar, extractDate } from "../../utils/formatter";
@@ -39,7 +40,11 @@ async function fetchReviews() {
 
     renderReviews(response.data.data);
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Something went wrong",
+      color: "#ccdded",
+      background: "#435666",
+    });
   }
 }
 
@@ -49,20 +54,12 @@ async function fetchFriendReviews() {
       `users/${user.id}/followers/reviews/movies/${id}?size=10`,
     );
     renderReviews(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function renderReviews(data: Array<IReview>) {
-  console.log(data);
-
   reviewsEl.innerHTML = "";
   data.forEach((review) => {
-    // if (!review.content) {
-    //   return;
-    // }
-
     const rating = convertIntoStar(review.rating);
 
     review.createdAt = extractDate(review.createdAt);

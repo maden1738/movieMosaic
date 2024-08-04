@@ -113,7 +113,6 @@ async function submitAvatarForm(formData: FormData) {
     });
     location.reload();
   } catch (error) {
-    console.log(error);
     avatarBtn.disabled = false;
     avatarSpinner.classList.toggle("hidden");
   }
@@ -156,9 +155,7 @@ async function fetchProfileInfo() {
     const response = await axiosInstance.get(`/users/${id}`);
 
     populateInputFields(response.data.data);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 function populateInputFields(data: IUser) {
