@@ -23,7 +23,6 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use(express.static("uploads"));
 app.use(requestLogger);
 app.use(router);
 

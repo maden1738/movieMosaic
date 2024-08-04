@@ -17,6 +17,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary";
 import { UploadApiResponse } from "cloudinary";
 import { GetLogsQuery, ILogs } from "../interface/logs";
 import { GetReviewsQuery } from "../interface/reviews";
+import { DEFAULT_AVATAR } from "../constants/avatar";
 
 const logger = loggerWithNameSpace("UserService");
 
@@ -30,7 +31,11 @@ export async function createUser(user: User) {
 
      const password = await bcrypt.hash(user.password, 10);
 
-     await UserModel.create({ ...user, password });
+     await UserModel.create({
+          ...user,
+          password,
+          avatarUrl: DEFAULT_AVATAR,
+     });
 }
 
 export async function updateProfile(

@@ -134,11 +134,10 @@ window.onload = async () => {
     const formData: ILogs = {
       filmId: target.dataset.filmId!,
       likeStatus: navLikeCheckbox.checked,
-      // content: navReviewContentEl.value.trim() || undefined,
     };
 
-    if (navReviewContentEl.value.trim()) {
-      formData["content"] = navReviewContentEl.value.trim();
+    if (navReviewContentEl.value) {
+      formData["content"] = navReviewContentEl.value;
     }
 
     if (navRatingEl.dataset.rating) {
