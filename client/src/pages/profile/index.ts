@@ -175,7 +175,7 @@ function renderRecentMovies(data: Array<ILogsResponse>) {
     divEl.style.height = "16px";
 
     divEl.innerHTML = `
-          <div class="${film.rating ? "text-[10px] inline text-subText" : "hidden"}">${ratingStars}</div>
+      <div class="${film.rating ? "text-[9px] inline text-subText" : "hidden"}">${ratingStars}</div>
       <div class="${film.likeStatus ? "inline" : "hidden"}">
         <i class="fa-solid fa-heart text-[10px] text-subText"></i>
       </div>

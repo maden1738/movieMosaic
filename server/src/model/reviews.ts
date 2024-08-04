@@ -159,13 +159,17 @@ export class ReviewsModel extends BaseModel {
                     "review.content",
                     "review.rating",
                     "review.createdAt",
+                    "film.id as filmId",
                     "film.title",
-                    "film.id",
                     "film.posterUrl",
-                    "film.releaseDate"
+                    "film.releaseDate",
+                    "user.id as userId",
+                    "user.name",
+                    "user.avatarUrl"
                )
                .table("film")
                .join("review", "film.id", "review.filmId")
+               .join("user", "user.id", "review.reviewedBy")
                .where("review.id", reviewId)
                .first();
 

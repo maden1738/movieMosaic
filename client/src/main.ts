@@ -440,7 +440,7 @@ function renderLogsOfFriends(logsArr: Array<ILogsResponse>) {
     const divEl = document.createElement("div");
     const ratingStars = convertIntoStar(log.rating!);
     divEl.innerHTML = `<div class="rounded-t-md overflow-hidden">
-          <a href="./src/pages/singleFilm/?id=${log.filmId} h-full">
+          <a href="./src/pages/singleFilm/?id=${log.filmId}" class="h-full">
             <img src="${log.posterUrl}" alt="film poster" class="h-full w-full" />
           </a>
 

@@ -27,7 +27,6 @@ let params = new URL(document.location.toString()).searchParams;
 const id = params.get("id");
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderUserInfo();
   fetchReview();
 });
 
@@ -40,14 +39,10 @@ async function fetchReview() {
   }
 }
 
-function renderUserInfo() {
-  const user = JSON.parse(localStorage.getItem("user") as string);
-  avatarEl.src = user.avatarUrl;
-  nameEl.innerHTML = user.name;
-  nameEl.href = `.././profile/?id=${user.id}`;
-}
-
 function renderReview(review: IReviewWithFilm) {
+  avatarEl.src = review.avatarUrl;
+  nameEl.innerHTML = review.name;
+  nameEl.href = `.././profile/?id=${review.userId}`;
   filmTitleEl.innerHTML = review.title;
   filmTitleEl.href = `.././singleFilm/?id=${review.filmId}`;
   ratingEl.innerHTML = convertIntoStar(review.rating);

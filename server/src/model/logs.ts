@@ -69,6 +69,7 @@ export class LogsModel extends BaseModel {
                .leftJoin("review as r", "l.reviewId", "r.id")
                .join("film as f", "l.filmId", "f.id")
                .join("user as u", "l.userId", "u.id")
+               .orderBy("l.createdAt", "desc")
                .limit(6)
                .whereIn("l.userId", followingArr);
 
