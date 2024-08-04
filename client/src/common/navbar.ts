@@ -18,8 +18,7 @@ const loginErrorContainer = document.querySelector(
   ".login-error-container",
 ) as HTMLDivElement;
 const searchBody = document.getElementById("search-body") as HTMLElement;
-const searchFilmIcon = document.getElementById("search-movie-icon");
-const searchFIlmInputEL = document.getElementById(
+const searchFilmInputEL = document.getElementById(
   "search-movie-input",
 ) as HTMLInputElement;
 
@@ -109,8 +108,9 @@ window.onload = async () => {
 
     searchBody.classList.toggle("hidden");
 
-    searchFilmIcon?.addEventListener("click", () => {
-      const query = searchFIlmInputEL.value.trim();
+    searchBody.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = searchFilmInputEL.value.trim();
       window.location.href = `.././searchResult/?q=${query}`;
     });
   });
