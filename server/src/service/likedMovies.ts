@@ -13,7 +13,7 @@ export async function likeMovie(movieId: string, userId: string) {
      const data = await LikedMoviesModel.getMovie(movieId, userId);
 
      // movie is already liked
-     if (data.length === 0) {
+     if (data.length > 0) {
           return;
      }
      await LikedMoviesModel.likeMovie(movieId, userId);

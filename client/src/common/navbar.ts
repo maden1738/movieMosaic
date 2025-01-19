@@ -221,6 +221,7 @@ async function submitLogForm(data: ILogs) {
     const user = JSON.parse(localStorage.getItem("user") as string);
     await axiosInstance.post(`/users/${user.id}/logs`, data);
     alert("film logged");
+    location.reload();
   } catch (error) {
     Swal.fire({
       title: "Something went wrong",

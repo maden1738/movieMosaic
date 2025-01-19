@@ -336,7 +336,9 @@ function renderMovieDetails(data: IFilm) {
 
 async function fetchRecentReviews() {
   try {
-    const response = await axiosInstance.get(`/movies/${id}/reviews/?size=3`);
+    const response = await axiosInstance.get(
+      `/movies/${id}/reviews/?size=3&sortBy=recent`,
+    );
 
     renderRecentReviews(response.data.data);
   } catch (error) {

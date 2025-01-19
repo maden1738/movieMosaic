@@ -88,7 +88,7 @@ const navStarEls = document.querySelectorAll(
 const navLogForm = document.getElementById("nav-log-form") as HTMLFormElement;
 const navReviewContentEl = document.getElementById(
   "nav-review",
-) as HTMLInputElement;
+) as HTMLTextAreaElement;
 
 const logSearchEl = document.getElementById("log-search") as HTMLElement;
 const logCloseEl = document.getElementById("log-search-close") as HTMLElement;
@@ -309,8 +309,8 @@ navLogForm.addEventListener("submit", (event) => {
     // content: navReviewContentEl.value.trim() || undefined,
   };
 
-  if (navReviewContentEl.value.trim()) {
-    formData["content"] = navReviewContentEl.value.trim();
+  if (navReviewContentEl.value) {
+    formData["content"] = navReviewContentEl.value;
   }
 
   if (navRatingEl.dataset.rating) {
